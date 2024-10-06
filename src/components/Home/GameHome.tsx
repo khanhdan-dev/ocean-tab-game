@@ -13,13 +13,13 @@ import SpeciesBackground from "../SpeciesBackground";
 
 function GameHome() {
   const [reward, setReward] = useState<string | null>(null);
-  console.debug("reward: ", reward);
-  const rewards = ["Shell", "Fish", "Treasure"];
+  const rewards = ["Shell", "Fish", "Token"];
+  const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
 
   const handleTabClick = () => {
     const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
     setReward(randomReward);
-    alert(`You got ${randomReward}`);
+    setIsOpenRewardDialog(true);
   };
 
   // Function to handle tab class styling
@@ -69,16 +69,44 @@ function GameHome() {
       <TabGroup>
         <TabPanels className="flex-1 w-full h-full absolute top-0 left-0">
           <TabPanel className="flex flex-col justify-center items-center h-full">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold text-white">Catch Rewards!</h2>
+            <div className="text-center flex flex-col justify-between h-[100dvh] py-24 items-center">
+              <h2 className="text-3xl font-bold text-white">Ocean Tab Game</h2>
               <Image
-                className="h-[35vh] mt-20 animate-pulse"
-                src={"/diver.svg"}
+                className="h-[30vh] w-auto mt-20 animate-pulse"
+                src={"/diver/diver-default.png"}
                 alt="diver"
                 width={20000}
                 height={20000}
               />
             </div>
+            <dialog
+              open={isOpenRewardDialog}
+              className="z-20 h-screen w-[90vw] mx-auto bg-transparent"
+            >
+              <div className="flex items-center h-full justify-center animate-shake">
+                <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 w-4/5 rounded-xl text-white">
+                  <div className="flex items-center flex-col gap-5">
+                    <Image
+                      className="h-[20vh] w-auto bg-firefly-radial"
+                      src={`/diver/diver-${reward?.toLowerCase()}.png`}
+                      alt="diver"
+                      width={20000}
+                      height={20000}
+                    />
+                    <p>Wonderful! You got a {reward}</p>
+                  </div>
+                  <form method="dialog">
+                    <button
+                      className="px-3 py-1 bg-emerald-500 rounded-lg"
+                      onClick={() => setIsOpenRewardDialog(false)}
+                    >
+                      OK
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
+            <SpeciesBackground handleTabClick={handleTabClick} />
           </TabPanel>
 
           <TabPanel className="flex justify-center items-center h-full">
@@ -99,8 +127,6 @@ function GameHome() {
           {onRenderTabs()}
         </TabList>
       </TabGroup>
-
-      <SpeciesBackground handleTabClick={handleTabClick} />
     </div>
   );
 }
