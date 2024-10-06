@@ -108,7 +108,7 @@ function GameHome() {
         </TabPanels>
 
         {/* Tabs List at the bottom */}
-        <TabList className="fixed bottom-0 left-0 right-0 w-full flex bg-white/50 backdrop-blur-lg shadow-lg">
+        <TabList className="fixed bottom-0 z-20 left-0 right-0 w-full flex bg-white/50 backdrop-blur-lg shadow-lg">
           {onRenderTabs()}
         </TabList>
       </TabGroup>
