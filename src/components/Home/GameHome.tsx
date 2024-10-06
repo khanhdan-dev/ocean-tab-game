@@ -64,7 +64,7 @@ function GameHome() {
   };
 
   return (
-    <div className="relative flex flex-col justify-center items-center h-screen bg-ocean bg-cover p-4">
+    <div className="relative flex flex-col justify-center items-center h-[100dvh] bg-ocean bg-cover p-4">
       {/* Tabs Panel */}
       <TabGroup>
         <TabPanels className="flex-1 w-full h-full absolute top-0 left-0">
@@ -81,7 +81,7 @@ function GameHome() {
             </div>
             <dialog
               open={isOpenRewardDialog}
-              className="z-20 h-screen w-[90vw] mx-auto bg-transparent"
+              className="z-20 h-[100dvh] w-[90vw] mx-auto bg-transparent"
             >
               <div className="flex items-center h-full justify-center animate-shake">
                 <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 w-4/5 rounded-xl text-white">
