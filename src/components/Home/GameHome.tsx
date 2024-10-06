@@ -9,19 +9,17 @@ import {
   faListCheck,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import SpeciesBackground from "../SpeciesBackground";
 
 function GameHome() {
   const [reward, setReward] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  console.debug("reward: ", reward);
   const rewards = ["Shell", "Fish", "Treasure"];
 
   const handleTabClick = () => {
-    setLoading(true);
-    setTimeout(() => {
-      const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
-      setReward(randomReward);
-      setLoading(false);
-    }, 1000); // Simulate a short delay
+    const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
+    setReward(randomReward);
+    alert(`You got ${randomReward}`);
   };
 
   // Function to handle tab class styling
@@ -73,12 +71,6 @@ function GameHome() {
           <TabPanel className="flex flex-col justify-center items-center h-full">
             <div className="text-center">
               <h2 className="text-3xl font-bold text-white">Catch Rewards!</h2>
-              <button
-                onClick={handleTabClick}
-                className="mt-6 px-6 py-3 bg-blue-500 rounded-full text-white"
-              >
-                {loading ? "Catching..." : "Tap to Catch!"}
-              </button>
               <Image
                 className="h-[35vh] mt-20 animate-pulse"
                 src={"/diver.svg"}
@@ -86,11 +78,6 @@ function GameHome() {
                 width={20000}
                 height={20000}
               />
-              {reward && (
-                <h2 className="mt-4 text-xl text-yellow-300">
-                  You caught a: {reward}!
-                </h2>
-              )}
             </div>
           </TabPanel>
 
@@ -112,6 +99,8 @@ function GameHome() {
           {onRenderTabs()}
         </TabList>
       </TabGroup>
+
+      <SpeciesBackground handleTabClick={handleTabClick} />
     </div>
   );
 }

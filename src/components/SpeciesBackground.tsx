@@ -2,6 +2,10 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
+interface Props {
+  handleTabClick: () => void;
+}
+
 type Species = {
   id: number;
   top: string;
@@ -26,9 +30,9 @@ const createSpecies = (imageCount: number): Species => {
   return {
     id: Math.random(),
     top: `${Math.random() * 100}%`,
-    left: direction === "left" ? "0%" : "100%",
-    right: direction === "left" ? "100%" : "0%",
-    size: `${Math.random() * 20 + 10}px`, // Random size between 10px and 30px
+    left: direction === "left" ? "0" : "unset",
+    right: direction === "right" ? "0" : "unset",
+    size: `${Math.random() * 20 + 30}px`, // Random size between 10px and 30px
     animationDuration: `${Math.random() * 5 + 5}s`, // Random speed between 5s and 10s
     animationDirection: Math.random() > 0.5 ? "normal" : "reverse", // Randomize direction
     species: getRandomImage(imageCount), // Use the helper to get a random fish image
@@ -36,7 +40,7 @@ const createSpecies = (imageCount: number): Species => {
   };
 };
 
-const SpeciesBackground = () => {
+const SpeciesBackground = ({ handleTabClick }: Props) => {
   const [species, setSpecies] = useState<Species[]>([]);
 
   // Use the useRandomImage hook to generate a random fish image
@@ -63,10 +67,10 @@ const SpeciesBackground = () => {
           style={{
             top: specie.top,
             left: specie.left,
-            right: specie.right,
+            right: -specie.right,
             animation: `move-${specie.direction} ${specie.animationDuration} forwards`,
-            transform: specie.direction === "left" ? "scaleX(1)" : "scaleX(-1)",
           }}
+          onClick={handleTabClick}
         >
           {/* Render the species as an image */}
           <Image
