@@ -1,9 +1,11 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { GiFishingNet } from "react-icons/gi";
 
 interface Props {
   handleTabClick: () => void;
+  isOpenRewardDialog: boolean;
 }
 
 type Species = {
@@ -40,8 +42,20 @@ const createSpecies = (imageCount: number): Species => {
   };
 };
 
-const SpeciesBackground = ({ handleTabClick }: Props) => {
+const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
   const [species, setSpecies] = useState<Species[]>([]);
+  const initialCaughtFish = {
+    id: 0,
+    isCaught: false,
+  };
+  const [caughtFish, setCaughtFish] = useState(initialCaughtFish);
+
+  useEffect(() => {
+    if (!isOpenRewardDialog) {
+      setSpecies(species.filter((s) => s.id !== caughtFish.id));
+      setCaughtFish(initialCaughtFish);
+    }
+  }, [isOpenRewardDialog]);
 
   // Use the useRandomImage hook to generate a random fish image
   useEffect(() => {
@@ -53,24 +67,40 @@ const SpeciesBackground = ({ handleTabClick }: Props) => {
       ]);
     };
 
-    const interval = setInterval(addSpeciesPeriodically, 1000); // Add species every second
-
-    return () => clearInterval(interval); // Clean up the interval on unmount
-  }, []);
+    if (!caughtFish.isCaught) {
+      const interval = setInterval(addSpeciesPeriodically, 1000); // Add species every second
+      return () => clearInterval(interval); // Clean up the interval on unmount
+    }
+  }, [caughtFish.isCaught]);
 
   return (
     <div className="fixed left-0 top-0 right-0 bottom-0 z-10 h-full w-full overflow-hidden">
       {species.map((specie) => (
-        <div
+        <button
+          disabled={caughtFish.isCaught}
           key={specie.id}
-          className="absolute"
+          className="absolute cursor-pointer"
           style={{
             top: specie.top,
             left: specie.left,
             right: -specie.right,
             animation: `move-${specie.direction} ${specie.animationDuration} forwards`,
+            animationPlayState:
+              caughtFish.id === specie.id && caughtFish.isCaught
+                ? "paused"
+                : "running",
           }}
-          onClick={handleTabClick}
+          onClick={() => {
+            const clickSound = new Audio("/sounds/reward.mp3"); // Path to your sound file
+            clickSound.play(); // Play the sound
+            setCaughtFish({
+              id: specie.id,
+              isCaught: true,
+            });
+            setTimeout(() => {
+              handleTabClick();
+            }, 600);
+          }}
         >
           {/* Render the species as an image */}
           <Image
@@ -86,7 +116,17 @@ const SpeciesBackground = ({ handleTabClick }: Props) => {
               width: "auto", // Set the size dynamically
             }}
           />
-        </div>
+
+          {caughtFish.id === specie.id && (
+            <GiFishingNet
+              className="absolute inset-0 m-auto text-gray-200 font-thin animate-wrap-net"
+              style={{
+                height: `calc(${specie.size} + 50px)`,
+                width: "auto", // Set the size dynamically
+              }}
+            />
+          )}
+        </button>
       ))}
     </div>
   );

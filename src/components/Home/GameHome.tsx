@@ -106,7 +106,10 @@ function GameHome() {
                 </div>
               </div>
             </dialog>
-            <SpeciesBackground handleTabClick={handleTabClick} />
+            <SpeciesBackground
+              handleTabClick={handleTabClick}
+              isOpenRewardDialog={isOpenRewardDialog}
+            />
           </TabPanel>
 
           <TabPanel className="flex justify-center items-center h-full">
