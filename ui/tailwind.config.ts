@@ -25,6 +25,10 @@ const config: Config = {
           "50%": { transform: "rotate(3deg)" }, // Rotate right slightly
           "75%": { transform: "rotate(-3deg)" }, // Rotate left again slightly
         },
+        "pop-up": {
+          "0%": { transform: "translateY(50dvh)" }, // Start from the bottom
+          "100%": { transform: "translateY(0)" }, // Move to the center (adjust for perfect centering)
+        },
         "wrap-net": {
           "0%": { transform: "scale(1.4)", opacity: "1" },
           "25%": { transform: "scale(1.3)", opacity: "1" },
@@ -35,6 +39,7 @@ const config: Config = {
       },
       animation: {
         shake: "shake 0.5s ease-in-out", // Softer and slower shake
+        "pop-up": "pop-up 0.3s ease-in-out", // Softer and slower shake
         "wrap-net": "wrap-net 0.3s ease-in-out forwards",
       },
     },

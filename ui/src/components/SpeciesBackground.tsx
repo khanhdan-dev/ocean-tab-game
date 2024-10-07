@@ -99,7 +99,7 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
             });
             setTimeout(() => {
               handleTabClick();
-            }, 600);
+            }, 200);
           }}
         >
           {/* Render the species as an image */}
