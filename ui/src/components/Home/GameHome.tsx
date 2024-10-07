@@ -10,6 +10,9 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import SpeciesBackground from "../SpeciesBackground";
+import WebApp from "@twa-dev/sdk";
+
+WebApp.ready();
 
 function GameHome() {
   const [reward, setReward] = useState<string | null>(null);
