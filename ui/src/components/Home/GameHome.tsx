@@ -83,7 +83,7 @@ function GameHome() {
               open={isOpenRewardDialog}
               className="z-20 h-[100dvh] w-[90vw] mx-auto bg-transparent"
             >
-              <div className="flex items-center h-full justify-center animate-pop-up">
+              <div className="flex items-center h-full justify-center animate-shake">
                 <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 w-4/5 rounded-xl text-white">
                   <div className="flex items-center flex-col gap-5">
                     <Image
