@@ -12,7 +12,9 @@ import {
 import SpeciesBackground from "../SpeciesBackground";
 import WebApp from "@twa-dev/sdk";
 
-WebApp.ready();
+if (typeof window !== "undefined") {
+  WebApp.ready();
+}
 
 function GameHome() {
   const [reward, setReward] = useState<string | null>(null);
