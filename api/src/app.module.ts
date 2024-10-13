@@ -7,7 +7,12 @@ import { UserService } from './user/user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [UserModule, MongooseModule.forRoot('mongodb://localhost/nest')],
+  imports: [
+    UserModule,
+    MongooseModule.forRoot(
+      'mongodb+srv://khanh9a7456:QJcAc0TvH4PUHy28@ocean-miniapp.lspnu.mongodb.net/?retryWrites=true&w=majority&appName=Ocean-MiniApp',
+    ),
+  ],
   controllers: [AppController, UserController],
   providers: [AppService, UserService],
 })
