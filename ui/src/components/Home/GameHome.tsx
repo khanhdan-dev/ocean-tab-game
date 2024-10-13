@@ -68,6 +68,19 @@ function GameHome() {
     ));
   };
 
+  // function onTelegramAuth(user) {
+  //   alert(
+  //     "Logged in as " +
+  //       user.first_name +
+  //       " " +
+  //       user.last_name +
+  //       " (" +
+  //       user.id +
+  //       (user.username ? ", @" + user.username : "") +
+  //       ")"
+  //   );
+  // }
+
   return (
     <div className="relative flex flex-col justify-center items-center h-[100dvh] bg-ocean bg-cover p-4">
       {/* Tabs Panel */}
