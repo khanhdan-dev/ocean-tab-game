@@ -112,7 +112,9 @@ function GameHome() {
                 <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 w-4/5 rounded-xl text-white">
                   <div className="flex items-center flex-col gap-5">
                     <p>{JSON.stringify(user ?? "")}</p>
-                    <p>{WebApp?.initData ?? ""}</p>
+                    <p>
+                      {typeof window !== "undefined" ? WebApp?.initData : ""}
+                    </p>
                     <Image
                       className="h-[20vh] w-auto bg-firefly-radial"
                       src={`/diver/diver-${reward?.toLowerCase()}.png`}
