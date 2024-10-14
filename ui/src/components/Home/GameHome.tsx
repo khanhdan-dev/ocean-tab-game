@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,6 +20,7 @@ function GameHome() {
   const [reward, setReward] = useState<string | null>(null);
   const rewards = ["Shell", "Fish", "Token"];
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
+  const [user, setUser] = useState<null | unknown>(null);
 
   const handleTabClick = () => {
     const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
@@ -68,18 +69,24 @@ function GameHome() {
     ));
   };
 
-  // function onTelegramAuth(user) {
-  //   alert(
-  //     "Logged in as " +
-  //       user.first_name +
-  //       " " +
-  //       user.last_name +
-  //       " (" +
-  //       user.id +
-  //       (user.username ? ", @" + user.username : "") +
-  //       ")"
-  //   );
-  // }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Initialize the Telegram Web App
+      const webApp = WebApp;
+
+      // Show the main button in the Telegram Web App
+      webApp.MainButton.setText("Start Playing");
+      webApp.MainButton.show();
+
+      // Get user information
+      const userInfo = webApp.initDataUnsafe?.user;
+
+      // Store the user info in the state
+      if (userInfo) {
+        setUser(userInfo); // Correctly set the user info
+      }
+    }
+  }, []);
 
   return (
     <div className="relative flex flex-col justify-center items-center h-[100dvh] bg-ocean bg-cover p-4">
@@ -104,6 +111,8 @@ function GameHome() {
               <div className="flex items-center h-full justify-center animate-shake">
                 <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 w-4/5 rounded-xl text-white">
                   <div className="flex items-center flex-col gap-5">
+                    <p>{JSON.stringify(user ?? "")}</p>
+                    <p>{WebApp?.initData ?? ""}</p>
                     <Image
                       className="h-[20vh] w-auto bg-firefly-radial"
                       src={`/diver/diver-${reward?.toLowerCase()}.png`}
