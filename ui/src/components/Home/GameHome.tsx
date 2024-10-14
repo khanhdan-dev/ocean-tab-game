@@ -23,12 +23,12 @@ function GameHome() {
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
   const initialUserData: ITelegramUserInfo = {
     id: 1,
-    first_name: "user",
-    last_name: "test",
-    username: "usertest",
+    first_name: "",
+    last_name: "",
+    username: "",
     photo_url: "",
-    auth_date: new Date().toISOString(),
-    hash: "123",
+    auth_date: "",
+    hash: "",
   };
   const [user, setUser] = useState<ITelegramUserInfo>(initialUserData);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -85,10 +85,7 @@ function GameHome() {
       const userInfo = WebApp.initDataUnsafe?.user as ITelegramUserInfo;
 
       if (userInfo) {
-        setUser({
-          ...userInfo,
-          auth_date: new Date(userInfo.auth_date).toISOString(), // Ensure the same string format
-        });
+        setUser(userInfo);
       }
     }
   }, []);
@@ -196,12 +193,6 @@ function GameHome() {
                   First Name: {user.first_name} <br />
                   Last Name: {user.last_name} <br />
                   Username: {user.username} <br />
-                  {typeof window !== "undefined" && (
-                    <>
-                      Auth Date: {new Date(user.auth_date).toLocaleString()}{" "}
-                      <br />
-                    </>
-                  )}
                   Hash: {user.hash}
                 </>
               )}
