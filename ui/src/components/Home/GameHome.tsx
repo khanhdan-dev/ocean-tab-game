@@ -109,7 +109,7 @@ function GameHome() {
                   height={20000}
                 />
               ) : (
-                <div className="h-7 w-7 text-white rounded-full bg-orange-400 flex justify-center items-center">
+                <div className="h-7 w-7 font-semibold text-white rounded-full bg-orange-400 flex justify-center items-center">
                   {user.username.charAt(0).toUpperCase()}
                 </div>
               )}
@@ -132,7 +132,6 @@ function GameHome() {
               <div className="flex items-center h-full justify-center animate-shake">
                 <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 w-4/5 rounded-xl text-white">
                   <div className="flex items-center flex-col gap-5">
-                    <p>{JSON.stringify(user ?? "")}</p>
                     <Image
                       className="h-[20vh] w-auto bg-firefly-radial"
                       src={`/diver/diver-${reward?.toLowerCase()}.png`}
@@ -193,7 +192,7 @@ function GameHome() {
                   First Name: {user.first_name} <br />
                   Last Name: {user.last_name} <br />
                   Username: {user.username} <br />
-                  Hash: {user.hash}
+                  Hash: {user.photo_url}
                 </>
               )}
             </div>
