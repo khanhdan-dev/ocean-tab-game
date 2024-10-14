@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SpeciesBackground from "../SpeciesBackground";
 import WebApp from "@twa-dev/sdk";
+import { ITelegramUserInfo } from "kan/types";
 
 if (typeof window !== "undefined") {
   WebApp.ready();
@@ -20,7 +21,17 @@ function GameHome() {
   const [reward, setReward] = useState<string | null>(null);
   const rewards = ["Shell", "Fish", "Token"];
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
-  const [user, setUser] = useState<null | unknown>(null);
+  const initialUserData: ITelegramUserInfo = {
+    id: 1,
+    first_name: "user",
+    last_name: "test",
+    username: "usertest",
+    photo_url: "",
+    auth_date: new Date().toISOString(),
+    hash: "123",
+  };
+  const [user, setUser] = useState<ITelegramUserInfo>(initialUserData);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleTabClick = () => {
     const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
@@ -71,19 +82,13 @@ function GameHome() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Initialize the Telegram Web App
-      const webApp = WebApp;
+      const userInfo = WebApp.initDataUnsafe?.user as ITelegramUserInfo;
 
-      // Show the main button in the Telegram Web App
-      webApp.MainButton.setText("Start Playing");
-      webApp.MainButton.show();
-
-      // Get user information
-      const userInfo = webApp.initDataUnsafe?.user;
-
-      // Store the user info in the state
       if (userInfo) {
-        setUser(userInfo); // Correctly set the user info
+        setUser({
+          ...userInfo,
+          auth_date: new Date(userInfo.auth_date).toISOString(), // Ensure the same string format
+        });
       }
     }
   }, []);
@@ -91,9 +96,28 @@ function GameHome() {
   return (
     <div className="relative flex flex-col justify-center items-center h-[100dvh] bg-ocean bg-cover p-4">
       {/* Tabs Panel */}
-      <TabGroup>
+      <TabGroup selectedIndex={selectedIndex} onChange={setSelectedIndex}>
         <TabPanels className="flex-1 w-full h-full absolute top-0 left-0">
-          <TabPanel className="flex flex-col justify-center items-center h-full">
+          <TabPanel className="relative flex flex-col justify-center items-center h-full">
+            <div
+              className="absolute top-3 left-3 z-20 cursor-pointer hover:opacity-80 flex items-center gap-2 p-1 rounded-full bg-blue-500 text-white border border-white/20"
+              onClick={() => setSelectedIndex(3)}
+            >
+              {user.photo_url && user.photo_url !== "" ? (
+                <Image
+                  className="h-14 w-auto mt-20 animate-pulse"
+                  src={"/diver/diver-default.png"}
+                  alt="diver"
+                  width={20000}
+                  height={20000}
+                />
+              ) : (
+                <div className="h-7 w-7 text-white rounded-full bg-orange-400 flex justify-center items-center">
+                  {user.username.charAt(0).toUpperCase()}
+                </div>
+              )}
+              <p className="pr-2">Hi, {user.username}</p>
+            </div>
             <div className="text-center flex flex-col justify-between h-[100dvh] py-24 items-center">
               <h2 className="text-3xl font-bold text-white">Ocean Tab Game</h2>
               <Image
@@ -112,9 +136,6 @@ function GameHome() {
                 <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 w-4/5 rounded-xl text-white">
                   <div className="flex items-center flex-col gap-5">
                     <p>{JSON.stringify(user ?? "")}</p>
-                    <p>
-                      {typeof window !== "undefined" ? WebApp?.initData : ""}
-                    </p>
                     <Image
                       className="h-[20vh] w-auto bg-firefly-radial"
                       src={`/diver/diver-${reward?.toLowerCase()}.png`}
@@ -149,8 +170,42 @@ function GameHome() {
             <h2 className="text-3xl text-green-300 font-bold">Shop</h2>
           </TabPanel>
 
-          <TabPanel className="flex justify-center items-center h-full">
-            <h2 className="text-3xl text-purple-300 font-bold">Profile</h2>
+          <TabPanel className="h-full bg-blue-900">
+            <div className="p-3 border-b border-b-gray-300">
+              <div className="flex items-center gap-2 p-1 text-white">
+                {user.photo_url && user.photo_url !== "" ? (
+                  <Image
+                    className="h-14 w-auto mt-20 animate-pulse"
+                    src={"/diver/diver-default.png"}
+                    alt="diver"
+                    width={20000}
+                    height={20000}
+                  />
+                ) : (
+                  <div className="h-7 w-7 text-white rounded-full bg-orange-400 flex justify-center items-center">
+                    {user.username.charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <p className="">Hi, {user.username}</p>
+              </div>
+            </div>
+            <div className="p-3">
+              {user && (
+                <>
+                  ID: {user.id} <br />
+                  First Name: {user.first_name} <br />
+                  Last Name: {user.last_name} <br />
+                  Username: {user.username} <br />
+                  {typeof window !== "undefined" && (
+                    <>
+                      Auth Date: {new Date(user.auth_date).toLocaleString()}{" "}
+                      <br />
+                    </>
+                  )}
+                  Hash: {user.hash}
+                </>
+              )}
+            </div>
           </TabPanel>
         </TabPanels>
 
