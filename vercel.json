@@ -13,11 +13,11 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "api/src/main.ts"
+      "dest": "/api/src/main.ts"
     },
     {
       "src": "/(.*)",
-      "dest": "ui/$1"
+      "dest": "/ui/$1"
     }
   ]
 }
