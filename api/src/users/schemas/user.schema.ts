@@ -8,25 +8,25 @@ export class User {
   @Prop({ required: true })
   id: number;
 
-  @Prop({ required: true })
+  @Prop()
   first_name: string;
 
-  @Prop({ required: true })
+  @Prop()
   last_name: string;
 
-  @Prop({ required: true })
+  @Prop()
   username: string;
 
-  @Prop({ required: true })
+  @Prop()
   photo_url: string;
 
-  @Prop({ required: true })
+  @Prop()
   auth_date: string;
 
-  @Prop({ required: false })
+  @Prop()
   hash: string;
 
-  @Prop({ required: false })
+  @Prop()
   turns: number;
 }
 

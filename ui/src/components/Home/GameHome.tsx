@@ -29,12 +29,7 @@ function GameHome() {
   const [isOpenGreetingDialog, setIsOpenGreetingDialog] = useState(true);
   const initialUserData: ITelegramUserInfo = {
     id: 1,
-    first_name: "",
-    last_name: "",
-    username: "",
-    photo_url: "",
-    auth_date: "",
-    hash: "",
+    first_name: "test",
   };
   const [user, setUser] = useState<ITelegramUserInfo>(initialUserData);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -109,7 +104,7 @@ function GameHome() {
     return <></>;
   }
 
-  const a = validateUrl(user.photo_url);
+  const a = validateUrl(user.photo_url ?? "");
   console.log("a: ", a);
 
   const imageUrl =
@@ -233,7 +228,7 @@ function GameHome() {
                   />
                 ) : (
                   <div className="h-7 w-7 text-white rounded-full bg-orange-400 flex justify-center items-center">
-                    {user.username.charAt(0).toUpperCase()}
+                    {user.username?.charAt(0).toUpperCase()}
                   </div>
                 )}
                 <p className="">Hi, {user.username}</p>
