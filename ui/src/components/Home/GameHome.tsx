@@ -85,7 +85,7 @@ function GameHome() {
 
   const handleCreateUser = (newUser: ITelegramUserInfo) => {
     if (!existedUser) {
-      createUserMutate(newUser);
+      createUserMutate({ ...newUser, turns: 100 });
     }
     setIsOpenGreetingDialog(false);
   };
@@ -149,23 +149,28 @@ function GameHome() {
       <TabGroup selectedIndex={selectedIndex} onChange={setSelectedIndex}>
         <TabPanels className="flex-1 w-full h-full absolute top-0 left-0">
           <TabPanel className="relative flex flex-col justify-center items-center h-full">
-            <div
-              className="absolute top-3 left-3 z-20 cursor-pointer hover:opacity-80 flex items-center gap-2 p-1 rounded-full bg-blue-500 text-white border border-white/20"
-              onClick={() => setSelectedIndex(3)}
-            >
-              <div className="flex items-center px-1">
-                <Image
-                  className="h-10 w-auto animate-shake"
-                  src={imageUrl}
-                  alt="diver"
-                  width={20000}
-                  height={20000}
-                />
-                <p className="pr-2">Hi, {user.username}</p>
+            <div className="absolute top-3 left-3 z-20 right-3">
+              <div className="flex justify-between w-full gap-3 items-center">
+                <div
+                  className="cursor-pointer hover:opacity-80 flex items-center gap-2 p-1 px-2 rounded-full bg-blue-500 text-white border border-white/20"
+                  onClick={() => setSelectedIndex(3)}
+                >
+                  <Image
+                    className="h-10 w-auto animate-shake"
+                    src={imageUrl}
+                    alt="diver"
+                    width={20000}
+                    height={20000}
+                  />
+                  <p className="pr-2">Hi, {user.username}</p>
+                </div>
+                <div className="bg-yellow-700 text-white h-10 w-10 flex justify-center items-center rounded-full">
+                  <p>{user.turns}</p>
+                </div>
               </div>
             </div>
             <div className="text-center flex flex-col justify-between h-[100dvh] py-24 items-center">
-              <h2 className="text-3xl font-bold text-white">Ocean Tab Game</h2>
+              <h2 className="text-3xl font-bold text-white">Hunting time...</h2>
               <Image
                 className="h-[30vh] w-auto mt-20 animate-pulse"
                 src={"/diver/diver-default.png"}
