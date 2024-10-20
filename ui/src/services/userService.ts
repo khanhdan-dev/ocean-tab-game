@@ -1,9 +1,12 @@
 import { ITelegramUserInfo } from "kan/types";
 import { https } from "./configURL";
+import { AxiosResponse } from "axios";
 
 export const userService = {
   getAllUsers: async () => {
-    const response = await https.get(`/users`);
+    const response: AxiosResponse<ITelegramUserInfo[]> = await https.get(
+      `/users`
+    );
     return response.data;
   },
   getUserInformation: async (userId: string) => {
@@ -11,7 +14,10 @@ export const userService = {
     return response.data;
   },
   createUser: async (createUser: ITelegramUserInfo) => {
-    const response = await https.post(`/users`, createUser);
+    const response: AxiosResponse<ITelegramUserInfo> = await https.post(
+      `/users`,
+      createUser
+    );
     return response.data;
   },
 };

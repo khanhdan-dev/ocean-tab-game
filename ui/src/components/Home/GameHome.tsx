@@ -13,17 +13,20 @@ import SpeciesBackground from "../SpeciesBackground";
 import WebApp from "@twa-dev/sdk";
 import { ITelegramUserInfo } from "kan/types";
 import { useGetAllUsers } from "kan/hooks/useGetAllUsers";
+import { useCreateUserMutate } from "kan/hooks/useCreateUserMutate";
+import useUrlValidation from "kan/hooks/useUrlValidation";
 
 if (typeof window !== "undefined") {
   WebApp.ready();
 }
 
 function GameHome() {
-  const { data } = useGetAllUsers();
-  console.log("data: ", data);
+  const { data: userList } = useGetAllUsers();
+  const { mutate: createUserMutate } = useCreateUserMutate();
   const [reward, setReward] = useState<string | null>(null);
   const rewards = ["Shell", "Fish", "Token"];
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
+  const [isOpenGreetingDialog, setIsOpenGreetingDialog] = useState(true);
   const initialUserData: ITelegramUserInfo = {
     id: 1,
     first_name: "",
@@ -35,6 +38,8 @@ function GameHome() {
   };
   const [user, setUser] = useState<ITelegramUserInfo>(initialUserData);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const existedUser = userList?.find((u) => u.id === user?.id);
+  const { validateUrl } = useUrlValidation();
 
   const handleTabClick = () => {
     const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
@@ -83,6 +88,13 @@ function GameHome() {
     ));
   };
 
+  const handleCreateUser = (newUser: ITelegramUserInfo) => {
+    if (!existedUser) {
+      createUserMutate(newUser);
+    }
+    setIsOpenGreetingDialog(false);
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const userInfo = WebApp.initDataUnsafe?.user as ITelegramUserInfo;
@@ -93,8 +105,51 @@ function GameHome() {
     }
   }, []);
 
+  if (!userList) {
+    return <></>;
+  }
+
+  const a = validateUrl(user.photo_url);
+  console.log("a: ", a);
+
+  const imageUrl =
+    user.photo_url && validateUrl(user.photo_url)
+      ? user.photo_url
+      : "/diver/diver-avt.png"; // Default image if the URL is invalid
+
   return (
     <div className="relative flex flex-col justify-center items-center h-[100dvh] bg-ocean bg-cover p-4">
+      <dialog
+        open={isOpenGreetingDialog}
+        className="z-20 h-[100dvh] w-[90vw] mx-auto bg-transparent"
+      >
+        <div className="z-50 flex items-center h-full justify-center animate-shake">
+          <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 px-3 w-4/5 rounded-xl text-white">
+            <div className="flex gap-4 items-center justify-between">
+              <Image
+                className="h-[20vh] w-auto bg-firefly-radial"
+                src={`/diver/diver-greeting.png`}
+                alt="diver"
+                width={20000}
+                height={20000}
+              />
+              <h2 className="font-semibold text-lg">
+                {existedUser
+                  ? `Welcome Back, ${user.username}!`
+                  : `Welcome ${user.username} to the fantastic Journey!`}
+              </h2>
+            </div>
+            <form method="dialog">
+              <button
+                className="px-3 py-1 bg-emerald-500 rounded-lg"
+                onClick={() => handleCreateUser(user)}
+              >
+                OK
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
       {/* Tabs Panel */}
       <TabGroup selectedIndex={selectedIndex} onChange={setSelectedIndex}>
         <TabPanels className="flex-1 w-full h-full absolute top-0 left-0">
@@ -103,20 +158,16 @@ function GameHome() {
               className="absolute top-3 left-3 z-20 cursor-pointer hover:opacity-80 flex items-center gap-2 p-1 rounded-full bg-blue-500 text-white border border-white/20"
               onClick={() => setSelectedIndex(3)}
             >
-              {user.photo_url && user.photo_url !== "" ? (
+              <div className="flex items-center px-1">
                 <Image
-                  className="h-14 w-auto mt-20 animate-pulse"
-                  src={"/diver/diver-default.png"}
+                  className="h-10 w-auto animate-shake"
+                  src={imageUrl}
                   alt="diver"
                   width={20000}
                   height={20000}
                 />
-              ) : (
-                <div className="h-7 w-7 font-semibold text-white rounded-full bg-orange-400 flex justify-center items-center">
-                  {user.username.charAt(0).toUpperCase()}
-                </div>
-              )}
-              <p className="pr-2">Hi, {user.username}</p>
+                <p className="pr-2">Hi, {user.username}</p>
+              </div>
             </div>
             <div className="text-center flex flex-col justify-between h-[100dvh] py-24 items-center">
               <h2 className="text-3xl font-bold text-white">Ocean Tab Game</h2>

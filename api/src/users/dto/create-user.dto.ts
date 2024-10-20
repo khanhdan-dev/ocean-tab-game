@@ -1,8 +1,8 @@
 import { IsString, IsOptional, IsNumber } from 'class-validator';
 
 export class CreateUserDto {
-  @IsString()
-  id: string;
+  @IsNumber()
+  id: number;
 
   @IsString()
   first_name: string;
