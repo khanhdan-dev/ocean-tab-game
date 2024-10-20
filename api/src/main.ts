@@ -8,7 +8,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   // Enable CORS
   const corsOptions: CorsOptions = {
-    origin: 'https://ocean-tab-game-api.vercel.app/', // Allow requests from the frontend
+    origin: 'https://ocean-tab-game.vercel.app/', // Allow requests from the frontend
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   };
