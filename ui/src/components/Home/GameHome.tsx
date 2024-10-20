@@ -12,12 +12,15 @@ import {
 import SpeciesBackground from "../SpeciesBackground";
 import WebApp from "@twa-dev/sdk";
 import { ITelegramUserInfo } from "kan/types";
+import { useGetAllUsers } from "kan/hooks/useGetAllUsers";
 
 if (typeof window !== "undefined") {
   WebApp.ready();
 }
 
 function GameHome() {
+  const { data } = useGetAllUsers();
+  console.log("data: ", data);
   const [reward, setReward] = useState<string | null>(null);
   const rewards = ["Shell", "Fish", "Token"];
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);

@@ -83,7 +83,7 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
           style={{
             top: specie.top,
             left: specie.left,
-            right: -specie.right,
+            right: !isNaN(Number(specie.right)) ? -specie.right : "unset",
             animation: `move-${specie.direction} ${specie.animationDuration} forwards`,
             animationPlayState:
               caughtFish.id === specie.id && caughtFish.isCaught

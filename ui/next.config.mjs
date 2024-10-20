@@ -7,6 +7,9 @@ const nextConfig = {
     });
     return config;
   },
+  env: {
+    SERVER_PORT: process.env.SERVER_PORT,
+  },
 };
 
 export default nextConfig;

@@ -11,9 +11,15 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
+  // private userList: any[] = []; // Variable to store user list
   constructor(private readonly userService: UserService) {}
+
+  // Method to update the cached userList
+  // private async updateUserList() {
+  //   this.userList = await this.userService.findAll();
+  // }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {

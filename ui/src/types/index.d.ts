@@ -6,4 +6,5 @@ export interface ITelegramUserInfo {
   photo_url: string;
   auth_date: string;
   hash: string;
+  turns?: number;
 }
