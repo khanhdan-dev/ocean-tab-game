@@ -10,13 +10,20 @@ export const userService = {
     return response.data;
   },
   getUserInformation: async (userId: string) => {
-    const response = await https.get(`/users?id=${userId}`);
+    const response = await https.get(`/users/${userId}`);
     return response.data;
   },
   createUser: async (createUser: ITelegramUserInfo) => {
     const response: AxiosResponse<ITelegramUserInfo> = await https.post(
       `/users`,
       createUser
+    );
+    return response.data;
+  },
+  updateUser: async (updateUser: Partial<ITelegramUserInfo>) => {
+    const response: AxiosResponse<ITelegramUserInfo> = await https.put(
+      `/users`,
+      updateUser
     );
     return response.data;
   },

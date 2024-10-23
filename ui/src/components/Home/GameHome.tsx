@@ -13,8 +13,10 @@ import SpeciesBackground from "../SpeciesBackground";
 import WebApp from "@twa-dev/sdk";
 import { ITelegramUserInfo } from "kan/types";
 import { useGetAllUsers } from "kan/hooks/useGetAllUsers";
-import { useCreateUserMutate } from "kan/hooks/useCreateUserMutate";
 import useUrlValidation from "kan/hooks/useUrlValidation";
+import { useCreateUserMutate } from "kan/hooks/useCreateUserMutate";
+import BubblesBackground from "../BubbleBackground";
+import BackgroundAudio from "../BackgroundAudio";
 
 if (typeof window !== "undefined") {
   WebApp.ready();
@@ -27,9 +29,11 @@ function GameHome() {
   const rewards = ["Shell", "Fish", "Token"];
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
   const [isOpenGreetingDialog, setIsOpenGreetingDialog] = useState(true);
+  const [isPlayingGame, setIsPlayingGame] = useState(false);
   const initialUserData: ITelegramUserInfo = {
     id: 1,
     first_name: "test",
+    turns: 100,
   };
   const [user, setUser] = useState<ITelegramUserInfo>(initialUserData);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -46,8 +50,8 @@ function GameHome() {
   const getTabClasses = (selected: boolean) =>
     `${
       selected
-        ? "bg-blue-500 text-white focus:outline-none"
-        : "bg-white text-gray-700 hover:bg-gray-200 focus:outline-none"
+        ? "bg-ocean-blue text-white focus:outline-none"
+        : "bg-ocean-darkblue text-white hover:bg-gray-200 focus:outline-none"
     } px-4 py-2 w-full`;
 
   const onRenderTabs = () => {
@@ -74,11 +78,12 @@ function GameHome() {
       <Tab
         key={tab.name}
         className={({ selected }) =>
-          `${getTabClasses(selected)} flex flex-col items-center py-3`
+          `${getTabClasses(selected)} ${
+            isPlayingGame ? "hidden" : "flex"
+          } flex-col items-center py-3 `
         }
       >
         {tab.icon}
-        {tab.name}
       </Tab>
     ));
   };
@@ -104,9 +109,6 @@ function GameHome() {
     return <></>;
   }
 
-  const a = validateUrl(user.photo_url ?? "");
-  console.log("a: ", a);
-
   const imageUrl =
     user.photo_url && validateUrl(user.photo_url)
       ? user.photo_url
@@ -116,7 +118,7 @@ function GameHome() {
     <div className="relative flex flex-col justify-center items-center h-[100dvh] bg-ocean bg-cover p-4">
       <dialog
         open={isOpenGreetingDialog}
-        className="z-20 h-[100dvh] w-[90vw] mx-auto bg-transparent"
+        className="z-30 h-[100dvh] w-[90vw] mx-auto bg-transparent"
       >
         <div className="z-50 flex items-center h-full justify-center animate-shake">
           <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 px-3 w-4/5 rounded-xl text-white">
@@ -130,8 +132,10 @@ function GameHome() {
               />
               <h2 className="font-semibold text-lg">
                 {existedUser
-                  ? `Welcome Back, ${user.username}!`
-                  : `Welcome ${user.username} to the fantastic Journey!`}
+                  ? `Welcome Back, ${user.username ?? "you"}!`
+                  : `Welcome ${
+                      user.username ?? "you"
+                    } to the fantastic Journey!`}
               </h2>
             </div>
             <form method="dialog">
@@ -145,14 +149,75 @@ function GameHome() {
           </div>
         </div>
       </dialog>
-      {/* Tabs Panel */}
       <TabGroup selectedIndex={selectedIndex} onChange={setSelectedIndex}>
         <TabPanels className="flex-1 w-full h-full absolute top-0 left-0">
           <TabPanel className="relative flex flex-col justify-center items-center h-full">
-            <div className="absolute top-3 left-3 z-20 right-3">
-              <div className="flex justify-between w-full gap-3 items-center">
+            {isPlayingGame ? (
+              <>
+                <div className="text-center flex flex-col justify-end h-[100dvh] pb-10 items-center">
+                  <Image
+                    className="h-[30vh] w-auto mt-20 animate-pulse"
+                    src={"/diver/diver-default.png"}
+                    alt="diver"
+                    width={20000}
+                    height={20000}
+                  />
+                </div>
+                <div className="absolute top-3 left-3 z-20 right-3">
+                  <div className="flex justify-between w-full gap-3 items-center">
+                    <div className="bg-yellow-700 text-white h-10 w-10 flex justify-center items-center rounded-full">
+                      <p>{user.turns}</p>
+                    </div>
+                    <div
+                      className="flex justify-end"
+                      onClick={() => setIsPlayingGame(false)}
+                    >
+                      <Image
+                        className="h-10 w-auto"
+                        src={"/control/control-5.png"}
+                        alt="diver"
+                        width={20000}
+                        height={20000}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <dialog
+                  open={isOpenRewardDialog}
+                  className="z-20 h-[100dvh] w-[90vw] mx-auto bg-transparent"
+                >
+                  <div className="flex items-center h-full justify-center animate-shake">
+                    <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 w-4/5 rounded-xl text-white">
+                      <div className="flex items-center flex-col gap-5">
+                        <Image
+                          className="h-[20vh] w-auto bg-firefly-radial"
+                          src={`/diver/diver-${reward?.toLowerCase()}.png`}
+                          alt="diver"
+                          width={20000}
+                          height={20000}
+                        />
+                        <p>Wonderful! You got a {reward}</p>
+                      </div>
+                      <form method="dialog">
+                        <button
+                          className="px-3 py-1 bg-emerald-500 rounded-lg"
+                          onClick={() => setIsOpenRewardDialog(false)}
+                        >
+                          OK
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog>
+                <SpeciesBackground
+                  handleTabClick={handleTabClick}
+                  isOpenRewardDialog={isOpenRewardDialog}
+                />
+              </>
+            ) : (
+              <div className="z-20">
                 <div
-                  className="cursor-pointer hover:opacity-80 flex items-center gap-2 p-1 px-2 rounded-full bg-blue-500 text-white border border-white/20"
+                  className="absolute top-3 left-3 z-20 right-3 w-fit cursor-pointer hover:opacity-80 flex items-center gap-2 p-1 px-2 rounded-full bg-ocean-turquoise/50 backdrop-blur-sm text-white border border-white/20"
                   onClick={() => setSelectedIndex(3)}
                 >
                   <Image
@@ -162,54 +227,30 @@ function GameHome() {
                     width={20000}
                     height={20000}
                   />
-                  <p className="pr-2">Hi, {user.username}</p>
+                  <p className="pr-2">Hi, {user.username ?? "Hunter"}</p>
                 </div>
-                <div className="bg-yellow-700 text-white h-10 w-10 flex justify-center items-center rounded-full">
-                  <p>{user.turns}</p>
-                </div>
-              </div>
-            </div>
-            <div className="text-center flex flex-col justify-between h-[100dvh] py-24 items-center">
-              <h2 className="text-3xl font-bold text-white">Hunting time...</h2>
-              <Image
-                className="h-[30vh] w-auto mt-20 animate-pulse"
-                src={"/diver/diver-default.png"}
-                alt="diver"
-                width={20000}
-                height={20000}
-              />
-            </div>
-            <dialog
-              open={isOpenRewardDialog}
-              className="z-20 h-[100dvh] w-[90vw] mx-auto bg-transparent"
-            >
-              <div className="flex items-center h-full justify-center animate-shake">
-                <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 w-4/5 rounded-xl text-white">
-                  <div className="flex items-center flex-col gap-5">
+                <div className="flex flex-col items-center gap-20">
+                  <Image
+                    className="h-40 w-auto"
+                    src={"/logo/logo.png"}
+                    alt="diver"
+                    width={20000}
+                    height={20000}
+                  />
+                  <div onClick={() => setIsPlayingGame(!isPlayingGame)}>
                     <Image
-                      className="h-[20vh] w-auto bg-firefly-radial"
-                      src={`/diver/diver-${reward?.toLowerCase()}.png`}
+                      className="h-20 w-auto animate-shake-infinite"
+                      src={"/control/control-2.png"}
                       alt="diver"
                       width={20000}
                       height={20000}
                     />
-                    <p>Wonderful! You got a {reward}</p>
                   </div>
-                  <form method="dialog">
-                    <button
-                      className="px-3 py-1 bg-emerald-500 rounded-lg"
-                      onClick={() => setIsOpenRewardDialog(false)}
-                    >
-                      OK
-                    </button>
-                  </form>
                 </div>
               </div>
-            </dialog>
-            <SpeciesBackground
-              handleTabClick={handleTabClick}
-              isOpenRewardDialog={isOpenRewardDialog}
-            />
+            )}
+            <BubblesBackground />
+            <BackgroundAudio isPlayingGame={isPlayingGame} />
           </TabPanel>
 
           <TabPanel className="flex justify-center items-center h-full">
@@ -220,23 +261,20 @@ function GameHome() {
             <h2 className="text-3xl text-green-300 font-bold">Shop</h2>
           </TabPanel>
 
-          <TabPanel className="h-full bg-blue-900">
+          <TabPanel className="h-full bg-ocean-primary-medium text-white">
             <div className="p-3 border-b border-b-gray-300">
-              <div className="flex items-center gap-2 p-1 text-white">
-                {user.photo_url && user.photo_url !== "" ? (
-                  <Image
-                    className="h-14 w-auto mt-20 animate-pulse"
-                    src={"/diver/diver-default.png"}
-                    alt="diver"
-                    width={20000}
-                    height={20000}
-                  />
-                ) : (
-                  <div className="h-7 w-7 text-white rounded-full bg-orange-400 flex justify-center items-center">
-                    {user.username?.charAt(0).toUpperCase()}
-                  </div>
-                )}
-                <p className="">Hi, {user.username}</p>
+              <div
+                className="cursor-pointer hover:opacity-80 flex w-fit items-center gap-2 px-2 rounded-full text-white"
+                onClick={() => setSelectedIndex(3)}
+              >
+                <Image
+                  className="h-10 w-auto animate-shake"
+                  src={imageUrl}
+                  alt="diver"
+                  width={20000}
+                  height={20000}
+                />
+                <p className="pr-2">Hi, {user.username ?? "Hunter"}</p>
               </div>
             </div>
             <div className="p-3">
@@ -246,7 +284,6 @@ function GameHome() {
                   First Name: {user.first_name} <br />
                   Last Name: {user.last_name} <br />
                   Username: {user.username} <br />
-                  Hash: {user.photo_url}
                 </>
               )}
             </div>

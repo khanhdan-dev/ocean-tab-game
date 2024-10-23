@@ -11,6 +11,22 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "ocean-primary-medium": "#3f4858",
+        "ocean-primary-slight": "#394b59",
+        "ocean-darkblue": "#323e4f",
+        "ocean-dark": "#09090B",
+        "ocean-turquoise": "#5E949F",
+        "ocean-lightgrey": "#B6C4C4",
+        "ocean-yellow": "#FDE74C",
+        "ocean-white": "#F3F6F9",
+        "ocean-orange": "#FA824C",
+        "ocean-blue": "#4177AC",
+        "ocean-copper": "#CE8964",
+        "ocean-amber": "#F09F0D",
+        "ocean-green": "#248232",
+        "ocean-flashturq": "#47c9af",
+        "ocean-flashred": "#F8333C",
+        "ocean-flashgreen": "#C8EC37",
       },
       backgroundImage: {
         mobile: "url('/background/background-mobile.jpg')",
@@ -36,11 +52,18 @@ const config: Config = {
           "75%": { transform: "scale(1.1)", opacity: "1" },
           "100%": { transform: "scale(1)", opacity: "1" },
         },
+        bubble: {
+          "0%": { transform: "translateY(100%) scale(0.5)", opacity: "0.5" },
+          "50%": { transform: "translateY(-50vh) scale(1)", opacity: "0.7" },
+          "100%": { transform: "translateY(-100vh) scale(0.5)", opacity: "0" },
+        },
       },
       animation: {
         shake: "shake 0.5s ease-in-out", // Softer and slower shake
+        "shake-infinite": "shake 1s ease-in-out infinite", // Softer and slower shake
         "pop-up": "pop-up 0.3s ease-in-out", // Softer and slower shake
         "wrap-net": "wrap-net 0.3s ease-in-out forwards",
+        bubble: "bubble 50s infinite",
       },
     },
   },

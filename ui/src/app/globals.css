@@ -28,6 +28,14 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .pause {
+    animation-play-state: paused;
+  }
+
+  .custom-bg {
+    @apply border border-solid border-accent/30 bg-background/20 shadow-glass-inset backdrop-blur-[6px] hover:shadow-glass-sm;
+  }
 }
 
 /* Keyframe for natural, curving movement */
@@ -76,4 +84,13 @@ body {
   ); /* Smooth curve */
   transform-origin: center;
   will-change: transform;
+}
+
+@keyframes move {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(100px, 100px);
+  }
 }
