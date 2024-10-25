@@ -28,5 +28,5 @@ export default function Home() {
       }
     }
   }, [userList]);
-  return <GameHome userId={userId ?? 6227945989} />;
+  return <GameHome userId={userId} />;
 }
