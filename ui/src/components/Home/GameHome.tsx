@@ -21,17 +21,11 @@ if (typeof window !== "undefined") {
 }
 
 interface Props {
-  isNewUser: boolean;
   userId: number;
 }
 
-function GameHome({ isNewUser, userId }: Props) {
-  console.log("userId: ", userId);
-  // const initialUserData: ITelegramUserInfo = {
-  //   id: 1,
-  //   first_name: "test",
-  //   turns: 100,
-  // };
+function GameHome({ userId }: Props) {
+  const isNewUser = localStorage.getItem("newUser");
   const { data: userInfo } = useGetUserInfo(userId);
   const [reward, setReward] = useState<string | null>(null);
   const rewards = ["Shell", "Fish", "Token"];
@@ -121,7 +115,7 @@ function GameHome({ isNewUser, userId }: Props) {
                 height={20000}
               />
               <h2 className="font-semibold text-lg">
-                {!isNewUser
+                {isNewUser !== "yes"
                   ? `Welcome Back, ${userInfo.username ?? "you"}!`
                   : `Welcome ${
                       userInfo.username ?? "you"

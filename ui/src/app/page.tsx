@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const { data: userList } = useGetAllUsers();
   const [userId, setUserId] = useState<number>(0);
-  const [isNewUser, setIsNewUser] = useState(false);
   const { mutate: createUserMutate } = useCreateUserMutate();
 
   useEffect(() => {
@@ -19,7 +18,7 @@ export default function Home() {
       if (userTelegram) {
         const existedUser = userList?.find((u) => u.id === userTelegram?.id);
         if (existedUser) {
-          setIsNewUser(true);
+          localStorage.setItem("newUser", "yes");
         }
         createUserMutate({
           ...userTelegram,
@@ -28,6 +27,9 @@ export default function Home() {
         setUserId(userTelegram.id);
       }
     }
-  }, []);
-  return <GameHome isNewUser={isNewUser} userId={userId ?? 6227945989} />;
+    return () => {
+      localStorage.removeItem("newUser");
+    };
+  }, [userList]);
+  return <GameHome userId={userId ?? 6227945989} />;
 }
