@@ -15,7 +15,7 @@ export default function Home() {
     if (typeof window !== "undefined") {
       const userTelegram = WebApp.initDataUnsafe?.user as ITelegramUserInfo;
 
-      if (userTelegram) {
+      if (userTelegram && userList) {
         const existedUser = userList?.find((u) => u.id === userTelegram?.id);
         if (existedUser) {
           localStorage.setItem("newUser", "yes");
@@ -27,9 +27,6 @@ export default function Home() {
         setUserId(userTelegram.id);
       }
     }
-    return () => {
-      if (typeof window !== "undefined") localStorage.removeItem("newUser");
-    };
   }, [userList]);
   return <GameHome userId={userId ?? 6227945989} />;
 }
