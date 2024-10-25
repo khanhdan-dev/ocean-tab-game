@@ -27,6 +27,7 @@ interface Props {
 
 function GameHome({ telegramUser }: Props) {
   const { data: userInfo } = useGetUserInfo(telegramUser);
+  console.log("userInfo: ", userInfo);
   const [reward, setReward] = useState<string | null>(null);
   const rewards = ["Shell", "Fish", "Token"];
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
