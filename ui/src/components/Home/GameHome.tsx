@@ -15,18 +15,20 @@ import useUrlValidation from "kan/hooks/useUrlValidation";
 import BubblesBackground from "../BubbleBackground";
 import BackgroundAudio from "../BackgroundAudio";
 import { useGetUserInfo } from "kan/hooks/useGetUserInfo";
+import { ITelegramUserInfo } from "kan/types";
 
 if (typeof window !== "undefined") {
   WebApp.ready();
 }
 
 interface Props {
-  userId: number;
+  telegramUser: ITelegramUserInfo;
 }
 
-function GameHome({ userId }: Props) {
+function GameHome({ telegramUser }: Props) {
   const [isNewUser, setIsNewUser] = useState<string>();
-  const { data: userInfo } = useGetUserInfo(userId);
+  const { data: userInfo } = useGetUserInfo(telegramUser);
+  console.log("userInfo: ", userInfo);
   const [reward, setReward] = useState<string | null>(null);
   const rewards = ["Shell", "Fish", "Token"];
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
@@ -122,9 +124,11 @@ function GameHome({ userId }: Props) {
               />
               <h2 className="font-semibold text-lg">
                 {isNewUser !== "yes"
-                  ? `Welcome Back, ${userInfo.username ?? "you"}!`
+                  ? `Welcome Back, ${
+                      userInfo.first_name ?? userInfo.username ?? "you"
+                    }!`
                   : `Welcome ${
-                      userInfo.username ?? "you"
+                      userInfo.first_name ?? userInfo.username ?? "you"
                     } to the fantastic Journey!`}
               </h2>
             </div>
@@ -217,7 +221,9 @@ function GameHome({ userId }: Props) {
                     width={20000}
                     height={20000}
                   />
-                  <p className="pr-2">Hi, {userInfo.username ?? "Hunter"}</p>
+                  <p className="pr-2">
+                    Hi, {userInfo.first_name ?? userInfo.username ?? "Hunter"}
+                  </p>
                 </div>
                 <div className="flex flex-col items-center gap-20">
                   <Image
@@ -264,7 +270,9 @@ function GameHome({ userId }: Props) {
                   width={20000}
                   height={20000}
                 />
-                <p className="pr-2">Hi, {userInfo.username ?? "Hunter"}</p>
+                <p className="pr-2">
+                  Hi, {userInfo.first_name ?? userInfo.username ?? "Hunter"}
+                </p>
               </div>
             </div>
             <div className="p-3">

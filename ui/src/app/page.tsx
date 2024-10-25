@@ -1,34 +1,25 @@
 "use client";
 import WebApp from "@twa-dev/sdk";
 import GameHome from "kan/components/Home/GameHome";
-import { useCreateUserMutate } from "kan/hooks/useCreateUserMutate";
-import { useGetAllUsers } from "kan/hooks/useGetAllUsers";
 import { ITelegramUserInfo } from "kan/types";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { data: userList } = useGetAllUsers();
-  const [userId, setUserId] = useState<number>(0);
-  const { mutate: createUserMutate } = useCreateUserMutate();
+  const [telegramUser, setTelegramUser] = useState<ITelegramUserInfo>({
+    first_name: "Kan",
+    id: 0,
+    turns: 100,
+    username: "kanshiro",
+  });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const userTelegram = WebApp.initDataUnsafe?.user as ITelegramUserInfo;
 
-      if (userTelegram && userList) {
-        const existedUser = userList?.find((u) => u.id === userTelegram?.id);
-        if (existedUser) {
-          localStorage.setItem("newUser", "yes");
-        } else {
-          createUserMutate({
-            ...userTelegram,
-            turns: 100, // Default initial value
-          });
-        }
-
-        setUserId(userTelegram.id);
+      if (userTelegram) {
+        setTelegramUser(userTelegram);
       }
     }
-  }, [userList]);
-  return <GameHome userId={userId} />;
+  }, []);
+  return <GameHome telegramUser={telegramUser} />;
 }
