@@ -28,7 +28,7 @@ export default function Home() {
       }
     }
     return () => {
-      localStorage.removeItem("newUser");
+      if (typeof window !== "undefined") localStorage.removeItem("newUser");
     };
   }, [userList]);
   return <GameHome userId={userId ?? 6227945989} />;

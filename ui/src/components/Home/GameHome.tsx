@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,17 +25,23 @@ interface Props {
 }
 
 function GameHome({ userId }: Props) {
-  const isNewUser = localStorage.getItem("newUser");
+  const [isNewUser, setIsNewUser] = useState<string>();
   const { data: userInfo } = useGetUserInfo(userId);
   const [reward, setReward] = useState<string | null>(null);
   const rewards = ["Shell", "Fish", "Token"];
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
   const [isOpenGreetingDialog, setIsOpenGreetingDialog] = useState(true);
   const [isPlayingGame, setIsPlayingGame] = useState(false);
-
   const [selectedIndex, setSelectedIndex] = useState(0);
-
   const { validateUrl } = useUrlValidation();
+
+  useEffect(() => {
+    const localStorageNewUser = localStorage.getItem("newUser");
+
+    if (localStorageNewUser !== null) {
+      setIsNewUser(localStorageNewUser);
+    }
+  }, []);
 
   const handleTabClick = () => {
     const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
