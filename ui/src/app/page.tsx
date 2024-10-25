@@ -19,11 +19,13 @@ export default function Home() {
         const existedUser = userList?.find((u) => u.id === userTelegram?.id);
         if (existedUser) {
           localStorage.setItem("newUser", "yes");
+        } else {
+          createUserMutate({
+            ...userTelegram,
+            turns: 100, // Default initial value
+          });
         }
-        createUserMutate({
-          ...userTelegram,
-          turns: 100, // Default initial value
-        });
+
         setUserId(userTelegram.id);
       }
     }
