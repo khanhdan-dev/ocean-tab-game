@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,33 +11,36 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SpeciesBackground from "../SpeciesBackground";
 import WebApp from "@twa-dev/sdk";
-import { ITelegramUserInfo } from "kan/types";
-import { useGetAllUsers } from "kan/hooks/useGetAllUsers";
 import useUrlValidation from "kan/hooks/useUrlValidation";
-import { useCreateUserMutate } from "kan/hooks/useCreateUserMutate";
 import BubblesBackground from "../BubbleBackground";
 import BackgroundAudio from "../BackgroundAudio";
+import { useGetUserInfo } from "kan/hooks/useGetUserInfo";
 
 if (typeof window !== "undefined") {
   WebApp.ready();
 }
 
-function GameHome() {
-  const { data: userList } = useGetAllUsers();
-  const { mutate: createUserMutate } = useCreateUserMutate();
+interface Props {
+  isNewUser: boolean;
+  userId: number;
+}
+
+function GameHome({ isNewUser, userId }: Props) {
+  console.log("userId: ", userId);
+  // const initialUserData: ITelegramUserInfo = {
+  //   id: 1,
+  //   first_name: "test",
+  //   turns: 100,
+  // };
+  const { data: userInfo } = useGetUserInfo(userId);
   const [reward, setReward] = useState<string | null>(null);
   const rewards = ["Shell", "Fish", "Token"];
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
   const [isOpenGreetingDialog, setIsOpenGreetingDialog] = useState(true);
   const [isPlayingGame, setIsPlayingGame] = useState(false);
-  const initialUserData: ITelegramUserInfo = {
-    id: 1,
-    first_name: "test",
-    turns: 100,
-  };
-  const [user, setUser] = useState<ITelegramUserInfo>(initialUserData);
+
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const existedUser = userList?.find((u) => u.id === user?.id);
+
   const { validateUrl } = useUrlValidation();
 
   const handleTabClick = () => {
@@ -88,31 +91,18 @@ function GameHome() {
     ));
   };
 
-  const handleCreateUser = (newUser: ITelegramUserInfo) => {
-    if (!existedUser) {
-      createUserMutate({ ...newUser, turns: 100 });
-    }
+  const handleCreateUser = () => {
     setIsOpenGreetingDialog(false);
   };
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const userInfo = WebApp.initDataUnsafe?.user as ITelegramUserInfo;
+  const imageUrl =
+    userInfo?.photo_url && validateUrl(userInfo?.photo_url)
+      ? userInfo?.photo_url
+      : "/diver/diver-avt.png"; // Default image if the URL is invalid
 
-      if (userInfo) {
-        setUser(userInfo);
-      }
-    }
-  }, []);
-
-  if (!userList) {
+  if (!userInfo) {
     return <></>;
   }
-
-  const imageUrl =
-    user.photo_url && validateUrl(user.photo_url)
-      ? user.photo_url
-      : "/diver/diver-avt.png"; // Default image if the URL is invalid
 
   return (
     <div className="relative flex flex-col justify-center items-center h-[100dvh] bg-ocean bg-cover p-4">
@@ -131,17 +121,17 @@ function GameHome() {
                 height={20000}
               />
               <h2 className="font-semibold text-lg">
-                {existedUser
-                  ? `Welcome Back, ${user.username ?? "you"}!`
+                {!isNewUser
+                  ? `Welcome Back, ${userInfo.username ?? "you"}!`
                   : `Welcome ${
-                      user.username ?? "you"
+                      userInfo.username ?? "you"
                     } to the fantastic Journey!`}
               </h2>
             </div>
             <form method="dialog">
               <button
                 className="px-3 py-1 bg-emerald-500 rounded-lg"
-                onClick={() => handleCreateUser(user)}
+                onClick={handleCreateUser}
               >
                 OK
               </button>
@@ -166,7 +156,7 @@ function GameHome() {
                 <div className="absolute top-3 left-3 z-20 right-3">
                   <div className="flex justify-between w-full gap-3 items-center">
                     <div className="bg-yellow-700 text-white h-10 w-10 flex justify-center items-center rounded-full">
-                      <p>{user.turns}</p>
+                      <p>{userInfo.turns}</p>
                     </div>
                     <div
                       className="flex justify-end"
@@ -227,7 +217,7 @@ function GameHome() {
                     width={20000}
                     height={20000}
                   />
-                  <p className="pr-2">Hi, {user.username ?? "Hunter"}</p>
+                  <p className="pr-2">Hi, {userInfo.username ?? "Hunter"}</p>
                 </div>
                 <div className="flex flex-col items-center gap-20">
                   <Image
@@ -274,16 +264,16 @@ function GameHome() {
                   width={20000}
                   height={20000}
                 />
-                <p className="pr-2">Hi, {user.username ?? "Hunter"}</p>
+                <p className="pr-2">Hi, {userInfo.username ?? "Hunter"}</p>
               </div>
             </div>
             <div className="p-3">
-              {user && (
+              {userInfo && (
                 <>
-                  ID: {user.id} <br />
-                  First Name: {user.first_name} <br />
-                  Last Name: {user.last_name} <br />
-                  Username: {user.username} <br />
+                  ID: {userInfo.id} <br />
+                  First Name: {userInfo.first_name} <br />
+                  Last Name: {userInfo.last_name} <br />
+                  Username: {userInfo.username} <br />
                 </>
               )}
             </div>

@@ -10,9 +10,7 @@ export const userService = {
     return response.data;
   },
   getUserInformation: async (userId: string) => {
-    const response: AxiosResponse<ITelegramUserInfo> = await https.get(
-      `/users/${userId}`
-    );
+    const response = await https.get(`/users/${userId}`);
     return response.data;
   },
   createUser: async (createUser: ITelegramUserInfo) => {
