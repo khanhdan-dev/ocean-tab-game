@@ -8,4 +8,5 @@ export interface ITelegramUserInfo {
   is_premium?: boolean;
   photo_url?: string;
   turns?: number;
+  isNewUser?: boolean;
 }

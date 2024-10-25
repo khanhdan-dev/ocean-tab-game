@@ -26,9 +26,7 @@ interface Props {
 }
 
 function GameHome({ telegramUser }: Props) {
-  const [isNewUser, setIsNewUser] = useState<string>();
   const { data: userInfo } = useGetUserInfo(telegramUser);
-  console.log("userInfo: ", userInfo);
   const [reward, setReward] = useState<string | null>(null);
   const rewards = ["Shell", "Fish", "Token"];
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
@@ -36,14 +34,6 @@ function GameHome({ telegramUser }: Props) {
   const [isPlayingGame, setIsPlayingGame] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { validateUrl } = useUrlValidation();
-
-  useEffect(() => {
-    const localStorageNewUser = localStorage.getItem("newUser");
-
-    if (localStorageNewUser !== null) {
-      setIsNewUser(localStorageNewUser);
-    }
-  }, []);
 
   const handleTabClick = () => {
     const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
@@ -123,7 +113,7 @@ function GameHome({ telegramUser }: Props) {
                 height={20000}
               />
               <h2 className="font-semibold text-lg">
-                {isNewUser !== "yes"
+                {userInfo.isNewUser
                   ? `Welcome Back, ${
                       userInfo.first_name ?? userInfo.username ?? "you"
                     }!`
