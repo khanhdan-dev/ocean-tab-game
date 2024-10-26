@@ -1,23 +1,27 @@
-"use client";
-import React, { useState } from "react";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+'use client';
+import React, { useState } from 'react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCartShopping,
   faGamepad,
   faListCheck,
+  faRankingStar,
   faUser,
-} from "@fortawesome/free-solid-svg-icons";
-import SpeciesBackground from "../SpeciesBackground";
-import WebApp from "@twa-dev/sdk";
-import useUrlValidation from "kan/hooks/useUrlValidation";
-import BubblesBackground from "../BubbleBackground";
-import BackgroundAudio from "../BackgroundAudio";
-import { useGetUserInfo } from "kan/hooks/useGetUserInfo";
-import { ITelegramUserInfo } from "kan/types";
+} from '@fortawesome/free-solid-svg-icons';
+import WebApp from '@twa-dev/sdk';
+import useUrlValidation from 'kan/hooks/useUrlValidation';
+import { useGetUserInfo } from 'kan/hooks/useGetUserInfo';
+import { ITelegramUserInfo } from 'kan/types';
+import GameTab from '../GameTab/GameTab';
+import ProfileTab from '../ProfileTab/ProfileTab';
+import LeaderboardTab from '../LeaderboardTab/LeaderboardTab';
+import { useRouter, useSearchParams } from 'next/navigation';
+import QuestTab from '../QuestTab/QuestTab';
+import ShopTab from '../ShopTab/ShopTab';
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   WebApp.ready();
 }
 
@@ -26,45 +30,43 @@ interface Props {
 }
 
 function GameHome({ telegramUser }: Props) {
+  const searchParams = useSearchParams();
+  const currentTab = searchParams.get('tab');
+  const router = useRouter();
   const { data: userInfo } = useGetUserInfo(telegramUser);
-  const [reward, setReward] = useState<string | null>(null);
-  const rewards = ["Shell", "Fish", "Token"];
-  const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
+  const { validateUrl } = useUrlValidation();
   const [isOpenGreetingDialog, setIsOpenGreetingDialog] = useState(true);
   const [isPlayingGame, setIsPlayingGame] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const { validateUrl } = useUrlValidation();
-
-  const handleTabClick = () => {
-    const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
-    setReward(randomReward);
-    setIsOpenRewardDialog(true);
-  };
+  const [selectedIndex, setSelectedIndex] = useState(Number(currentTab) ?? 0);
 
   // Function to handle tab class styling
   const getTabClasses = (selected: boolean) =>
     `${
       selected
-        ? "bg-ocean-blue text-white focus:outline-none"
-        : "bg-ocean-darkblue text-white hover:bg-gray-200 focus:outline-none"
+        ? 'bg-ocean-darkblue text-ocean-flashturq text-base focus:outline-none'
+        : 'bg-ocean-darkblue text-white hover:bg-gray-200 text-sm focus:outline-none'
     } px-4 py-2 w-full`;
 
   const onRenderTabs = () => {
     const tabList = [
       {
-        name: "Game",
+        name: 'Game',
         icon: <FontAwesomeIcon icon={faGamepad} />,
       },
       {
-        name: "Quest",
+        name: 'Quest',
         icon: <FontAwesomeIcon icon={faListCheck} />,
       },
       {
-        name: "Shop",
+        name: 'Shop',
         icon: <FontAwesomeIcon icon={faCartShopping} />,
       },
       {
-        name: "Profile",
+        name: 'Rank',
+        icon: <FontAwesomeIcon icon={faRankingStar} />,
+      },
+      {
+        name: 'Profile',
         icon: <FontAwesomeIcon icon={faUser} />,
       },
     ];
@@ -74,11 +76,12 @@ function GameHome({ telegramUser }: Props) {
         key={tab.name}
         className={({ selected }) =>
           `${getTabClasses(selected)} ${
-            isPlayingGame ? "hidden" : "flex"
-          } flex-col items-center py-3 `
+            isPlayingGame ? 'hidden' : 'flex'
+          } flex-col items-center justify-end gap-1 py-3 hover:bg-ocean-darkblue`
         }
       >
         {tab.icon}
+        <p>{tab.name}</p>
       </Tab>
     ));
   };
@@ -90,21 +93,21 @@ function GameHome({ telegramUser }: Props) {
   const imageUrl =
     userInfo?.photo_url && validateUrl(userInfo?.photo_url)
       ? userInfo?.photo_url
-      : "/diver/diver-avt.png"; // Default image if the URL is invalid
+      : '/diver/diver-avt.png'; // Default image if the URL is invalid
 
   if (!userInfo) {
     return <></>;
   }
 
   return (
-    <div className="relative flex flex-col justify-center items-center h-[100dvh] bg-ocean bg-cover p-4">
+    <div className="bg-ocean relative flex h-[100dvh] flex-col items-center justify-center bg-cover p-4">
       <dialog
         open={isOpenGreetingDialog}
-        className="z-30 h-[100dvh] w-[90vw] mx-auto bg-transparent"
+        className="z-30 mx-auto h-[100dvh] w-[90vw] bg-transparent"
       >
-        <div className="z-50 flex items-center h-full justify-center animate-shake">
-          <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 px-3 w-4/5 rounded-xl text-white">
-            <div className="flex gap-4 items-center justify-between">
+        <div className="z-50 flex h-full animate-shake items-center justify-center">
+          <div className="flex w-4/5 flex-col items-center gap-3 rounded-xl bg-blue-600 px-3 py-5 text-white">
+            <div className="flex items-center justify-between gap-4">
               <Image
                 className="h-[20vh] w-auto bg-firefly-radial"
                 src={`/diver/diver-greeting.png`}
@@ -112,19 +115,19 @@ function GameHome({ telegramUser }: Props) {
                 width={20000}
                 height={20000}
               />
-              <h2 className="font-semibold text-lg">
+              <h2 className="text-lg font-semibold">
                 {userInfo.isNewUser
                   ? `Welcome Back, ${
-                      userInfo.first_name ?? userInfo.username ?? "you"
+                      userInfo.first_name ?? userInfo.username ?? 'you'
                     }!`
                   : `Welcome ${
-                      userInfo.first_name ?? userInfo.username ?? "you"
+                      userInfo.first_name ?? userInfo.username ?? 'you'
                     } to the fantastic Journey!`}
               </h2>
             </div>
             <form method="dialog">
               <button
-                className="px-3 py-1 bg-emerald-500 rounded-lg"
+                className="rounded-lg bg-emerald-500 px-3 py-1"
                 onClick={handleCreateUser}
               >
                 OK
@@ -133,153 +136,43 @@ function GameHome({ telegramUser }: Props) {
           </div>
         </div>
       </dialog>
-      <TabGroup selectedIndex={selectedIndex} onChange={setSelectedIndex}>
-        <TabPanels className="flex-1 w-full h-full absolute top-0 left-0">
-          <TabPanel className="relative flex flex-col justify-center items-center h-full">
-            {isPlayingGame ? (
-              <>
-                <div className="text-center flex flex-col justify-end h-[100dvh] pb-10 items-center">
-                  <Image
-                    className="h-[30vh] w-auto mt-20 animate-pulse"
-                    src={"/diver/diver-default.png"}
-                    alt="diver"
-                    width={20000}
-                    height={20000}
-                  />
-                </div>
-                <div className="absolute top-3 left-3 z-20 right-3">
-                  <div className="flex justify-between w-full gap-3 items-center">
-                    <div className="bg-yellow-700 text-white h-10 w-10 flex justify-center items-center rounded-full">
-                      <p>{userInfo.turns}</p>
-                    </div>
-                    <div
-                      className="flex justify-end"
-                      onClick={() => setIsPlayingGame(false)}
-                    >
-                      <Image
-                        className="h-10 w-auto"
-                        src={"/control/control-5.png"}
-                        alt="diver"
-                        width={20000}
-                        height={20000}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <dialog
-                  open={isOpenRewardDialog}
-                  className="z-20 h-[100dvh] w-[90vw] mx-auto bg-transparent"
-                >
-                  <div className="flex items-center h-full justify-center animate-shake">
-                    <div className="bg-blue-600 flex flex-col gap-3 items-center py-5 w-4/5 rounded-xl text-white">
-                      <div className="flex items-center flex-col gap-5">
-                        <Image
-                          className="h-[20vh] w-auto bg-firefly-radial"
-                          src={`/diver/diver-${reward?.toLowerCase()}.png`}
-                          alt="diver"
-                          width={20000}
-                          height={20000}
-                        />
-                        <p>Wonderful! You got a {reward}</p>
-                      </div>
-                      <form method="dialog">
-                        <button
-                          className="px-3 py-1 bg-emerald-500 rounded-lg"
-                          onClick={() => setIsOpenRewardDialog(false)}
-                        >
-                          OK
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                </dialog>
-                <SpeciesBackground
-                  handleTabClick={handleTabClick}
-                  isOpenRewardDialog={isOpenRewardDialog}
-                />
-              </>
-            ) : (
-              <div className="z-20">
-                <div
-                  className="absolute top-3 left-3 z-20 right-3 w-fit cursor-pointer hover:opacity-80 flex items-center gap-2 p-1 px-2 rounded-full bg-ocean-turquoise/50 backdrop-blur-sm text-white border border-white/20"
-                  onClick={() => setSelectedIndex(3)}
-                >
-                  <Image
-                    className="h-10 w-auto animate-shake"
-                    src={imageUrl}
-                    alt="diver"
-                    width={20000}
-                    height={20000}
-                  />
-                  <p className="pr-2">
-                    Hi, {userInfo.first_name ?? userInfo.username ?? "Hunter"}
-                  </p>
-                </div>
-                <div className="flex flex-col items-center gap-20">
-                  <Image
-                    className="h-40 w-auto"
-                    src={"/logo/logo.png"}
-                    alt="diver"
-                    width={20000}
-                    height={20000}
-                  />
-                  <div onClick={() => setIsPlayingGame(!isPlayingGame)}>
-                    <Image
-                      className="h-20 w-auto animate-shake-infinite"
-                      src={"/control/control-2.png"}
-                      alt="diver"
-                      width={20000}
-                      height={20000}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-            <BubblesBackground />
-            <BackgroundAudio isPlayingGame={isPlayingGame} />
+      <TabGroup
+        selectedIndex={selectedIndex}
+        onChange={(index) => {
+          setSelectedIndex(index);
+          router.push(`?tab=${index}`);
+        }}
+      >
+        <TabPanels className="absolute left-0 top-0 h-full w-full flex-1">
+          <TabPanel className="relative flex h-full flex-col items-center justify-center">
+            <GameTab
+              setIsPlayingGame={setIsPlayingGame}
+              isPlayingGame={isPlayingGame}
+              setSelectedIndex={setSelectedIndex}
+              userInfo={userInfo}
+              imageUrl={imageUrl}
+            />
           </TabPanel>
 
-          <TabPanel className="flex justify-center items-center h-full">
-            <h2 className="text-3xl text-yellow-300 font-bold">Quest</h2>
+          <TabPanel className="flex h-full items-center justify-center">
+            <QuestTab />
           </TabPanel>
 
-          <TabPanel className="flex justify-center items-center h-full">
-            <h2 className="text-3xl text-green-300 font-bold">Shop</h2>
+          <TabPanel className="flex h-full items-center justify-center">
+            <ShopTab />
           </TabPanel>
 
           <TabPanel className="h-full bg-ocean-primary-medium text-white">
-            <div className="p-3 border-b border-b-gray-300">
-              <div
-                className="cursor-pointer hover:opacity-80 flex w-fit items-center gap-2 px-2 rounded-full text-white"
-                onClick={() => setSelectedIndex(3)}
-              >
-                <Image
-                  className="h-10 w-auto animate-shake"
-                  src={imageUrl}
-                  alt="diver"
-                  width={20000}
-                  height={20000}
-                />
-                <p className="pr-2">
-                  Hi, {userInfo.first_name ?? userInfo.username ?? "Hunter"}
-                </p>
-              </div>
-            </div>
-            <div className="p-3">
-              {userInfo && (
-                <>
-                  ID: {userInfo.id} <br />
-                  First Name: {userInfo.first_name} <br />
-                  Last Name: {userInfo.last_name} <br />
-                  Username: {userInfo.username} <br />
-                </>
-              )}
-            </div>
+            <LeaderboardTab />
+          </TabPanel>
+
+          <TabPanel className="h-full bg-ocean-primary-medium text-white">
+            <ProfileTab userInfo={userInfo} imageUrl={imageUrl} />
           </TabPanel>
         </TabPanels>
 
         {/* Tabs List at the bottom */}
-        <TabList className="fixed bottom-0 z-20 left-0 right-0 w-full flex bg-white/50 backdrop-blur-lg shadow-lg">
+        <TabList className="fixed bottom-0 left-0 right-0 z-20 flex w-full bg-white/50 shadow-lg backdrop-blur-lg">
           {onRenderTabs()}
         </TabList>
       </TabGroup>

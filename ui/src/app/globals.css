@@ -21,7 +21,7 @@ body {
 }
 
 .bg-ocean {
-  @apply bg-mobile md:bg-desktop bg-cover bg-center;
+  @apply bg-mobile bg-cover bg-center md:bg-desktop;
 }
 
 @layer utilities {
@@ -34,7 +34,7 @@ body {
   }
 
   .custom-bg {
-    @apply border border-solid border-accent/30 bg-background/20 shadow-glass-inset backdrop-blur-[6px] hover:shadow-glass-sm;
+    @apply border-accent/30 bg-background/20 shadow-glass-inset hover:shadow-glass-sm border border-solid backdrop-blur-[6px];
   }
 }
 

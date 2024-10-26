@@ -1,6 +1,6 @@
 // hooks/useUrlValidation.ts
 
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
 const urlRegex = /^(https?:\/\/[^\s$.?#].[^\s]*|\/[^\s]*)$/i;
 

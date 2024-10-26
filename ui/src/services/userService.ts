@@ -1,12 +1,11 @@
-import { ITelegramUserInfo } from "kan/types";
-import { https } from "./configURL";
-import { AxiosResponse } from "axios";
+import { ITelegramUserInfo } from 'kan/types';
+import { https } from './configURL';
+import { AxiosResponse } from 'axios';
 
 export const userService = {
   getAllUsers: async () => {
-    const response: AxiosResponse<ITelegramUserInfo[]> = await https.get(
-      `/users`
-    );
+    const response: AxiosResponse<ITelegramUserInfo[]> =
+      await https.get(`/users`);
     return response.data;
   },
   getUserInformation: async (userId: string) => {
@@ -16,14 +15,14 @@ export const userService = {
   createUser: async (createUser: ITelegramUserInfo) => {
     const response: AxiosResponse<ITelegramUserInfo> = await https.post(
       `/users`,
-      createUser
+      createUser,
     );
     return response.data;
   },
   updateUser: async (updateUser: Partial<ITelegramUserInfo>) => {
     const response: AxiosResponse<ITelegramUserInfo> = await https.put(
       `/users`,
-      updateUser
+      updateUser,
     );
     return response.data;
   },

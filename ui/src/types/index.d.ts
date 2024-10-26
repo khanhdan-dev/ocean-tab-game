@@ -9,4 +9,5 @@ export interface ITelegramUserInfo {
   photo_url?: string;
   turns?: number;
   isNewUser?: boolean;
+  score?: number;
 }

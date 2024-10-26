@@ -1,6 +1,6 @@
-"use client";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
+'use client';
+import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
 
 type Bubble = {
   id: number;
@@ -40,11 +40,11 @@ const BubblesBackground: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed left-0 top-0 right-0 bottom-0 h-full w-full overflow-hidden">
+    <div className="fixed bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden">
       {bubbles.map((bubble) => (
         <div
           key={bubble.id}
-          className="absolute rounded-full animate-bubble"
+          className="absolute animate-bubble rounded-full"
           style={{
             top: bubble.top,
             left: bubble.left,
@@ -56,7 +56,7 @@ const BubblesBackground: React.FC = () => {
             width={20000}
             height={20000}
             style={{
-              height: "auto",
+              height: 'auto',
               width: bubble.size, // Set the size dynamically
             }}
           />
