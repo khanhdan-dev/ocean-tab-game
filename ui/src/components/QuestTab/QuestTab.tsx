@@ -2,10 +2,9 @@ import React from 'react';
 
 interface Quest {
   id: number;
-  type: string;
+  type: 'Daily' | 'Weekly' | 'Special';
   content: string;
   reward: number;
-  level: number;
   status: 'go' | 'claim' | 'claimed';
 }
 
@@ -15,7 +14,6 @@ const quests: Quest[] = [
     type: 'Daily',
     content: 'Win 3 matches',
     reward: 50,
-    level: 1,
     status: 'claimed',
   },
   {
@@ -23,7 +21,6 @@ const quests: Quest[] = [
     type: 'Weekly',
     content: 'Score 1000 points',
     reward: 200,
-    level: 2,
     status: 'claim',
   },
   {
@@ -31,66 +28,123 @@ const quests: Quest[] = [
     type: 'Special',
     content: 'Complete a tournament',
     reward: 500,
-    level: 3,
     status: 'go',
+  },
+  {
+    id: 4,
+    type: 'Daily',
+    content: 'Collect 10 shells',
+    reward: 30,
+    status: 'go',
+  },
+  {
+    id: 5,
+    type: 'Daily',
+    content: 'Catch 5 rare fish',
+    reward: 70,
+    status: 'claim',
+  },
+  {
+    id: 6,
+    type: 'Weekly',
+    content: 'Reach level 5',
+    reward: 250,
+    status: 'go',
+  },
+  {
+    id: 7,
+    type: 'Weekly',
+    content: 'Complete 5 daily quests',
+    reward: 300,
+    status: 'claim',
+  },
+  {
+    id: 8,
+    type: 'Special',
+    content: 'Defeat a legendary sea monster',
+    reward: 1000,
+    status: 'go',
+  },
+  {
+    id: 9,
+    type: 'Special',
+    content: 'Participate in a special event',
+    reward: 800,
+    status: 'claim',
+  },
+  {
+    id: 10,
+    type: 'Daily',
+    content: 'Log in for 3 consecutive days',
+    reward: 40,
+    status: 'claimed',
   },
 ];
 
 function QuestTab() {
-  const totalQuestsDone = quests.filter(
-    (quest) => quest.status === 'claimed',
-  ).length;
-  const totalRewardsCollected = quests
-    .filter((quest) => quest.status === 'claimed')
-    .reduce((acc, quest) => acc + quest.reward, 0);
+  const renderQuestsByType = (type: 'Daily' | 'Weekly' | 'Special') =>
+    quests
+      .filter((quest) => quest.type === type)
+      .map((quest) => (
+        <div key={quest.id} className="rounded-lg bg-ocean-blue p-2 shadow-md">
+          <div className="mb-1 flex items-center justify-between">
+            <div>
+              <p className="text-xs">{quest.content}</p>
+              <p className="text-xs font-semibold">
+                Reward: {quest.reward} coins
+              </p>
+            </div>
+            <button
+              className={`rounded-full px-2 py-0.5 text-xs ${
+                quest.status === 'go'
+                  ? 'bg-ocean-yellow text-black'
+                  : quest.status === 'claim'
+                    ? 'bg-ocean-flashturq text-black'
+                    : 'bg-ocean-lightgrey text-black'
+              }`}
+            >
+              {quest.status === 'go'
+                ? 'Go'
+                : quest.status === 'claim'
+                  ? 'Claim'
+                  : 'Claimed'}
+            </button>
+          </div>
+        </div>
+      ));
 
   return (
-    <div className="min-h-screen w-full bg-ocean-primary-medium p-4 text-ocean-white">
+    <div className="h-full min-h-[100dvh] w-full overflow-auto bg-ocean-primary-medium p-4 pb-20 text-ocean-white">
       <h1 className="mb-6 text-center text-2xl font-bold">Quests</h1>
 
       {/* Quest Summary */}
       <div className="mb-6 rounded-lg bg-ocean-blue p-4 shadow-lg">
-        <p className="text-lg font-semibold">
-          Total Quests Completed: {totalQuestsDone}
+        <p className="text-sm font-semibold">
+          Total Quests Completed:{' '}
+          {quests.filter((quest) => quest.status === 'claimed').length}
         </p>
-        <p className="text-lg font-semibold">
-          Total Rewards Collected: {totalRewardsCollected}
+        <p className="text-sm font-semibold">
+          Total Rewards Collected:{' '}
+          {quests
+            .filter((quest) => quest.status === 'claimed')
+            .reduce((acc, quest) => acc + quest.reward, 0)}
         </p>
       </div>
 
-      {/* Quest List */}
+      {/* Quest Sections */}
       <div className="space-y-4">
-        {quests.map((quest) => (
-          <div
-            key={quest.id}
-            className="rounded-lg bg-ocean-blue p-4 shadow-lg"
-          >
-            <div className="mb-2 flex items-center justify-between">
-              <p className="text-sm font-bold">
-                {quest.type} Quest - Level {quest.level}
-              </p>
-              <span
-                className={`rounded-full px-2 py-1 text-xs ${
-                  quest.status === 'go'
-                    ? 'bg-yellow-500 text-black'
-                    : quest.status === 'claim'
-                      ? 'bg-green-500 text-black'
-                      : 'bg-gray-400 text-black'
-                }`}
-              >
-                {quest.status === 'go'
-                  ? 'Go'
-                  : quest.status === 'claim'
-                    ? 'Claim'
-                    : 'Claimed'}
-              </span>
-            </div>
-            <p className="mb-2 text-sm">{quest.content}</p>
-            <p className="text-sm font-semibold">
-              Reward: {quest.reward} coins
-            </p>
-          </div>
-        ))}
+        <div>
+          <h2 className="mb-2 text-sm font-bold">Daily Quests</h2>
+          <div className="space-y-2">{renderQuestsByType('Daily')}</div>
+        </div>
+        <div>
+          <h2 className="mb-2 text-sm font-bold">Weekly Quests</h2>
+          <div className="space-y-2">{renderQuestsByType('Weekly')}</div>
+        </div>
+        <div>
+          <h2 className="mb-2 text-sm font-bold">Special Quests</h2>
+          <div className="space-y-2">{renderQuestsByType('Special')}</div>
+        </div>
       </div>
     </div>
   );

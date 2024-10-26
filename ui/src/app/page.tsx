@@ -23,7 +23,7 @@ export default function Home() {
   }, []);
   return (
     <Suspense>
-      <GameHome telegramUser={telegramUser} />;
+      <GameHome telegramUser={telegramUser} />
     </Suspense>
   );
 }
