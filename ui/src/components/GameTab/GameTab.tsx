@@ -4,6 +4,7 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import SpeciesBackground from '../SpeciesBackground';
 import BubblesBackground from '../BubbleBackground';
 import BackgroundAudio from '../BackgroundAudio';
+import { GiFishingNet } from 'react-icons/gi';
 
 interface Props {
   isPlayingGame: boolean;
@@ -46,20 +47,32 @@ function GameTab({
             />
           </div>
           <div className="absolute left-3 right-3 top-3 z-20">
-            <div className="flex w-full items-center justify-between gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-700 text-white">
-                <p>{userInfo.turns}</p>
+            <div className="flex w-full items-start justify-between gap-3">
+              <div className="flex items-center justify-center gap-1 text-3xl text-white">
+                <GiFishingNet
+                  className="inset-0 animate-wrap-net font-thin"
+                  size={30}
+                />
+                <p className="font-bold text-ocean-flashturq">
+                  {userInfo.turns}
+                </p>
               </div>
-              <div
-                className="flex justify-end"
-                onClick={() => setIsPlayingGame(false)}
-              >
+              <div className="flex flex-col justify-end gap-2">
                 <Image
                   className="h-10 w-auto"
                   src={'/control/control-5.png'}
                   alt="diver"
                   width={20000}
                   height={20000}
+                  onClick={() => setIsPlayingGame(false)}
+                />
+                <Image
+                  className="h-10 w-auto"
+                  src={`/control/control-${isPlayingMusic ? '11' : '12'}.png`}
+                  alt="diver"
+                  width={20000}
+                  height={20000}
+                  onClick={() => setIsPlayingMusic(!isPlayingMusic)}
                 />
               </div>
             </div>
@@ -116,7 +129,7 @@ function GameTab({
             </div>
             <Image
               className="h-10 w-auto"
-              src={'/control/control-12.png'}
+              src={`/control/control-${isPlayingMusic ? '11' : '12'}.png`}
               alt="diver"
               width={20000}
               height={20000}

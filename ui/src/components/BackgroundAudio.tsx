@@ -16,15 +16,14 @@ const BackgroundAudio = ({ isPlayingGame, isPlayingMusic }: Props) => {
         audioRef.current.pause();
       }
     }
-  }, [isPlayingMusic]);
+  }, [isPlayingMusic, isPlayingGame]);
 
   return (
     <audio
       ref={audioRef}
       src={isPlayingGame ? '/sounds/play.mp3' : '/sounds/background.mp3'}
       loop
-      autoPlay
-      //   muted
+      autoPlay={isPlayingGame}
     />
   );
 };

@@ -86,7 +86,10 @@ function QuestTab() {
     quests
       .filter((quest) => quest.type === type)
       .map((quest) => (
-        <div key={quest.id} className="rounded-lg bg-ocean-blue p-2 shadow-md">
+        <div
+          key={quest.id}
+          className={`rounded-lg p-2 shadow-md ${quest.type === 'Daily' ? 'bg-ocean-white text-ocean-darkblue' : quest.type === 'Weekly' ? 'bg-ocean-blue' : 'bg-violet-600'}`}
+        >
           <div className="mb-1 flex items-center justify-between">
             <div>
               <p className="text-xs">{quest.content}</p>
@@ -114,11 +117,9 @@ function QuestTab() {
       ));
 
   return (
-    <div className="h-full min-h-[100dvh] w-full overflow-auto bg-ocean-primary-medium p-4 pb-20 text-ocean-white">
-      <h1 className="mb-6 text-center text-2xl font-bold">Quests</h1>
-
+    <div className="h-full min-h-[100dvh] w-full overflow-auto bg-ocean-primary-medium p-4 pb-24 text-ocean-white">
       {/* Quest Summary */}
-      <div className="mb-6 rounded-lg bg-ocean-blue p-4 shadow-lg">
+      <div className="mb-6 rounded-lg bg-ocean-yellow p-4 text-ocean-primary-medium shadow-lg">
         <p className="text-sm font-semibold">
           Total Quests Completed:{' '}
           {quests.filter((quest) => quest.status === 'claimed').length}

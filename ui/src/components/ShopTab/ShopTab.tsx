@@ -1,3 +1,6 @@
+import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 interface ShopItem {
@@ -222,7 +225,7 @@ function ShopTab() {
   const onRenderUserRewards = () => {
     const rewardList = [
       {
-        name: 'Coins',
+        name: 'Coin',
         value: userCoins,
       },
       {
@@ -230,40 +233,76 @@ function ShopTab() {
         value: userFish,
       },
       {
-        name: 'Shells',
+        name: 'Shell',
         value: userShells,
       },
     ];
     return rewardList.map((r) => {
       return (
-        <p key={r.name}>
-          {r.name}: {r.value}
-        </p>
+        <div key={r.name} className="flex items-center gap-2 text-sm">
+          <Image
+            src={`/resources/${r.name.toLowerCase()}.png`}
+            alt={r.name}
+            className="h-6 w-auto rounded-lg"
+            width={20000}
+            height={20000}
+          />
+          <p className="font-semibold text-ocean-yellow">{r.value}</p>
+        </div>
       );
     });
   };
 
   return (
     <div className="h-full min-h-[100dvh] overflow-auto bg-ocean-primary-medium p-4 pb-20 text-ocean-white">
-      <h1 className="mb-6 text-center text-2xl font-bold">Shop</h1>
-
       {/* User's Coin, Fish, and Shells Balance */}
       <div className="mb-4">
         <div className="flex gap-2">{onRenderUserRewards()}</div>
-        <button
-          className="m-2 rounded bg-ocean-flashturq px-4 py-1 text-black"
-          onClick={() => convertToCoins('fish')}
-        >
-          Convert Fish to Coins
-        </button>
-        <button
-          className="m-2 rounded bg-ocean-flashturq px-4 py-1 text-black"
-          onClick={() => convertToCoins('shells')}
-        >
-          Convert Shells to Coins
-        </button>
+        <div className="my-2 flex items-center gap-2">
+          <button
+            className="flex items-center gap-2 rounded bg-ocean-turquoise px-2 py-1 font-semibold text-ocean-white"
+            onClick={() => convertToCoins('fish')}
+          >
+            <Image
+              src={`/resources/fish.png`}
+              alt="fish convert"
+              className="h-5 w-auto rounded-lg"
+              width={20000}
+              height={20000}
+            />
+            to
+            <Image
+              src={`/resources/coin.png`}
+              alt="coin convert"
+              className="h-5 w-auto rounded-lg"
+              width={20000}
+              height={20000}
+            />
+          </button>
+          <button
+            className="flex items-center gap-2 rounded bg-ocean-turquoise px-2 py-1 font-semibold text-ocean-white"
+            onClick={() => convertToCoins('shells')}
+          >
+            <Image
+              src={`/resources/shell.png`}
+              alt="shell convert"
+              className="h-5 w-auto rounded-lg"
+              width={20000}
+              height={20000}
+            />
+            to
+            <Image
+              src={`/resources/coin.png`}
+              alt="coin convert"
+              className="h-5 w-auto rounded-lg"
+              width={20000}
+              height={20000}
+            />
+          </button>
+        </div>
       </div>
 
+      <h2 className="mb-3 text-3xl font-semibold text-ocean-flashturq">Shop</h2>
       {/* Shop Items */}
       <div className="grid grid-cols-3 gap-4 overflow-auto">
         {shopItems.map((item) => (
@@ -272,10 +311,12 @@ function ShopTab() {
             className="bg-ocean-primary-light flex cursor-pointer flex-col items-center rounded-lg"
             onClick={() => setSelectedItem(item)}
           >
-            <img
+            <Image
               src={item.imageUrl}
               alt={item.name}
               className="h-20 w-20 rounded-lg"
+              width={20000}
+              height={20000}
             />
             <p className="mt-2 text-center text-sm font-bold">{item.name}</p>
           </div>
@@ -285,37 +326,38 @@ function ShopTab() {
       {/* Item Details Popup */}
       {selectedItem && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-4/5 rounded-lg bg-ocean-primary-medium p-6 text-center">
-            <h2 className="text-xl font-bold">{selectedItem.name}</h2>
+          <div className="relative w-4/5 rounded-lg bg-ocean-primary-medium p-6">
+            <h2 className="text-xl font-bold text-ocean-flashturq">
+              {selectedItem.name}
+            </h2>
             <p className="mt-2">{selectedItem.description}</p>
-            <p className="mt-2">Price: {selectedItem.price} coins each</p>
+            <p className="mt-2">Price: {selectedItem.price} coins</p>
 
-            <div className="mt-4">
-              <label htmlFor="quantity" className="mr-2">
-                Quantity:
-              </label>
+            <p className="flex justify-end font-bold text-ocean-flashgreen">
+              {selectedItem.price * quantity} coins
+            </p>
+            <div className="mt-4 flex h-full w-full justify-stretch overflow-hidden rounded">
               <input
                 type="number"
                 id="quantity"
                 value={quantity}
                 min={1}
                 onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
-                className="w-16 rounded border p-1 text-black"
+                className="w-12 border p-1 text-black"
               />
+              <button
+                className="m-auto w-full bg-ocean-flashturq px-4 py-2 font-bold text-black"
+                onClick={handleBuyItem}
+              >
+                Buy
+              </button>
             </div>
 
-            <button
-              className="mt-4 rounded bg-ocean-flashturq px-4 py-2 font-bold text-black"
-              onClick={handleBuyItem}
-            >
-              Buy
-            </button>
-            <button
-              className="mt-2 block w-full rounded bg-red-500 px-4 py-2 text-white"
+            <FontAwesomeIcon
+              icon={faClose}
+              className="absolute right-2 top-2 text-3xl text-ocean-white"
               onClick={() => setSelectedItem(null)}
-            >
-              Cancel
-            </button>
+            />
           </div>
         </div>
       )}

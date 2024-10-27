@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { userService } from 'kan/services/userService';
 import { useCreateUserMutate } from './useCreateUserMutate';
-import { ITelegramUserInfo } from 'kan/types';
+import { ITelegramNewUserInfo, ITelegramUserInfo } from 'kan/types';
 
 export const useGetUserInfo = (telegramUser: ITelegramUserInfo) => {
   const { mutateAsync: createUserMutate } = useCreateUserMutate();
 
-  return useQuery<ITelegramUserInfo | null>({
+  return useQuery<ITelegramNewUserInfo | null>({
     queryKey: ['getUserInfo', telegramUser],
     queryFn: async () => {
       const userList = await userService.getAllUsers();

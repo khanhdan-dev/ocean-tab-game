@@ -1,4 +1,15 @@
-import { IsString, IsOptional, IsNumber } from 'class-validator';
+import { IsString, IsOptional, IsNumber, IsObject } from 'class-validator';
+
+class Resources {
+  @IsNumber()
+  coins: number;
+
+  @IsNumber()
+  fish: number;
+
+  @IsNumber()
+  shells: number;
+}
 
 export class CreateUserDto {
   @IsNumber()
@@ -31,4 +42,8 @@ export class CreateUserDto {
   @IsOptional()
   @IsNumber()
   turns: number;
+
+  @IsOptional()
+  @IsObject()
+  resources: Resources;
 }

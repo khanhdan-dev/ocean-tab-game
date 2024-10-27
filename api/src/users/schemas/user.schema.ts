@@ -2,6 +2,15 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
+class Resources {
+  @Prop()
+  coins: number;
+  @Prop()
+  fish: number;
+
+  @Prop()
+  shells: number;
+}
 
 @Schema({ collection: 'UserList' })
 export class User {
@@ -28,6 +37,9 @@ export class User {
 
   @Prop()
   turns: number;
+
+  @Prop()
+  resources: Resources;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
