@@ -8,17 +8,13 @@ export interface ITelegramUserInfo {
   id: number;
   is_bot?: boolean;
   first_name: string;
-  last_name: string;
-  username: string;
+  last_name?: string;
+  username?: string;
   language_code?: string;
   is_premium?: boolean;
-  photo_url: string;
-  turns: number;
-  score: number;
+  photo_url?: string;
+  turns?: number;
   isNewUser?: boolean;
-  resources: UserResources;
-}
-
-export interface ITelegramNewUserInfo extends ITelegramUserInfo {
-  isNewUser?: boolean;
+  score?: number;
+  resources?: UserResources;
 }
