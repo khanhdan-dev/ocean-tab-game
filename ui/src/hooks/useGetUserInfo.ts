@@ -22,7 +22,12 @@ export const useGetUserInfo = (telegramUser: ITelegramUserInfo) => {
           return createUserMutate(
             {
               ...telegramUser,
-              turns: 100, // Default initial value
+              turns: 100, // Default initial value,
+              resources: {
+                fish: 0,
+                shells: 0,
+                coins: 0,
+              },
             },
             {
               onSuccess: async (data) => {
