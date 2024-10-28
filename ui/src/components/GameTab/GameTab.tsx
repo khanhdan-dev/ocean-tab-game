@@ -5,6 +5,7 @@ import SpeciesBackground from '../SpeciesBackground';
 import BubblesBackground from '../BubbleBackground';
 import BackgroundAudio from '../BackgroundAudio';
 import { GiFishingNet } from 'react-icons/gi';
+import { usePutUpdateUser } from 'kan/hooks/usePutUpdateUser';
 
 interface Props {
   isPlayingGame: boolean;
@@ -21,16 +22,91 @@ function GameTab({
   setSelectedIndex,
   imageUrl,
 }: Props) {
+  const { mutate: putUpdateUserMutate } = usePutUpdateUser();
   const [reward, setReward] = useState<string | null>(null);
   const rewards = ['Shell', 'Fish', 'Token'];
   const [isOpenRewardDialog, setIsOpenRewardDialog] = useState(false);
+  const [currentTurns, setCurrentTurns] = useState<number>(userInfo.turns);
+  const [userCoins, setUserCoins] = useState(userInfo.resources.coins);
+  const [userFish, setUserFish] = useState(userInfo.resources.fish);
+  const [userShells, setUserShells] = useState(userInfo.resources.shells);
 
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
 
   const handleTabClick = () => {
+    setCurrentTurns(currentTurns - 1);
     const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
+    if (randomReward === 'Token') {
+      setUserCoins(userCoins + 1);
+    } else if (randomReward === 'Shell') {
+      setUserShells(userShells + 1);
+    } else {
+      setUserFish(userFish + 1);
+    }
     setReward(randomReward);
     setIsOpenRewardDialog(true);
+
+    const rewardCustomList: {
+      name: 'Shell' | 'Token' | 'Fish';
+      key: 'shells' | 'coins' | 'fish';
+    }[] = [
+      { name: 'Shell', key: 'shells' },
+      { name: 'Token', key: 'coins' },
+      { name: 'Fish', key: 'fish' },
+    ];
+
+    // if (userInfo.resources && reward) {
+    const rewardObj = rewardCustomList.find((r) => r.name === reward);
+
+    const newRewardObj = {
+      shells: 0,
+      coins: 0,
+      fish: 0,
+    };
+    if (rewardObj && currentTurns > 0) {
+      const resources = userInfo.resources
+        ? {
+            ...userInfo.resources,
+            [rewardObj.key]: userInfo.resources[rewardObj.key] + 1,
+          }
+        : { ...newRewardObj, [rewardObj.key]: newRewardObj[rewardObj.key] };
+
+      putUpdateUserMutate({
+        userId: String(userInfo.id),
+        user: { resources, turns: currentTurns - 1 },
+      });
+    }
+  };
+
+  const onRenderUserRewards = () => {
+    const rewardList = [
+      {
+        name: 'Coin',
+        value: userCoins,
+      },
+      {
+        name: 'Fish',
+        value: userFish,
+      },
+      {
+        name: 'Shell',
+        value: userShells,
+      },
+    ];
+    return rewardList.map((r) => {
+      return (
+        <div key={r.name} className="flex items-center gap-2 text-sm">
+          <Image
+            src={`/resources/${r.name.toLowerCase()}.png`}
+            alt={r.name}
+            className="h-6 w-auto rounded-lg"
+            width={20000}
+            height={20000}
+          />
+          <p className="font-semibold text-ocean-yellow">{r.value}</p>
+        </div>
+      );
+    });
   };
 
   return (
@@ -48,14 +124,19 @@ function GameTab({
           </div>
           <div className="absolute left-3 right-3 top-3 z-20">
             <div className="flex w-full items-start justify-between gap-3">
-              <div className="flex items-center justify-center gap-1 text-3xl text-white">
-                <GiFishingNet
-                  className="inset-0 animate-wrap-net font-thin"
-                  size={30}
-                />
-                <p className="font-bold text-ocean-flashturq">
-                  {userInfo.turns}
-                </p>
+              <div className="flex flex-col items-start gap-2">
+                <div className="flex items-center justify-center gap-1 text-3xl text-white">
+                  <GiFishingNet
+                    className="inset-0 animate-wrap-net font-thin"
+                    size={30}
+                  />
+                  <p className="font-bold text-ocean-flashturq">
+                    {currentTurns}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2">
+                  {onRenderUserRewards()}
+                </div>
               </div>
               <div className="flex flex-col justify-end gap-2">
                 <Image
@@ -107,6 +188,9 @@ function GameTab({
           <SpeciesBackground
             handleTabClick={handleTabClick}
             isOpenRewardDialog={isOpenRewardDialog}
+            userInfo={userInfo}
+            reward={reward}
+            currentTurns={currentTurns}
           />
         </>
       ) : (

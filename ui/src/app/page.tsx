@@ -10,6 +10,11 @@ export default function Home() {
     id: 0,
     turns: 100,
     username: 'kanshiro',
+    resources: {
+      fish: 0,
+      shells: 0,
+      coins: 0,
+    },
   });
 
   useEffect(() => {

@@ -19,9 +19,12 @@ export const userService = {
     );
     return response.data;
   },
-  updateUser: async (updateUser: Partial<ITelegramUserInfo>) => {
+  updateUser: async (
+    userId: string,
+    updateUser: Partial<ITelegramUserInfo>,
+  ) => {
     const response: AxiosResponse<ITelegramUserInfo> = await https.put(
-      `/users`,
+      `/users/${userId}`,
       updateUser,
     );
     return response.data;

@@ -1,4 +1,5 @@
 'use client';
+import { ITelegramUserInfo } from 'kan/types';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { GiFishingNet } from 'react-icons/gi';
@@ -6,6 +7,9 @@ import { GiFishingNet } from 'react-icons/gi';
 interface Props {
   handleTabClick: () => void;
   isOpenRewardDialog: boolean;
+  userInfo: ITelegramUserInfo;
+  reward: string | null;
+  currentTurns: number;
 }
 
 type Species = {
@@ -73,6 +77,18 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
     }
   }, [caughtFish.isCaught]);
 
+  const handleCatchFish = (specie: Species) => {
+    const clickSound = new Audio('/sounds/reward.mp3'); // Path to your sound file
+    clickSound.play(); // Play the sound
+    setCaughtFish({
+      id: specie.id,
+      isCaught: true,
+    });
+    setTimeout(() => {
+      handleTabClick();
+    }, 200);
+  };
+
   return (
     <div className="fixed bottom-0 left-0 right-0 top-0 z-10 h-full w-full overflow-hidden">
       {species.map((specie) => (
@@ -90,17 +106,7 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
                 ? 'paused'
                 : 'running',
           }}
-          onClick={() => {
-            const clickSound = new Audio('/sounds/reward.mp3'); // Path to your sound file
-            clickSound.play(); // Play the sound
-            setCaughtFish({
-              id: specie.id,
-              isCaught: true,
-            });
-            setTimeout(() => {
-              handleTabClick();
-            }, 200);
-          }}
+          onClick={() => handleCatchFish(specie)}
         >
           {/* Render the species as an image */}
           <Image

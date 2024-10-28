@@ -159,7 +159,7 @@ function GameHome({ telegramUser }: Props) {
           </TabPanel>
 
           <TabPanel className="flex h-full items-center justify-center">
-            <ShopTab />
+            <ShopTab userInfo={userInfo} />
           </TabPanel>
 
           <TabPanel className="h-full bg-ocean-primary-medium text-white">

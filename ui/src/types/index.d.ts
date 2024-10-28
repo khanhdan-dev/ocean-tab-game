@@ -13,8 +13,8 @@ export interface ITelegramUserInfo {
   language_code?: string;
   is_premium?: boolean;
   photo_url?: string;
-  turns?: number;
+  turns: number;
   isNewUser?: boolean;
   score?: number;
-  resources?: UserResources;
+  resources: UserResources;
 }
