@@ -4,6 +4,10 @@ import GameHome from 'kan/components/Home/GameHome';
 import { ITelegramUserInfo } from 'kan/types';
 import { Suspense, useEffect, useState } from 'react';
 
+if (typeof window !== 'undefined') {
+  WebApp.ready();
+}
+
 export default function Home() {
   const [telegramUser, setTelegramUser] = useState<ITelegramUserInfo>({
     first_name: 'Kan',

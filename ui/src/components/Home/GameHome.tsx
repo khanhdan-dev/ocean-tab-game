@@ -10,7 +10,6 @@ import {
   faRankingStar,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import WebApp from '@twa-dev/sdk';
 import useUrlValidation from 'kan/hooks/useUrlValidation';
 import { useGetUserInfo } from 'kan/hooks/useGetUserInfo';
 import { ITelegramUserInfo } from 'kan/types';
@@ -20,10 +19,6 @@ import LeaderboardTab from '../LeaderboardTab/LeaderboardTab';
 import { useRouter, useSearchParams } from 'next/navigation';
 import QuestTab from '../QuestTab/QuestTab';
 import ShopTab from '../ShopTab/ShopTab';
-
-if (typeof window !== 'undefined') {
-  WebApp.ready();
-}
 
 interface Props {
   telegramUser: ITelegramUserInfo;
