@@ -163,13 +163,13 @@ function ShopTab({ userInfo }: Props) {
         {shopItems.map((item) => (
           <div
             key={item.id}
-            className="bg-ocean-primary-light flex cursor-pointer flex-col items-center rounded-lg"
+            className="bg-ocean-primary-light flex cursor-pointer flex-col items-center gap-1 rounded-lg"
             onClick={() => setSelectedItem(item)}
           >
             <Image
-              src={item.imageUrl}
+              src={`/shop/item-${item.id}.png`}
               alt={item.name}
-              className="h-20 w-20 rounded-lg"
+              className="h-16 w-16 rounded-lg"
               width={20000}
               height={20000}
             />

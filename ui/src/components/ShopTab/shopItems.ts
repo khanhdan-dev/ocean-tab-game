@@ -3,7 +3,6 @@ export interface ShopItem {
   name: string;
   type: 'equipment' | 'skin' | 'skill';
   price: number;
-  imageUrl: string;
   description: string;
 }
 export const shopItems: ShopItem[] = [
@@ -13,7 +12,6 @@ export const shopItems: ShopItem[] = [
     type: 'equipment',
     description: 'Allows the diver to stay underwater for longer durations.',
     price: 500,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 2,
@@ -22,7 +20,6 @@ export const shopItems: ShopItem[] = [
     description:
       'Increases the chances of catching larger fish and more shells.',
     price: 350,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 3,
@@ -30,7 +27,6 @@ export const shopItems: ShopItem[] = [
     type: 'equipment',
     description: 'Enables the diver to catch rare fish with precision.',
     price: 600,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 4,
@@ -39,7 +35,6 @@ export const shopItems: ShopItem[] = [
     description:
       "Boosts the diver's swimming speed, making it easier to escape predators.",
     price: 300,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 5,
@@ -48,7 +43,6 @@ export const shopItems: ShopItem[] = [
     description:
       'Allows the diver to explore deeper parts of the ocean where more treasures are found.',
     price: 700,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 6,
@@ -56,7 +50,6 @@ export const shopItems: ShopItem[] = [
     type: 'skill',
     description: 'Reveals hidden treasures and fish locations.',
     price: 450,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 7,
@@ -65,7 +58,6 @@ export const shopItems: ShopItem[] = [
     description:
       'A special spear that increases the catch rate of rare sea creatures.',
     price: 800,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 8,
@@ -73,7 +65,6 @@ export const shopItems: ShopItem[] = [
     type: 'equipment',
     description: 'Keeps dangerous predators away for a limited time.',
     price: 400,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 9,
@@ -82,7 +73,6 @@ export const shopItems: ShopItem[] = [
     description:
       'Blends in with underwater surroundings to avoid detection by predators.',
     price: 550,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 10,
@@ -90,7 +80,6 @@ export const shopItems: ShopItem[] = [
     type: 'equipment',
     description: 'A unique tool used to fend off sea creatures and obstacles.',
     price: 500,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 11,
@@ -98,7 +87,6 @@ export const shopItems: ShopItem[] = [
     type: 'skill',
     description: 'Helps locate hidden treasures buried under the sand.',
     price: 600,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 12,
@@ -107,7 +95,6 @@ export const shopItems: ShopItem[] = [
     description:
       'Transforms the diver’s appearance into a majestic sea dragon.',
     price: 1000,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 13,
@@ -115,7 +102,6 @@ export const shopItems: ShopItem[] = [
     type: 'equipment',
     description: 'Protects the diver from harmful sea creatures.',
     price: 650,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 14,
@@ -124,7 +110,6 @@ export const shopItems: ShopItem[] = [
     description:
       'Allows quick ascents to the surface by using compressed air bubbles.',
     price: 750,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 15,
@@ -133,7 +118,6 @@ export const shopItems: ShopItem[] = [
     description:
       'Unleashes a shockwave that temporarily stuns nearby sea creatures.',
     price: 700,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 16,
@@ -141,7 +125,6 @@ export const shopItems: ShopItem[] = [
     type: 'skin',
     description: 'Changes the diver’s appearance to mimic the look of a whale.',
     price: 950,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 17,
@@ -150,7 +133,6 @@ export const shopItems: ShopItem[] = [
     description:
       'Illuminates dark underwater areas, allowing better visibility.',
     price: 800,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 18,
@@ -159,7 +141,6 @@ export const shopItems: ShopItem[] = [
     description:
       'An ancient weapon that increases the power of all underwater attacks.',
     price: 1200,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 19,
@@ -168,7 +149,6 @@ export const shopItems: ShopItem[] = [
     description:
       'Turns the diver into a crab-like creature, providing extra protection.',
     price: 700,
-    imageUrl: 'https://via.placeholder.com/150',
   },
   {
     id: 20,
@@ -177,6 +157,5 @@ export const shopItems: ShopItem[] = [
     description:
       'Enables control over water currents, making exploration easier.',
     price: 900,
-    imageUrl: 'https://via.placeholder.com/150',
   },
 ];
