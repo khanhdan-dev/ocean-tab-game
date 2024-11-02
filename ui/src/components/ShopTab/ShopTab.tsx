@@ -111,69 +111,81 @@ function ShopTab({ userInfo }: Props) {
   return (
     <div className="h-full min-h-[100dvh] overflow-auto bg-ocean-primary-medium p-4 pb-20 text-ocean-white">
       {/* User's Coin, Fish, and Shells Balance */}
-      <div className="mb-4">
-        <div className="flex gap-2">{onRenderUserRewards()}</div>
-        <div className="my-2 flex items-center gap-2">
-          <button
-            className="flex items-center gap-2 rounded bg-ocean-turquoise px-2 py-1 font-semibold text-ocean-white"
-            onClick={() => convertToCoins('fish')}
-          >
-            <Image
-              src={`/resources/fish.png`}
-              alt="fish convert"
-              className="h-5 w-auto rounded-lg"
-              width={20000}
-              height={20000}
-            />
-            to
-            <Image
-              src={`/resources/coin.png`}
-              alt="coin convert"
-              className="h-5 w-auto rounded-lg"
-              width={20000}
-              height={20000}
-            />
-          </button>
-          <button
-            className="flex items-center gap-2 rounded bg-ocean-turquoise px-2 py-1 font-semibold text-ocean-white"
-            onClick={() => convertToCoins('shells')}
-          >
-            <Image
-              src={`/resources/shell.png`}
-              alt="shell convert"
-              className="h-5 w-auto rounded-lg"
-              width={20000}
-              height={20000}
-            />
-            to
-            <Image
-              src={`/resources/coin.png`}
-              alt="coin convert"
-              className="h-5 w-auto rounded-lg"
-              width={20000}
-              height={20000}
-            />
-          </button>
+      <div className="flex items-center gap-3">
+        <Image
+          className="h-40 w-auto bg-firefly-radial object-contain"
+          src="/shop/skin/skin-1.png"
+          alt="diver"
+          width={20000}
+          height={20000}
+        />
+        <div>
+          <h2 className="pb-3 text-center text-xl font-semibold">Resources</h2>
+          <div className="flex gap-2">{onRenderUserRewards()}</div>
+          <div className="my-2 flex items-center gap-2">
+            <button
+              className="flex items-center gap-2 rounded bg-ocean-turquoise px-2 py-1 font-semibold text-ocean-white"
+              onClick={() => convertToCoins('fish')}
+            >
+              <Image
+                src={`/resources/fish.png`}
+                alt="fish convert"
+                className="h-5 w-auto rounded-lg"
+                width={20000}
+                height={20000}
+              />
+              to
+              <Image
+                src={`/resources/coin.png`}
+                alt="coin convert"
+                className="h-5 w-auto rounded-lg"
+                width={20000}
+                height={20000}
+              />
+            </button>
+            <button
+              className="flex items-center gap-2 rounded bg-ocean-turquoise px-2 py-1 font-semibold text-ocean-white"
+              onClick={() => convertToCoins('shells')}
+            >
+              <Image
+                src={`/resources/shell.png`}
+                alt="shell convert"
+                className="h-5 w-auto rounded-lg"
+                width={20000}
+                height={20000}
+              />
+              to
+              <Image
+                src={`/resources/coin.png`}
+                alt="coin convert"
+                className="h-5 w-auto rounded-lg"
+                width={20000}
+                height={20000}
+              />
+            </button>
+          </div>
         </div>
       </div>
 
-      <h2 className="mb-3 text-3xl font-semibold text-ocean-flashturq">Shop</h2>
       {/* Shop Items */}
-      <div className="grid grid-cols-3 gap-4 overflow-auto">
+      <div className="grid grid-cols-3 gap-3 overflow-auto rounded-md bg-ocean-lightgrey p-2 py-4 text-ocean-white">
         {shopItems.map((item) => (
           <div
             key={item.id}
-            className="bg-ocean-primary-light flex cursor-pointer flex-col items-center gap-1 rounded-lg"
+            className="bg-ocean-primary-light relative flex cursor-pointer flex-col items-center gap-1 overflow-hidden rounded-lg border border-ocean-primary-medium bg-ocean-primary-medium p-1"
             onClick={() => setSelectedItem(item)}
           >
             <Image
               src={`/shop/item-${item.id}.png`}
               alt={item.name}
-              className="h-16 w-16 rounded-lg"
+              className="mt-5 h-16 w-16 rounded-lg object-contain py-2 drop-shadow-[0px_10px_5px_#47c9af]"
               width={20000}
               height={20000}
             />
             <p className="mt-2 text-center text-sm font-bold">{item.name}</p>
+            <div className="absolute right-0 top-0 rounded-bl-xl bg-ocean-orange px-2 py-1 text-xs font-semibold capitalize">
+              {item.type}
+            </div>
           </div>
         ))}
       </div>

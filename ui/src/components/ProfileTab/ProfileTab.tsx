@@ -62,28 +62,29 @@ const currentUser: User = {
 };
 
 function ProfileTab({ userInfo, imageUrl }: Props) {
+  console.log('imageUrl: ', imageUrl);
   return (
     <div className="min-h-[100dvh] bg-ocean-primary-medium p-4 pb-20 text-ocean-white">
-      <div className="bg-primary-medium mb-6 flex items-center justify-between rounded-lg border py-2 pr-2">
-        <div className="flex w-fit cursor-pointer items-center gap-2 rounded-full px-2 text-white hover:opacity-80">
+      <div className="bg-primary-medium mb-6 flex items-center justify-between rounded-lg pr-2">
+        <div className="flex w-fit cursor-pointer items-start gap-2 rounded-full px-2 text-white hover:opacity-80">
           <Image
-            className="h-10 w-10 rounded-full border border-ocean-blue object-contain"
-            src={imageUrl}
+            className="h-40 w-auto object-contain"
+            src="/shop/skin/skin-1.png"
             alt="diver"
             width={20000}
             height={20000}
           />
-          <div>
-            <p className="font-semibold text-ocean-flashturq">
+          <div className="flex flex-col">
+            <p className="text-3xl font-semibold text-ocean-flashturq">
               {userInfo.first_name ?? userInfo.username ?? 'Hunter'}
             </p>
             <p className="text-sm">Rank: #{currentUser.rank}</p>
+            <div className="mt-3 animate-shake rounded-full bg-ocean-white/20 p-2 text-center text-sm shadow-inner shadow-ocean-white">
+              <p className="font-semibold text-ocean-white">
+                Score: {currentUser.score}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="animate-shake rounded-full bg-ocean-white/20 p-2 text-center text-sm shadow-inner shadow-ocean-white">
-          <p className="font-semibold text-ocean-white">
-            Score: {currentUser.score}
-          </p>
         </div>
       </div>
 
