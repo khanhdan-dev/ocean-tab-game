@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 interface Quest {
@@ -118,6 +119,14 @@ function QuestTab() {
 
   return (
     <div className="h-full min-h-[100dvh] w-full overflow-auto bg-ocean-primary-medium p-4 pb-24 text-ocean-white">
+      <Image
+        className="mx-auto mb-2 h-20 w-fit bg-firefly-radial object-contain"
+        src="/quest/quest.png"
+        alt="quest"
+        width={20000}
+        height={20000}
+      />
+
       {/* Quest Summary */}
       <div className="mb-6 rounded-lg bg-ocean-yellow p-4 text-ocean-primary-medium shadow-lg">
         <p className="text-sm font-semibold">

@@ -111,7 +111,7 @@ function ShopTab({ userInfo }: Props) {
   return (
     <div className="h-full min-h-[100dvh] overflow-auto bg-ocean-primary-medium p-4 pb-20 text-ocean-white">
       {/* User's Coin, Fish, and Shells Balance */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between gap-3">
         <Image
           className="h-40 w-auto bg-firefly-radial object-contain"
           src="/shop/skin/skin-1.png"
@@ -119,8 +119,14 @@ function ShopTab({ userInfo }: Props) {
           width={20000}
           height={20000}
         />
-        <div>
-          <h2 className="pb-3 text-center text-xl font-semibold">Resources</h2>
+        <div className="flex flex-col items-center justify-center gap-1">
+          <Image
+            className="h-16 w-fit bg-firefly-radial object-contain"
+            src="/shop/shop.png"
+            alt="shop"
+            width={20000}
+            height={20000}
+          />
           <div className="flex gap-2">{onRenderUserRewards()}</div>
           <div className="my-2 flex items-center gap-2">
             <button
@@ -198,10 +204,10 @@ function ShopTab({ userInfo }: Props) {
               {selectedItem.name}
             </h2>
             <p className="mt-2">{selectedItem.description}</p>
-            <p className="mt-2">Price: {selectedItem.price} coins</p>
+            <p className="mt-2">Price: {selectedItem.price} Azuryth</p>
 
             <p className="flex justify-end font-bold text-ocean-flashgreen">
-              {selectedItem.price * quantity} coins
+              {selectedItem.price * quantity} Azuryth
             </p>
             <div className="mt-4 flex h-full w-full justify-stretch overflow-hidden rounded">
               <input

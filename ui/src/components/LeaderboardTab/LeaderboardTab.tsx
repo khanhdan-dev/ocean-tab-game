@@ -51,9 +51,15 @@ function LeaderboardTab({ userInfo }: Props) {
   ];
   return (
     <div className="min-h-screen bg-ocean-primary-medium px-4 pb-20 text-ocean-white">
-      <h1 className="sticky top-0 mb-2 w-full bg-ocean-primary-medium py-4 text-center text-2xl font-bold">
-        Leaderboard
-      </h1>
+      <div className="sticky top-0 mb-2 w-full bg-ocean-primary-medium py-4 text-center text-2xl font-bold">
+        <Image
+          className="mx-auto h-14 w-fit bg-firefly-radial object-contain"
+          src="/leaderboard/leaderboard.png"
+          alt="leaderboard"
+          width={20000}
+          height={20000}
+        />
+      </div>
 
       <div className="space-y-4">
         {leaderboard.map((player) => (

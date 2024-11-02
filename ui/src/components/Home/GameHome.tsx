@@ -162,7 +162,7 @@ function GameHome({ telegramUser }: Props) {
           </TabPanel>
 
           <TabPanel className="h-full bg-ocean-primary-medium text-white">
-            <ProfileTab userInfo={userInfo} imageUrl={imageUrl} />
+            <ProfileTab userInfo={userInfo} />
           </TabPanel>
         </TabPanels>
 
