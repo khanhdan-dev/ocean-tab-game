@@ -53,7 +53,7 @@ function LeaderboardTab({ userInfo }: Props) {
     <div className="min-h-screen bg-ocean-primary-medium px-4 pb-20 text-ocean-white">
       <div className="sticky top-0 mb-2 w-full bg-ocean-primary-medium py-4 text-center text-2xl font-bold">
         <Image
-          className="mx-auto h-14 w-fit bg-firefly-radial object-contain"
+          className="h-auto w-full bg-firefly-radial object-contain"
           src="/leaderboard/leaderboard.png"
           alt="leaderboard"
           width={20000}
@@ -73,7 +73,7 @@ function LeaderboardTab({ userInfo }: Props) {
                   : player.rank === 3
                     ? 'bg-orange-400'
                     : 'border bg-ocean-primary-medium text-sm'
-            } ${player.isCurrentUser ? 'sticky top-16 border-4 border-green-500' : ''}`}
+            } ${player.isCurrentUser ? 'sticky top-44 border-4 border-green-500' : ''}`}
           >
             {player.rank > 0 && player.rank <= 3 ? (
               <div className="w-14">

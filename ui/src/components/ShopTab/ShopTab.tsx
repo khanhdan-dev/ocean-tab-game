@@ -113,7 +113,7 @@ function ShopTab({ userInfo }: Props) {
       {/* User's Coin, Fish, and Shells Balance */}
       <div className="flex items-center justify-between gap-3">
         <Image
-          className="h-40 w-auto bg-firefly-radial object-contain"
+          className="h-48 w-auto bg-firefly-radial object-contain"
           src="/shop/skin/skin-1.png"
           alt="diver"
           width={20000}
@@ -121,7 +121,7 @@ function ShopTab({ userInfo }: Props) {
         />
         <div className="flex flex-col items-center justify-center gap-1">
           <Image
-            className="h-16 w-fit bg-firefly-radial object-contain"
+            className="h-auto w-full bg-firefly-radial object-contain px-3 pb-2"
             src="/shop/shop.png"
             alt="shop"
             width={20000}
@@ -174,7 +174,7 @@ function ShopTab({ userInfo }: Props) {
       </div>
 
       {/* Shop Items */}
-      <div className="grid grid-cols-3 gap-3 overflow-auto rounded-md bg-ocean-lightgrey p-2 py-4 text-ocean-white">
+      <div className="mt-5 grid grid-cols-3 gap-3 overflow-auto rounded-md bg-ocean-lightgrey p-2 py-4 text-ocean-white">
         {shopItems.map((item) => (
           <div
             key={item.id}
