@@ -95,7 +95,10 @@ function GameTab({
     ];
     return rewardList.map((r) => {
       return (
-        <div key={r.name} className="flex items-center gap-2 text-sm">
+        <div
+          key={r.name}
+          className="flex items-center justify-between gap-2 text-sm"
+        >
           <Image
             src={`/resources/${r.name.toLowerCase()}.png`}
             alt={r.name}
@@ -122,9 +125,9 @@ function GameTab({
               height={20000}
             />
           </div>
-          <div className="absolute left-3 right-3 top-3 z-20">
+          <div className="absolute left-3 right-3 top-3">
             <div className="flex w-full items-start justify-between gap-3">
-              <div className="flex flex-col items-start gap-2">
+              <div className="flex flex-col gap-2 rounded-xl border border-white/20 bg-ocean-turquoise/80 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80">
                 <div className="flex items-center justify-center gap-1 text-3xl text-white">
                   <GiFishingNet
                     className="inset-0 animate-wrap-net font-thin"
@@ -138,7 +141,7 @@ function GameTab({
                   {onRenderUserRewards()}
                 </div>
               </div>
-              <div className="flex flex-col justify-end gap-2">
+              <div className="z-30 flex flex-col justify-end gap-2">
                 <Image
                   className="h-10 w-auto"
                   src={'/control/control-5.png'}
@@ -220,14 +223,7 @@ function GameTab({
               onClick={() => setIsPlayingMusic(!isPlayingMusic)}
             />
           </div>
-          <div className="flex -translate-y-28 flex-col items-center justify-start gap-20">
-            <Image
-              className="h-40 w-auto"
-              src={'/logo/logo.png'}
-              alt="diver"
-              width={20000}
-              height={20000}
-            />
+          <div className="flex flex-col items-center justify-start gap-20">
             <div onClick={() => setIsPlayingGame(!isPlayingGame)}>
               <Image
                 className="h-20 w-auto animate-shake-infinite"

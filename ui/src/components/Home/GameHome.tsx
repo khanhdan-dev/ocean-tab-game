@@ -19,6 +19,7 @@ import LeaderboardTab from '../LeaderboardTab/LeaderboardTab';
 import { useRouter, useSearchParams } from 'next/navigation';
 import QuestTab from '../QuestTab/QuestTab';
 import ShopTab from '../ShopTab/ShopTab';
+import GameProgressBar from '../GameProgressBar';
 
 interface Props {
   telegramUser: ITelegramUserInfo;
@@ -28,11 +29,12 @@ function GameHome({ telegramUser }: Props) {
   const searchParams = useSearchParams();
   const currentTab = searchParams.get('tab');
   const router = useRouter();
-  const { data: userInfo } = useGetUserInfo(telegramUser);
+  const { data: userInfo, isSuccess } = useGetUserInfo(telegramUser);
   const { validateUrl } = useUrlValidation();
   const [isOpenGreetingDialog, setIsOpenGreetingDialog] = useState(true);
   const [isPlayingGame, setIsPlayingGame] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(Number(currentTab) ?? 0);
+  const [showProgress, setShowProgress] = useState(true);
 
   // Function to handle tab class styling
   const getTabClasses = (selected: boolean) =>
@@ -89,6 +91,17 @@ function GameHome({ telegramUser }: Props) {
     userInfo?.photo_url && validateUrl(userInfo?.photo_url)
       ? userInfo?.photo_url
       : '/diver/diver-avt.png'; // Default image if the URL is invalid
+
+  // Hide progress bar when complete
+  const handleComplete = () => {
+    setTimeout(() => setShowProgress(false), 1800);
+  };
+
+  if (showProgress) {
+    return (
+      <GameProgressBar isComplete={isSuccess} onComplete={handleComplete} />
+    );
+  }
 
   if (!userInfo) {
     return <></>;
