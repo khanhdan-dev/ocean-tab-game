@@ -1,8 +1,9 @@
 'use client';
-import { ITelegramUserInfo } from 'kan/types';
+import { IFishItem, ITelegramUserInfo } from 'kan/types';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { GiFishingNet } from 'react-icons/gi';
+import { fishData } from 'kan/utils/fishData';
 
 interface Props {
   handleTabClick: () => void;
@@ -22,27 +23,55 @@ type Species = {
   animationDirection: string;
   species: string; // URL of the species image
   direction: 'left' | 'right'; // Direction of the fish movement
+  hp: number;
+  requiredAttacks: number;
 };
 
 // Helper function to generate a random image path
-const getRandomImage = (count: number) => {
+// const getRandomImage = (count: number) => {
+//   const randomIndex = Math.floor(Math.random() * count) + 1; // Generate random number between 1 and count
+//   return `/fish/fish-${randomIndex}.png`;
+// };
+
+// Helper function to generate a random image path
+const getRandomFish = (count: number) => {
   const randomIndex = Math.floor(Math.random() * count) + 1; // Generate random number between 1 and count
-  return `/fish/fish-${randomIndex}.png`;
+  return fishData[randomIndex - 1];
+};
+
+const getSize = (size: IFishItem['size']) => {
+  switch (size) {
+    case 'small':
+      return 0.5;
+
+    case 'medium':
+      return 1;
+
+    case 'large':
+      return 1.5;
+
+    default:
+      return 0.5;
+  }
 };
 
 const createSpecies = (imageCount: number): Species => {
   const directions: Array<Species['direction']> = ['left', 'right'];
   const direction = directions[Math.floor(Math.random() * directions.length)];
+  const fish = getRandomFish(imageCount);
+
   return {
     id: Math.random(),
     top: `${Math.random() * 100}%`,
     left: direction === 'left' ? '0' : 'unset',
     right: direction === 'right' ? '0' : 'unset',
-    size: `${Math.random() * 20 + 30}px`, // Random size between 10px and 30px
+    size: `${getSize(fish.size) * 20 + 30}px`, // Random size between 10px and 30px
     animationDuration: `${Math.random() * 5 + 5}s`, // Random speed between 5s and 10s
     animationDirection: Math.random() > 0.5 ? 'normal' : 'reverse', // Randomize direction
-    species: getRandomImage(imageCount), // Use the helper to get a random fish image
+    species: fish.image, // Use the helper to get a random fish image
     direction,
+    hp: fish.hp,
+    requiredAttacks: fish.requiredAttacks,
   };
 };
 
@@ -78,15 +107,29 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
   }, [caughtFish.isCaught]);
 
   const handleCatchFish = (specie: Species) => {
-    const clickSound = new Audio('/sounds/reward.mp3'); // Path to your sound file
-    clickSound.play(); // Play the sound
-    setCaughtFish({
-      id: specie.id,
-      isCaught: true,
-    });
-    setTimeout(() => {
-      handleTabClick();
-    }, 200);
+    setSpecies((currentSpecies) =>
+      currentSpecies.map((s) =>
+        s.id === specie.id
+          ? {
+              ...s,
+              requiredAttacks: s.requiredAttacks - 1,
+            }
+          : s,
+      ),
+    );
+
+    const updatedFish = species.find((s) => s.id === specie.id);
+    if (updatedFish?.requiredAttacks === 1) {
+      const clickSound = new Audio('/sounds/reward.mp3'); // Path to your sound file
+      clickSound.play(); // Play the sound
+      setCaughtFish({
+        id: specie.id,
+        isCaught: true,
+      });
+      setTimeout(() => {
+        handleTabClick();
+      }, 200);
+    }
   };
 
   return (
@@ -108,22 +151,36 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
           }}
           onClick={() => handleCatchFish(specie)}
         >
-          {/* Render the species as an image */}
-          <Image
-            src={specie.species}
-            alt={`Species ${specie.id}`}
-            className={`fish ${
-              specie.direction === 'left' ? 'scale-x-100' : '-scale-x-100'
-            }`} // Set the size of the species image
-            width={20000}
-            height={20000}
-            style={{
-              height: specie.size,
-              width: 'auto', // Set the size dynamically
-            }}
-          />
+          <div className="flex flex-col items-center">
+            <Image
+              src={specie.species}
+              alt={`Species ${specie.id}`}
+              className={`fish ${
+                specie.direction === 'left' ? 'scale-x-100' : '-scale-x-100'
+              }`}
+              width={20000}
+              height={20000}
+              style={{
+                height: specie.size,
+                width: 'auto',
+              }}
+            />
+            <div
+              className={`${specie.hp === specie.requiredAttacks ? 'hidden' : ''} animate-showHp h-2 rounded-full bg-ocean-flashturq bg-opacity-25 bg-firefly-radial brightness-200 backdrop-blur-md`}
+              style={{
+                width: specie.hp * 10,
+              }}
+            >
+              <div
+                className={`h-2 rounded-full bg-ocean-flashred bg-opacity-85 backdrop-blur-md`}
+                style={{
+                  width: specie.requiredAttacks * 10,
+                }}
+              ></div>
+            </div>
+          </div>
 
-          {caughtFish.id === specie.id && (
+          {specie.requiredAttacks === 0 && (
             <GiFishingNet
               className="absolute inset-0 m-auto animate-wrap-net font-thin text-gray-200"
               style={{

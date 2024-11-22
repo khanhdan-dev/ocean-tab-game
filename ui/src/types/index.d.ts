@@ -18,3 +18,22 @@ export interface ITelegramUserInfo {
   score?: number;
   resources: UserResources;
 }
+
+export interface Rewards {
+  fish: number;
+  seashells: number;
+  tokens: number;
+}
+
+export interface IFishItem {
+  id: string;
+  name: string;
+  image: string;
+  hp: number;
+  speed: number;
+  size: 'small' | 'medium' | 'large';
+  rarity: 'common' | 'rare' | 'epic' | 'legendary';
+  requiredAttacks: number;
+  rewards: Rewards;
+  habitat: string;
+}

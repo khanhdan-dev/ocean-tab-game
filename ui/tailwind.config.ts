@@ -57,6 +57,11 @@ const config: Config = {
           '50%': { transform: 'translateY(-50vh) scale(1)', opacity: '0.7' },
           '100%': { transform: 'translateY(-100vh) scale(0.5)', opacity: '0' },
         },
+        showHp: {
+          '0%': { opacity: '1' },
+          '50%': { opacity: '0.7' },
+          '100%': { opacity: '0.5' },
+        },
       },
       animation: {
         shake: 'shake 0.5s ease-in-out', // Softer and slower shake
@@ -64,6 +69,7 @@ const config: Config = {
         'pop-up': 'pop-up 0.3s ease-in-out', // Softer and slower shake
         'wrap-net': 'wrap-net 0.3s ease-in-out forwards',
         bubble: 'bubble 50s infinite',
+        showHp: 'showHp 2s ease-in-out infinite',
       },
     },
   },
