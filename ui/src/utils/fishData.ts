@@ -211,7 +211,7 @@ export const fishData: IFishItem[] = [
   },
   {
     id: 'fish_014',
-    name: 'Octopus',
+    name: 'Angelfish',
     image: '/fish/fish-14.png',
     speed: 2,
     size: 'medium',

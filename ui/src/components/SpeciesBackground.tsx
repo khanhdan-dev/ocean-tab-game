@@ -82,6 +82,7 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
     isCaught: false,
   };
   const [caughtFish, setCaughtFish] = useState(initialCaughtFish);
+  const [attackedFishId, setAttackedFishId] = useState<number | null>(null);
 
   useEffect(() => {
     if (!isOpenRewardDialog) {
@@ -107,6 +108,14 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
   }, [caughtFish.isCaught]);
 
   const handleCatchFish = (specie: Species) => {
+    // Trigger attack animation
+    setAttackedFishId(specie.id);
+
+    // Reset attack animation after a short delay
+    setTimeout(() => {
+      setAttackedFishId(null);
+    }, 500);
+
     setSpecies((currentSpecies) =>
       currentSpecies.map((s) =>
         s.id === specie.id
@@ -151,7 +160,11 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
           }}
           onClick={() => handleCatchFish(specie)}
         >
-          <div className="flex flex-col items-center">
+          <div
+            className={`flex flex-col items-center ${
+              attackedFishId === specie.id ? 'animate-attack-effect' : ''
+            }`}
+          >
             <Image
               src={specie.species}
               alt={`Species ${specie.id}`}
@@ -166,7 +179,7 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
               }}
             />
             <div
-              className={`${specie.hp === specie.requiredAttacks ? 'hidden' : ''} animate-showHp h-2 rounded-full bg-ocean-flashturq bg-opacity-25 bg-firefly-radial brightness-200 backdrop-blur-md`}
+              className={`${specie.hp === specie.requiredAttacks ? 'hidden' : ''} h-2 animate-showHp rounded-full bg-ocean-flashturq bg-opacity-25 bg-firefly-radial brightness-200 backdrop-blur-md`}
               style={{
                 width: specie.hp * 10,
               }}
