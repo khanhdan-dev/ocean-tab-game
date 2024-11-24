@@ -1,9 +1,9 @@
 'use client';
+import { getRandomFish } from 'kan/hooks/useRandomValue';
 import { IFishItem, ITelegramUserInfo } from 'kan/types';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { GiFishingNet } from 'react-icons/gi';
-import { fishData } from 'kan/utils/fishData';
 
 interface Props {
   handleTabClick: () => void;
@@ -27,45 +27,33 @@ type Species = {
   requiredAttacks: number;
 };
 
-// Helper function to generate a random image path
-// const getRandomImage = (count: number) => {
-//   const randomIndex = Math.floor(Math.random() * count) + 1; // Generate random number between 1 and count
-//   return `/fish/fish-${randomIndex}.png`;
-// };
-
-// Helper function to generate a random image path
-const getRandomFish = (count: number) => {
-  const randomIndex = Math.floor(Math.random() * count) + 1; // Generate random number between 1 and count
-  return fishData[randomIndex - 1];
-};
-
 const getSize = (size: IFishItem['size']) => {
   switch (size) {
     case 'small':
-      return 0.5;
+      return 30;
 
     case 'medium':
-      return 1;
+      return 40;
 
     case 'large':
-      return 1.5;
+      return 50;
 
     default:
-      return 0.5;
+      return 30;
   }
 };
 
-const createSpecies = (imageCount: number): Species => {
+const createSpecies = (): Species => {
   const directions: Array<Species['direction']> = ['left', 'right'];
   const direction = directions[Math.floor(Math.random() * directions.length)];
-  const fish = getRandomFish(imageCount);
+  const fish = getRandomFish();
 
   return {
     id: Math.random(),
     top: `${Math.random() * 100}%`,
     left: direction === 'left' ? '0' : 'unset',
     right: direction === 'right' ? '0' : 'unset',
-    size: `${getSize(fish.size) * 20 + 30}px`, // Random size between 10px and 30px
+    size: `${getSize(fish.size)}px`, // Random size between 10px and 30px
     animationDuration: `${Math.random() * 5 + 5}s`, // Random speed between 5s and 10s
     animationDirection: Math.random() > 0.5 ? 'normal' : 'reverse', // Randomize direction
     species: fish.image, // Use the helper to get a random fish image
@@ -94,7 +82,7 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
   // Use the useRandomImage hook to generate a random fish image
   useEffect(() => {
     const addSpeciesPeriodically = () => {
-      const newSpecies = createSpecies(16); // Pass the number of fish images you have
+      const newSpecies = createSpecies(); // Pass the number of fish images you have
       setSpecies((currentSpecies) => [
         ...currentSpecies.slice(-10), // Keep the last 14 species
         newSpecies,
