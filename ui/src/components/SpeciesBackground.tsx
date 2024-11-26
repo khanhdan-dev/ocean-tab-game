@@ -1,16 +1,15 @@
 'use client';
 import { getRandomFish } from 'kan/hooks/useRandomValue';
-import { IFishItem, ITelegramUserInfo } from 'kan/types';
+import { IFishItem, ITelegramUserInfo, Rewards } from 'kan/types';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { GiFishingNet } from 'react-icons/gi';
 
 interface Props {
-  handleTabClick: () => void;
-  isOpenRewardDialog: boolean;
+  handleTabClick: (reward: Rewards) => void;
   userInfo: ITelegramUserInfo;
-  reward: string | null;
   currentTurns: number;
+  setIsOpenTurnEmpty: Dispatch<SetStateAction<boolean>>;
 }
 
 type Species = {
@@ -25,21 +24,22 @@ type Species = {
   direction: 'left' | 'right'; // Direction of the fish movement
   hp: number;
   requiredAttacks: number;
+  reward: Rewards;
 };
 
 const getSize = (size: IFishItem['size']) => {
   switch (size) {
     case 'small':
-      return 30;
-
-    case 'medium':
       return 40;
 
+    case 'medium':
+      return 60;
+
     case 'large':
-      return 50;
+      return 100;
 
     default:
-      return 30;
+      return 40;
   }
 };
 
@@ -60,10 +60,19 @@ const createSpecies = (): Species => {
     direction,
     hp: fish.hp,
     requiredAttacks: fish.requiredAttacks,
+    reward: {
+      fish: fish.rewards.fish,
+      shells: fish.rewards.shells,
+      coins: fish.rewards.coins,
+    },
   };
 };
 
-const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
+const SpeciesBackground = ({
+  handleTabClick,
+  currentTurns,
+  setIsOpenTurnEmpty,
+}: Props) => {
   const [species, setSpecies] = useState<Species[]>([]);
   const initialCaughtFish = {
     id: 0,
@@ -73,11 +82,16 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
   const [attackedFishId, setAttackedFishId] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!isOpenRewardDialog) {
-      setSpecies(species.filter((s) => s.id !== caughtFish.id));
-      setCaughtFish(initialCaughtFish);
+    if (caughtFish.isCaught) {
+      setTimeout(
+        () => {
+          setSpecies(species.filter((s) => s.id !== caughtFish.id));
+          setCaughtFish(initialCaughtFish);
+        },
+        currentTurns === 0 ? 0 : 500,
+      );
     }
-  }, [isOpenRewardDialog]);
+  }, [caughtFish.isCaught]);
 
   // Use the useRandomImage hook to generate a random fish image
   useEffect(() => {
@@ -97,7 +111,7 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
 
   const handleCatchFish = (specie: Species) => {
     const clickSound = new Audio('/sounds/hit.mp3'); // Path to your sound file
-    if (specie.requiredAttacks !== 0) {
+    if (specie.requiredAttacks !== 1) {
       clickSound.play(); // Play the sound
     }
 
@@ -129,7 +143,7 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
         isCaught: true,
       });
       setTimeout(() => {
-        handleTabClick();
+        handleTabClick(specie.reward);
       }, 200);
     }
   };
@@ -151,7 +165,13 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
                 ? 'paused'
                 : 'running',
           }}
-          onClick={() => handleCatchFish(specie)}
+          onClick={() => {
+            if (currentTurns === 0) {
+              setIsOpenTurnEmpty(true);
+            } else {
+              handleCatchFish(specie);
+            }
+          }}
         >
           <div
             className={`flex flex-col items-center ${
@@ -186,15 +206,17 @@ const SpeciesBackground = ({ handleTabClick, isOpenRewardDialog }: Props) => {
             </div>
           </div>
 
-          {specie.requiredAttacks === 0 && (
-            <GiFishingNet
-              className="absolute inset-0 m-auto animate-wrap-net font-thin text-gray-200"
-              style={{
-                height: `calc(${specie.size} + 50px)`,
-                width: 'auto', // Set the size dynamically
-              }}
-            />
-          )}
+          {caughtFish.id === specie.id &&
+            currentTurns !== 0 &&
+            specie.requiredAttacks === 0 && (
+              <GiFishingNet
+                className="absolute inset-0 m-auto animate-wrap-net font-thin text-gray-200"
+                style={{
+                  height: `calc(${specie.size} + 50px)`,
+                  width: 'auto', // Set the size dynamically
+                }}
+              />
+            )}
         </button>
       ))}
     </div>

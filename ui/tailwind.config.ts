@@ -62,6 +62,10 @@ const config: Config = {
           '50%': { opacity: '0.7' },
           '100%': { opacity: '0.5' },
         },
+        moveUp: {
+          '0%': { top: '15%' },
+          '100%': { top: '5%' },
+        },
       },
       animation: {
         shake: 'shake 0.5s ease-in-out', // Softer and slower shake
@@ -70,6 +74,7 @@ const config: Config = {
         'wrap-net': 'wrap-net 0.3s ease-in-out forwards',
         bubble: 'bubble 50s infinite',
         showHp: 'showHp 2s ease-in-out infinite',
+        moveUp: 'moveUp 1s ease-out forwards',
       },
     },
   },

@@ -20,9 +20,9 @@ export interface ITelegramUserInfo {
 }
 
 export interface Rewards {
+  coins: number;
   fish: number;
-  seashells: number;
-  tokens: number;
+  shells: number;
 }
 
 export interface IFishItem {
