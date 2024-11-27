@@ -105,11 +105,6 @@ const SpeciesBackground = ({ handleTabClick, currentTurns }: Props) => {
   }, [caughtFish.isCaught]);
 
   const handleCatchFish = (specie: Species) => {
-    const clickSound = new Audio('/sounds/hit.mp3'); // Path to your sound file
-    if (specie.requiredAttacks !== 1) {
-      clickSound.play(); // Play the sound
-    }
-
     // Trigger attack animation
     setAttackedFishId(specie.id);
 
