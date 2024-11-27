@@ -64,24 +64,26 @@ function GameTab({
   }, [isVisible, position]);
 
   const handleTabClick = (reward: Rewards) => {
-    setCurrentTurns(currentTurns - 1);
-    setUserCoins(userCoins + reward.coins);
-    setUserShells(userShells + reward.shells);
-    setUserFish(userFish + reward.fish);
+    if (currentTurns > 0) {
+      setCurrentTurns(currentTurns - 1);
+      setUserCoins(userCoins + reward.coins);
+      setUserShells(userShells + reward.shells);
+      setUserFish(userFish + reward.fish);
 
-    showBox(reward);
+      showBox(reward);
 
-    if (reward && currentTurns > 0) {
-      const resources: Rewards = {
-        fish: userInfo.resources.fish + reward.fish,
-        shells: userInfo.resources.shells + reward.shells,
-        coins: userInfo.resources.coins + reward.coins,
-      };
+      if (reward && currentTurns > 0) {
+        const resources: Rewards = {
+          fish: userInfo.resources.fish + reward.fish,
+          shells: userInfo.resources.shells + reward.shells,
+          coins: userInfo.resources.coins + reward.coins,
+        };
 
-      putUpdateUserMutate({
-        userId: String(userInfo.id),
-        user: { resources, turns: currentTurns - 1 },
-      });
+        putUpdateUserMutate({
+          userId: String(userInfo.id),
+          user: { resources, turns: currentTurns - 1 },
+        });
+      }
     }
   };
 
@@ -297,7 +299,7 @@ function GameTab({
         <div
           key={box.id}
           onAnimationEnd={() => handleAnimationEnd(box.id)}
-          className="animate-moveUp fixed z-50 flex w-fit items-center justify-center gap-2 bg-firefly-radial text-ocean-blue transition-transform"
+          className="fixed z-50 flex w-fit animate-moveUp items-center justify-center gap-2 bg-firefly-radial text-ocean-blue transition-transform"
           style={{
             top: `${position}%`, // Dynamic position for vertical movement
           }}
