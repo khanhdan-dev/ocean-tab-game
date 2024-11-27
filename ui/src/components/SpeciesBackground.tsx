@@ -55,7 +55,7 @@ const createSpecies = (): Species => {
     left: direction === 'left' ? '0' : 'unset',
     right: direction === 'right' ? '0' : 'unset',
     size: `${getSize(fish.size)}px`, // Random size between 10px and 30px
-    animationDuration: `${Math.random() * (fish.size === 'large' ? 20 : 5) + 8}s`, // Random speed between 5s and 10s
+    animationDuration: `${Math.random() * (fish.size === 'large' ? 10 : 5) + 8}s`, // Random speed between 5s and 10s
     animationDirection: Math.random() > 0.5 ? 'normal' : 'reverse', // Randomize direction
     species: fish.image, // Use the helper to get a random fish image
     direction,
