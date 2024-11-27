@@ -34,21 +34,22 @@ export class UserService {
     return user.save();
   }
 
-  @Cron('0 0 * * *', {
-    timeZone: 'UTC', // Set time zone to UTC
-  })
+  @Cron('*/5 * * * * *', { timeZone: 'UTC' })
   async handleCronAddTurnsEveryDay() {
-    const userList: User[] = await this.userModel.find().exec();
-
-    const bulkOps = userList.map((u) => ({
-      updateOne: {
-        filter: { id: u.id }, // Use the MongoDB ObjectId
-        update: { $set: { turns: u.turns + 20 } },
-      },
-    }));
-
-    if (bulkOps.length > 0) {
-      await this.userModel.bulkWrite(bulkOps);
+    try {
+      const userList: User[] = await this.userModel.find().exec();
+      const bulkOps = userList.map((u) => ({
+        updateOne: {
+          filter: { id: u.id },
+          update: { $set: { turns: (u.turns || 0) + 20 } },
+        },
+      }));
+      if (bulkOps.length > 0) {
+        await this.userModel.bulkWrite(bulkOps);
+      }
+      console.log('Cron job executed successfully');
+    } catch (error) {
+      console.error('Error in cron job:', error);
     }
   }
 
