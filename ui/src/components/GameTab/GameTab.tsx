@@ -264,7 +264,7 @@ function GameTab({
               onClick={() => setSelectedIndex(3)}
             >
               <Image
-                className="h-10 w-auto animate-shake"
+                className="h-10 w-auto animate-shake rounded-full"
                 src={imageUrl}
                 alt="diver"
                 width={20000}

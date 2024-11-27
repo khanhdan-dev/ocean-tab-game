@@ -25,6 +25,7 @@ type Species = {
   hp: number;
   requiredAttacks: number;
   reward: Rewards;
+  sizeString: 'small' | 'medium' | 'large';
 };
 
 const getSize = (size: IFishItem['size']) => {
@@ -54,11 +55,12 @@ const createSpecies = (): Species => {
     left: direction === 'left' ? '0' : 'unset',
     right: direction === 'right' ? '0' : 'unset',
     size: `${getSize(fish.size)}px`, // Random size between 10px and 30px
-    animationDuration: `${Math.random() * 5 + 5}s`, // Random speed between 5s and 10s
+    animationDuration: `${Math.random() * (fish.size === 'large' ? 20 : 5) + 8}s`, // Random speed between 5s and 10s
     animationDirection: Math.random() > 0.5 ? 'normal' : 'reverse', // Randomize direction
     species: fish.image, // Use the helper to get a random fish image
     direction,
     hp: fish.hp,
+    sizeString: fish.size,
     requiredAttacks: fish.requiredAttacks,
     reward: {
       fish: fish.rewards.fish,
@@ -81,6 +83,7 @@ const SpeciesBackground = ({
   const [caughtFish, setCaughtFish] = useState(initialCaughtFish);
   const [attackedFishId, setAttackedFishId] = useState<number | null>(null);
 
+  // Use the useRandomImage hook to generate a random fish image
   useEffect(() => {
     if (caughtFish.isCaught) {
       setTimeout(
@@ -91,10 +94,6 @@ const SpeciesBackground = ({
         currentTurns === 0 ? 0 : 500,
       );
     }
-  }, [caughtFish.isCaught]);
-
-  // Use the useRandomImage hook to generate a random fish image
-  useEffect(() => {
     const addSpeciesPeriodically = () => {
       const newSpecies = createSpecies(); // Pass the number of fish images you have
       setSpecies((currentSpecies) => [
@@ -107,7 +106,13 @@ const SpeciesBackground = ({
       const interval = setInterval(addSpeciesPeriodically, 1000); // Add species every second
       return () => clearInterval(interval); // Clean up the interval on unmount
     }
-  }, [caughtFish.isCaught]);
+  }, [
+    caughtFish.isCaught,
+    currentTurns,
+    caughtFish.id,
+    initialCaughtFish,
+    species,
+  ]);
 
   const handleCatchFish = (specie: Species) => {
     const clickSound = new Audio('/sounds/hit.mp3'); // Path to your sound file
@@ -159,7 +164,7 @@ const SpeciesBackground = ({
             top: specie.top,
             left: specie.left,
             right: !isNaN(Number(specie.right)) ? -specie.right : 'unset',
-            animation: `move-${specie.direction} ${specie.animationDuration} forwards`,
+            animation: `move-${specie.direction}${specie.sizeString === 'large' ? '-large' : ''} ${specie.animationDuration} forwards`,
             animationPlayState:
               caughtFish.id === specie.id && caughtFish.isCaught
                 ? 'paused'
