@@ -2,14 +2,13 @@
 import { getRandomFish } from 'kan/hooks/useRandomValue';
 import { IFishItem, ITelegramUserInfo, Rewards } from 'kan/types';
 import Image from 'next/image';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GiFishingNet } from 'react-icons/gi';
 
 interface Props {
   handleTabClick: (reward: Rewards) => void;
   userInfo: ITelegramUserInfo;
   currentTurns: number;
-  setIsOpenTurnEmpty: Dispatch<SetStateAction<boolean>>;
 }
 
 type Species = {
@@ -68,11 +67,7 @@ const createSpecies = (): Species => {
   };
 };
 
-const SpeciesBackground = ({
-  handleTabClick,
-  currentTurns,
-  setIsOpenTurnEmpty,
-}: Props) => {
+const SpeciesBackground = ({ handleTabClick, currentTurns }: Props) => {
   const [species, setSpecies] = useState<Species[]>([]);
   const initialCaughtFish = {
     id: 0,
@@ -166,11 +161,7 @@ const SpeciesBackground = ({
                 : 'running',
           }}
           onClick={() => {
-            if (currentTurns === 0) {
-              setIsOpenTurnEmpty(true);
-            } else {
-              handleCatchFish(specie);
-            }
+            handleCatchFish(specie);
           }}
         >
           <div

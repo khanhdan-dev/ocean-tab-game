@@ -64,7 +64,9 @@ function GameTab({
   }, [isVisible, position]);
 
   const handleTabClick = (reward: Rewards) => {
-    if (currentTurns > 0) {
+    if (currentTurns === 0) {
+      setIsOpenTurnEmpty(true);
+    } else {
       setCurrentTurns(currentTurns - 1);
       setUserCoins(userCoins + reward.coins);
       setUserShells(userShells + reward.shells);
@@ -252,7 +254,6 @@ function GameTab({
             handleTabClick={handleTabClick}
             userInfo={userInfo}
             currentTurns={currentTurns}
-            setIsOpenTurnEmpty={setIsOpenTurnEmpty}
           />
         </>
       ) : (
