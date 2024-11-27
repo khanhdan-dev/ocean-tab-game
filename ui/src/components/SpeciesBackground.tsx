@@ -2,13 +2,14 @@
 import { getRandomFish } from 'kan/hooks/useRandomValue';
 import { IFishItem, ITelegramUserInfo, Rewards } from 'kan/types';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { GiFishingNet } from 'react-icons/gi';
 
 interface Props {
   handleTabClick: (reward: Rewards) => void;
   userInfo: ITelegramUserInfo;
   currentTurns: number;
+  setIsOpenTurnEmpty: Dispatch<SetStateAction<boolean>>;
 }
 
 type Species = {
@@ -67,7 +68,11 @@ const createSpecies = (): Species => {
   };
 };
 
-const SpeciesBackground = ({ handleTabClick, currentTurns }: Props) => {
+const SpeciesBackground = ({
+  handleTabClick,
+  currentTurns,
+  setIsOpenTurnEmpty,
+}: Props) => {
   const [species, setSpecies] = useState<Species[]>([]);
   const initialCaughtFish = {
     id: 0,
@@ -105,6 +110,11 @@ const SpeciesBackground = ({ handleTabClick, currentTurns }: Props) => {
   }, [caughtFish.isCaught]);
 
   const handleCatchFish = (specie: Species) => {
+    const clickSound = new Audio('/sounds/hit.mp3'); // Path to your sound file
+    if (specie.requiredAttacks !== 1) {
+      clickSound.play(); // Play the sound
+    }
+
     // Trigger attack animation
     setAttackedFishId(specie.id);
 
@@ -156,7 +166,11 @@ const SpeciesBackground = ({ handleTabClick, currentTurns }: Props) => {
                 : 'running',
           }}
           onClick={() => {
-            handleCatchFish(specie);
+            if (currentTurns === 0) {
+              setIsOpenTurnEmpty(true);
+            } else {
+              handleCatchFish(specie);
+            }
           }}
         >
           <div

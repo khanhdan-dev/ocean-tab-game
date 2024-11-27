@@ -64,9 +64,7 @@ function GameTab({
   }, [isVisible, position]);
 
   const handleTabClick = (reward: Rewards) => {
-    if (currentTurns === 0) {
-      setIsOpenTurnEmpty(true);
-    } else {
+    if (currentTurns > 0) {
       setCurrentTurns(currentTurns - 1);
       setUserCoins(userCoins + reward.coins);
       setUserShells(userShells + reward.shells);
@@ -147,6 +145,35 @@ function GameTab({
 
   return (
     <>
+      <dialog
+        open={isOpenTurnEmpty}
+        className="z-50 mx-auto h-[100dvh] w-[90vw] bg-transparent"
+      >
+        <div className="z-50 flex h-full animate-shake items-center justify-center">
+          <div className="flex w-4/5 flex-col items-center gap-3 rounded-xl bg-blue-600 px-3 py-5 text-white">
+            <div className="flex items-center justify-between gap-4">
+              <Image
+                className="h-[20vh] w-auto bg-firefly-radial"
+                src={`/diver/diver-greeting.png`}
+                alt="diver"
+                width={20000}
+                height={20000}
+              />
+              <h2 className="text-lg font-semibold">
+                Out of turn, please comeback tomorrow!
+              </h2>
+            </div>
+            <form method="dialog">
+              <button
+                className="rounded-lg bg-emerald-500 px-3 py-1"
+                onClick={() => setIsOpenTurnEmpty(false)}
+              >
+                OK
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
       {isPlayingGame ? (
         <>
           <div className="flex h-[100dvh] flex-col items-center justify-end pb-10 text-center">
@@ -194,35 +221,7 @@ function GameTab({
               </div>
             </div>
           </div>
-          <dialog
-            open={isOpenTurnEmpty}
-            className="z-50 mx-auto h-[100dvh] w-[90vw] bg-transparent"
-          >
-            <div className="z-50 flex h-full animate-shake items-center justify-center">
-              <div className="flex w-4/5 flex-col items-center gap-3 rounded-xl bg-blue-600 px-3 py-5 text-white">
-                <div className="flex items-center justify-between gap-4">
-                  <Image
-                    className="h-[20vh] w-auto bg-firefly-radial"
-                    src={`/diver/diver-greeting.png`}
-                    alt="diver"
-                    width={20000}
-                    height={20000}
-                  />
-                  <h2 className="text-lg font-semibold">
-                    Out of turn, please comeback tomorrow!
-                  </h2>
-                </div>
-                <form method="dialog">
-                  <button
-                    className="rounded-lg bg-emerald-500 px-3 py-1"
-                    onClick={() => setIsOpenTurnEmpty(false)}
-                  >
-                    OK
-                  </button>
-                </form>
-              </div>
-            </div>
-          </dialog>
+
           {/* <dialog
             open={isOpenRewardDialog}
             className="z-20 mx-auto h-[100dvh] w-[90vw] bg-transparent"
@@ -254,6 +253,7 @@ function GameTab({
             handleTabClick={handleTabClick}
             userInfo={userInfo}
             currentTurns={currentTurns}
+            setIsOpenTurnEmpty={setIsOpenTurnEmpty}
           />
         </>
       ) : (
