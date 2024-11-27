@@ -34,7 +34,7 @@ export class UserService {
     return user.save();
   }
 
-  @Cron('*/5 * * * * *', { timeZone: 'UTC' })
+  @Cron('*/1 * * * * *', { timeZone: 'UTC' })
   async handleCronAddTurnsEveryDay() {
     try {
       const userList: User[] = await this.userModel.find().exec();
