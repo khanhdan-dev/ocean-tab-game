@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  OnApplicationBootstrap,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -7,12 +11,20 @@ import { Model } from 'mongoose';
 import { Cron } from '@nestjs/schedule';
 
 @Injectable()
-export class UserService {
+export class UserService implements OnApplicationBootstrap {
+  private isAppInitialized = false;
+
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
-  async create(createCatDto: CreateUserDto): Promise<User> {
-    const createdUser = new this.userModel(createCatDto);
+
+  // This method runs when the app is fully initialized
+  onApplicationBootstrap() {
+    this.isAppInitialized = true;
+  }
+
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const createdUser = new this.userModel(createUserDto);
     return createdUser.save();
   }
 
@@ -38,6 +50,12 @@ export class UserService {
     timeZone: 'UTC',
   })
   async handleCronAddTurnsEveryDay() {
+    // Only run the cron job when the app is fully initialized
+    if (!this.isAppInitialized) {
+      console.log('App not initialized yet. Cron job not running.');
+      return;
+    }
+
     try {
       const userList: User[] = await this.userModel.find().exec();
       const bulkOps = userList.map((u) => ({
@@ -46,9 +64,11 @@ export class UserService {
           update: { $set: { turns: (u.turns || 0) + 20 } },
         },
       }));
+
       if (bulkOps.length > 0) {
         await this.userModel.bulkWrite(bulkOps);
       }
+
       console.log('Cron job executed successfully');
     } catch (error) {
       console.error('Error in cron job:', error);
@@ -56,7 +76,6 @@ export class UserService {
   }
 
   async remove(id: number) {
-    // Change number to string for ObjectId
     const result = await this.userModel.deleteOne({ id: id }).exec();
     if (result.deletedCount === 0) {
       throw new NotFoundException(`User with ID ${id} not found`);
