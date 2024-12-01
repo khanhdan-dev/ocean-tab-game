@@ -31,7 +31,7 @@ export default function Home() {
   useEffect(() => {
     const imagePaths = Array.from(
       { length: 16 },
-      (_, i) => `/fish/fish${i + 1}.png`,
+      (_, i) => `/fish/fish-${i + 1}.png`,
     );
 
     preloadImages(imagePaths);
