@@ -154,15 +154,6 @@ function GameTab({
     setCurrentHabitat(habitatType);
   };
 
-  if (isOpenGameMatches) {
-    return (
-      <GameMatches
-        handleCloseGameMatches={handleCloseGameMatches}
-        currentHabitat={currentHabitat}
-      />
-    );
-  }
-
   return (
     <>
       <dialog
@@ -194,55 +185,62 @@ function GameTab({
           </div>
         </div>
       </dialog>
-      {isPlayingGame ? (
+      {isOpenGameMatches ? (
+        <GameMatches
+          handleCloseGameMatches={handleCloseGameMatches}
+          currentHabitat={currentHabitat}
+        />
+      ) : (
         <>
-          <div className="flex h-[100dvh] flex-col items-center justify-end pb-10 text-center">
-            <Image
-              className="mt-20 h-[30vh] w-auto animate-pulse"
-              src={'/diver/diver-default.png'}
-              alt="diver"
-              width={20000}
-              height={20000}
-            />
-          </div>
-          <div className="absolute left-3 right-3 top-3">
-            <div className="flex w-full items-start justify-between gap-3">
-              <div className="flex flex-col gap-2 rounded-xl border border-white/20 bg-ocean-turquoise/80 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80">
-                <div className="flex items-center justify-center gap-1 text-3xl text-white">
-                  <GiFishingNet
-                    className="inset-0 animate-wrap-net font-thin"
-                    size={30}
-                  />
-                  <p className="font-bold text-ocean-flashturq">
-                    {currentTurns}
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2">
-                  {onRenderUserRewards()}
-                </div>
-              </div>
-              <div className="z-30 flex flex-col justify-end gap-2">
+          {isPlayingGame ? (
+            <>
+              <div className="flex h-[100dvh] flex-col items-center justify-end pb-10 text-center">
                 <Image
-                  className="h-10 w-auto"
-                  src={'/control/control-5.png'}
+                  className="mt-20 h-[30vh] w-auto animate-pulse"
+                  src={'/diver/diver-default.png'}
                   alt="diver"
                   width={20000}
                   height={20000}
-                  onClick={() => setIsPlayingGame(false)}
-                />
-                <Image
-                  className="h-10 w-auto"
-                  src={`/control/control-${isPlayingMusic ? '11' : '12'}.png`}
-                  alt="diver"
-                  width={20000}
-                  height={20000}
-                  onClick={() => setIsPlayingMusic(!isPlayingMusic)}
                 />
               </div>
-            </div>
-          </div>
+              <div className="absolute left-3 right-3 top-3">
+                <div className="flex w-full items-start justify-between gap-3">
+                  <div className="flex flex-col gap-2 rounded-xl border border-white/20 bg-ocean-turquoise/80 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80">
+                    <div className="flex items-center justify-center gap-1 text-3xl text-white">
+                      <GiFishingNet
+                        className="inset-0 animate-wrap-net font-thin"
+                        size={30}
+                      />
+                      <p className="font-bold text-ocean-flashturq">
+                        {currentTurns}
+                      </p>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      {onRenderUserRewards()}
+                    </div>
+                  </div>
+                  <div className="z-30 flex flex-col justify-end gap-2">
+                    <Image
+                      className="h-10 w-auto"
+                      src={'/control/control-5.png'}
+                      alt="diver"
+                      width={20000}
+                      height={20000}
+                      onClick={() => setIsPlayingGame(false)}
+                    />
+                    <Image
+                      className="h-10 w-auto"
+                      src={`/control/control-${isPlayingMusic ? '11' : '12'}.png`}
+                      alt="diver"
+                      width={20000}
+                      height={20000}
+                      onClick={() => setIsPlayingMusic(!isPlayingMusic)}
+                    />
+                  </div>
+                </div>
+              </div>
 
-          {/* <dialog
+              {/* <dialog
             open={isOpenRewardDialog}
             className="z-20 mx-auto h-[100dvh] w-[90vw] bg-transparent"
           >
@@ -269,82 +267,84 @@ function GameTab({
               </div>
             </div>
           </dialog> */}
-          <SpeciesBackground
-            handleTabClick={handleTabClick}
-            userInfo={userInfo}
-            currentTurns={currentTurns}
-            setIsOpenTurnEmpty={setIsOpenTurnEmpty}
+              <SpeciesBackground
+                handleTabClick={handleTabClick}
+                userInfo={userInfo}
+                currentTurns={currentTurns}
+                setIsOpenTurnEmpty={setIsOpenTurnEmpty}
+              />
+            </>
+          ) : (
+            <div className="z-20">
+              <div className="absolute left-3 right-3 top-3 z-20 flex items-start justify-between">
+                <div
+                  className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-white/20 bg-ocean-turquoise/50 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80"
+                  onClick={() => setSelectedIndex(3)}
+                >
+                  <Image
+                    className="h-10 w-auto animate-shake rounded-full"
+                    src={imageUrl}
+                    alt="diver"
+                    width={20000}
+                    height={20000}
+                  />
+                  <p className="pr-2">
+                    Hi, {userInfo.first_name ?? userInfo.username ?? 'Hunter'}
+                  </p>
+                </div>
+                <div className="flex flex-col items-center justify-start gap-2">
+                  <Image
+                    className="h-10 w-auto"
+                    src={`/control/control-${isPlayingMusic ? '11' : '12'}.png`}
+                    alt="diver"
+                    width={20000}
+                    height={20000}
+                    onClick={() => setIsPlayingMusic(!isPlayingMusic)}
+                  />
+                  <Image
+                    className="h-10 w-auto"
+                    src={`/control/control-8.png`}
+                    alt="diver"
+                    width={20000}
+                    height={20000}
+                    onClick={() => setIsOpenGameMatches(true)}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col items-center justify-start gap-20">
+                <div onClick={() => setIsPlayingGame(!isPlayingGame)}>
+                  <Image
+                    className="h-20 w-auto animate-shake-infinite"
+                    src={'/control/control-2.png'}
+                    alt="diver"
+                    width={20000}
+                    height={20000}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          {boxes.map((box) => (
+            <div
+              key={box.id}
+              onAnimationEnd={() => handleAnimationEnd(box.id)}
+              className="fixed z-50 flex w-fit animate-moveUp items-center justify-center gap-2 bg-firefly-radial text-ocean-blue transition-transform"
+              style={{
+                top: `${position}%`, // Dynamic position for vertical movement
+              }}
+            >
+              <div className="flex flex-col gap-3">
+                {onRenderBoxReward(box.reward)}
+              </div>
+            </div>
+          ))}
+          <BubblesBackground />
+          <BackgroundAudio
+            isPlayingGame={isPlayingGame}
+            isPlayingMusic={isPlayingMusic}
           />
         </>
-      ) : (
-        <div className="z-20">
-          <div className="absolute left-3 right-3 top-3 z-20 flex items-start justify-between">
-            <div
-              className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-white/20 bg-ocean-turquoise/50 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80"
-              onClick={() => setSelectedIndex(3)}
-            >
-              <Image
-                className="h-10 w-auto animate-shake rounded-full"
-                src={imageUrl}
-                alt="diver"
-                width={20000}
-                height={20000}
-              />
-              <p className="pr-2">
-                Hi, {userInfo.first_name ?? userInfo.username ?? 'Hunter'}
-              </p>
-            </div>
-            <div className="flex flex-col items-center justify-start gap-2">
-              <Image
-                className="h-10 w-auto"
-                src={`/control/control-${isPlayingMusic ? '11' : '12'}.png`}
-                alt="diver"
-                width={20000}
-                height={20000}
-                onClick={() => setIsPlayingMusic(!isPlayingMusic)}
-              />
-              <Image
-                className="h-10 w-auto"
-                src={`/control/control-8.png`}
-                alt="diver"
-                width={20000}
-                height={20000}
-                onClick={() => setIsOpenGameMatches(true)}
-              />
-            </div>
-          </div>
-          <div className="flex flex-col items-center justify-start gap-20">
-            <div onClick={() => setIsPlayingGame(!isPlayingGame)}>
-              <Image
-                className="h-20 w-auto animate-shake-infinite"
-                src={'/control/control-2.png'}
-                alt="diver"
-                width={20000}
-                height={20000}
-              />
-            </div>
-          </div>
-        </div>
       )}
-      {boxes.map((box) => (
-        <div
-          key={box.id}
-          onAnimationEnd={() => handleAnimationEnd(box.id)}
-          className="fixed z-50 flex w-fit animate-moveUp items-center justify-center gap-2 bg-firefly-radial text-ocean-blue transition-transform"
-          style={{
-            top: `${position}%`, // Dynamic position for vertical movement
-          }}
-        >
-          <div className="flex flex-col gap-3">
-            {onRenderBoxReward(box.reward)}
-          </div>
-        </div>
-      ))}
-      <BubblesBackground />
-      <BackgroundAudio
-        isPlayingGame={isPlayingGame}
-        isPlayingMusic={isPlayingMusic}
-      />
     </>
   );
 }

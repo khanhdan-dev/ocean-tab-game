@@ -1,17 +1,20 @@
 import {
   Seaweed_Script,
-  Cinzel_Decorative,
-  Marcellus_SC,
   Uncial_Antiqua,
+  Mystery_Quest,
+  MedievalSharp,
 } from 'next/font/google';
 import { Habitat } from 'kan/types';
 
 const seaweedScript = Seaweed_Script({ subsets: ['latin'], weight: '400' });
-const cinzelDecorative = Cinzel_Decorative({
+const medievalSharp = MedievalSharp({
   subsets: ['latin'],
   weight: '400',
 });
-const marcellusSC = Marcellus_SC({ subsets: ['latin'], weight: '400' });
+const mysteryQuest = Mystery_Quest({
+  subsets: ['latin'],
+  weight: '400',
+});
 const uncialAntiqua = Uncial_Antiqua({ subsets: ['latin'], weight: '400' });
 
 export const habitatData: Habitat[] = [
@@ -31,7 +34,7 @@ export const habitatData: Habitat[] = [
     mobileImage: '/habitats/reef/reef-mobile.jpeg',
     desktopImage: '/habitats/reef/reef-desktop.jpeg',
     description: 'An expansive underwater coral ecosystem.',
-    fontClass: cinzelDecorative.className,
+    fontClass: medievalSharp.className,
     bgColor: 'bg-gradient-to-b from-blue-200 to-blue-400',
   },
   {
@@ -41,7 +44,7 @@ export const habitatData: Habitat[] = [
     desktopImage: '/habitats/open/open-desktop.jpeg',
     description:
       'A vast, open underwater expanse with a sense of freedom and mystery.',
-    fontClass: marcellusSC.className,
+    fontClass: mysteryQuest.className,
     bgColor: 'bg-gradient-to-b from-sky-200 to-sky-400',
   },
   {

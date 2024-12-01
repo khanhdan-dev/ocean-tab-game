@@ -34,9 +34,7 @@ function HabitatSwiper({ handleCloseGameMatches, currentHabitat }: Props) {
         <SwiperSlide title={habitat.description} key={habitat.type}>
           <div
             className={`relative ${
-              index === activeIndex
-                ? 'hue-rotate-15 filter'
-                : 'brightness-75 filter'
+              index === activeIndex ? '' : 'brightness-75 filter'
             } transition-all duration-300`} // Special effect for center slide
           >
             <Image
@@ -55,7 +53,7 @@ function HabitatSwiper({ handleCloseGameMatches, currentHabitat }: Props) {
               height={90000000}
               loading="eager"
             />
-            <div className="absolute inset-0 rounded-2xl bg-ocean-white/20">
+            <div className="absolute inset-0 rounded-2xl">
               <HabitatTitle
                 title={habitat.type}
                 subtitle={habitat.description}
