@@ -56,10 +56,9 @@ body {
 
 /* Keyframe for natural, curving movement */
 
-/* Small Fish Animations */
 @keyframes move-left-small {
   0% {
-    transform: translate(-120vw, 0) rotate(0deg); /* Start far off-screen */
+    transform: translate(-100%, 0) rotate(0deg);
   }
   20% {
     transform: translate(0vw, 0) rotate(0deg);
@@ -77,10 +76,9 @@ body {
     transform: translate(100vw, 0) rotate(0deg);
   }
 }
-
-@keyframes move-right-small {
+@keyframes move-right {
   0% {
-    transform: translate(120vw, 0) rotate(0deg); /* Start far off-screen */
+    transform: translate(100%, 0) rotate(0deg);
   }
   20% {
     transform: translate(0, 0) rotate(0deg);
@@ -95,66 +93,21 @@ body {
     transform: translate(-75vw, 5vw) rotate(5deg);
   }
   100% {
-    transform: translate(-100vw, 0) rotate(0deg); /* Exit far off-screen */
+    transform: translate(-100vw, 0) rotate(0deg);
   }
 }
 
-/* Medium Fish Animations */
-@keyframes move-left-medium {
-  0% {
-    transform: translate(-100vw, 0) rotate(0deg); /* Start far off-screen */
-  }
-  20% {
-    transform: translate(-60vw, 3vw) rotate(5deg);
-  }
-  40% {
-    transform: translate(-20vw, -4vw) rotate(-10deg);
-  }
-  60% {
-    transform: translate(20vw, 5vw) rotate(10deg);
-  }
-  80% {
-    transform: translate(60vw, -3vw) rotate(-5deg);
-  }
-  100% {
-    transform: translate(100vw, 0) rotate(0deg); /* Exit far off-screen */
-  }
-}
-
-@keyframes move-right-medium {
-  0% {
-    transform: translate(100vw, 0) rotate(0deg); /* Start far off-screen */
-  }
-  20% {
-    transform: translate(60vw, -3vw) rotate(-5deg);
-  }
-  40% {
-    transform: translate(20vw, 4vw) rotate(10deg);
-  }
-  60% {
-    transform: translate(-20vw, -5vw) rotate(-10deg);
-  }
-  80% {
-    transform: translate(-60vw, 3vw) rotate(5deg);
-  }
-  100% {
-    transform: translate(-100vw, 0) rotate(0deg); /* Exit far off-screen */
-  }
-}
-
-/* Large Fish Animations */
 @keyframes move-left-large {
   0% {
-    transform: translate(-150vw, 0) rotate(0deg); /* Start far off-screen */
+    transform: translate(-100%, 0);
   }
   100% {
     transform: translate(120vw, 0);
   }
 }
-
 @keyframes move-right-large {
   0% {
-    transform: translate(150vw, 0) rotate(0deg); /* Start far off-screen */
+    transform: translate(100%, 0);
   }
   100% {
     transform: translate(-120vw, 0);
