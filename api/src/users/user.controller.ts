@@ -31,6 +31,16 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @Get('cron')
+  async handleCron() {
+    try {
+      await this.userService.handleCronAddTurnsEveryDay();
+      return { message: 'Cron task executed successfully' };
+    } catch (error) {
+      return { message: 'Error executing cron task', error: error.message };
+    }
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
@@ -44,15 +54,5 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
-  }
-
-  @Get('cron')
-  async handleCron() {
-    try {
-      await this.userService.handleCronAddTurnsEveryDay();
-      return { message: 'Cron task executed successfully' };
-    } catch (error) {
-      return { message: 'Error executing cron task', error: error.message };
-    }
   }
 }
