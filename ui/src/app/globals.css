@@ -56,7 +56,7 @@ body {
 
 /* Keyframe for natural, curving movement */
 
-@keyframes move-left {
+@keyframes move-left-small {
   0% {
     transform: translate(-100%, 0) rotate(0deg);
   }
@@ -76,9 +76,50 @@ body {
     transform: translate(100vw, 0) rotate(0deg);
   }
 }
-@keyframes move-right {
+@keyframes move-right-small {
   0% {
     transform: translate(100%, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  40% {
+    transform: translate(-25vw, 7vw) rotate(10deg);
+  }
+  60% {
+    transform: translate(-50vw, -7vw) rotate(-10deg);
+  }
+  80% {
+    transform: translate(-75vw, 5vw) rotate(5deg);
+  }
+  100% {
+    transform: translate(-100vw, 0) rotate(0deg);
+  }
+}
+
+@keyframes move-left-medium {
+  0% {
+    transform: translate(-200%, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate(0vw, 0) rotate(0deg);
+  }
+  40% {
+    transform: translate(25vw, -7vw) rotate(10deg);
+  }
+  60% {
+    transform: translate(50vw, 7vw) rotate(-10deg);
+  }
+  80% {
+    transform: translate(75vw, -5vw) rotate(5deg);
+  }
+  100% {
+    transform: translate(100vw, 0) rotate(0deg);
+  }
+}
+@keyframes move-right-medium {
+  0% {
+    transform: translate(200%, 0) rotate(0deg);
   }
   20% {
     transform: translate(0, 0) rotate(0deg);
