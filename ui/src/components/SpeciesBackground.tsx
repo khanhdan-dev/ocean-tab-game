@@ -204,6 +204,7 @@ const SpeciesBackground = ({
                 height: specie.size,
                 width: 'auto',
               }}
+              loading="eager"
             />
             <div
               className={`${specie.hp === specie.requiredAttacks ? 'hidden' : ''} h-2 animate-showHp rounded-full bg-ocean-flashturq bg-opacity-25 bg-firefly-radial brightness-200 backdrop-blur-md`}
