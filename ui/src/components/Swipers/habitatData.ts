@@ -3,7 +3,7 @@ import {
   Cinzel_Decorative,
   Marcellus_SC,
   Uncial_Antiqua,
-} from '@next/font/google';
+} from 'next/font/google';
 import { Habitat } from 'kan/types';
 
 const seaweedScript = Seaweed_Script({ subsets: ['latin'], weight: '400' });

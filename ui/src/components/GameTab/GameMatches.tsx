@@ -1,6 +1,6 @@
 import React from 'react';
 import HabitatSwiper from '../Swipers/HabitatSwiper';
-import { Pirata_One } from '@next/font/google';
+import { Pirata_One } from 'next/font/google';
 import { IFishItem } from 'kan/types';
 
 const pirataOne = Pirata_One({ subsets: ['latin'], weight: '400' });

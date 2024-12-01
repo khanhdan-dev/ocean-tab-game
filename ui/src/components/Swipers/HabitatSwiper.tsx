@@ -35,8 +35,8 @@ function HabitatSwiper({ handleCloseGameMatches, currentHabitat }: Props) {
           <div
             className={`relative ${
               index === activeIndex
-                ? 'brightness-125 hue-rotate-15 saturate-150 filter'
-                : 'brightness-90 filter'
+                ? 'hue-rotate-15 filter'
+                : 'brightness-75 filter'
             } transition-all duration-300`} // Special effect for center slide
           >
             <Image
