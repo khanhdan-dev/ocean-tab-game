@@ -58,7 +58,7 @@ body {
 
 @keyframes move-left {
   0% {
-    transform: translate(-200%, 0) rotate(0deg);
+    transform: translate(-100dvw, 0) rotate(0deg);
   }
   20% {
     transform: translate(0vw, 0) rotate(0deg);
@@ -78,7 +78,7 @@ body {
 }
 @keyframes move-right {
   0% {
-    transform: translate(200%, 0) rotate(0deg);
+    transform: translate(100dvw, 0) rotate(0deg);
   }
   20% {
     transform: translate(0, 0) rotate(0deg);
