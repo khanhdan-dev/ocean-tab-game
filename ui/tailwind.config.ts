@@ -31,6 +31,14 @@ const config: Config = {
       backgroundImage: {
         mobile: "url('/background/background-mobile.jpg')",
         desktop: "url('/background/background-desktop.jpg')",
+        'shallow-mobile': "url('/habitats/shallow/shallow-mobile.jpeg')",
+        'shallow-desktop': "url('/habitats/shallow/shallow-desktop.jpeg')",
+        'reef-mobile': "url('/habitats/reef/reef-mobile.jpeg')",
+        'reef-desktop': "url('/habitats/reef/reef-desktop.jpeg')",
+        'open-mobile': "url('/habitats/open/open-mobile.jpeg')",
+        'open-desktop': "url('/habitats/open/open-desktop.jpeg')",
+        'deep-mobile': "url('/habitats/deep/deep-mobile.jpeg')",
+        'deep-desktop': "url('/habitats/deep/deep-desktop.jpeg')",
         'firefly-radial':
           'radial-gradient(50% 50% at 50% 50%, rgba(253, 255, 80, 0.6) 40%, rgba(217,217,217, 0) 100%)',
       },

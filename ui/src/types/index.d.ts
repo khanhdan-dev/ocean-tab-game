@@ -35,5 +35,17 @@ export interface IFishItem {
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
   requiredAttacks: number;
   rewards: Rewards;
-  habitat: string;
+  habitat: 'shallow reef' | 'reef' | 'open ocean' | 'deep ocean';
 }
+
+// TypeScript type
+type Habitat = {
+  type: IFishItem['habitat'];
+  mobileImage: string;
+  desktopImage: string;
+  description: string; // Optional property for additional information
+  fontClass: string;
+  bgColor: string;
+  gameBgClass: string;
+  // [key: string]: string; // To allow additional custom properties
+};

@@ -239,7 +239,7 @@ export const fishData: IFishItem[] = [
       shells: 2,
       coins: 0,
     },
-    habitat: 'river',
+    habitat: 'shallow reef',
   },
   {
     id: 'fish_016',
@@ -255,6 +255,6 @@ export const fishData: IFishItem[] = [
       shells: 15,
       coins: 45,
     },
-    habitat: 'reef',
+    habitat: 'shallow reef',
   },
 ];

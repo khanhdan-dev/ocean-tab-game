@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import useUrlValidation from 'kan/hooks/useUrlValidation';
 import { useGetUserInfo } from 'kan/hooks/useGetUserInfo';
-import { ITelegramUserInfo } from 'kan/types';
+import { IFishItem, ITelegramUserInfo } from 'kan/types';
 import GameTab from '../GameTab/GameTab';
 import ProfileTab from '../ProfileTab/ProfileTab';
 import LeaderboardTab from '../LeaderboardTab/LeaderboardTab';
@@ -20,6 +20,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import QuestTab from '../QuestTab/QuestTab';
 import ShopTab from '../ShopTab/ShopTab';
 import GameProgressBar from '../GameProgressBar';
+import { habitatData } from '../Swipers/habitatData';
 
 interface Props {
   telegramUser: ITelegramUserInfo;
@@ -35,6 +36,15 @@ function GameHome({ telegramUser }: Props) {
   const [isPlayingGame, setIsPlayingGame] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(Number(currentTab) ?? 0);
   const [showProgress, setShowProgress] = useState(true);
+  const [currentHabitat, setCurrentHabitat] = useState<
+    IFishItem['habitat'] | null
+  >(
+    typeof window !== 'undefined'
+      ? ((localStorage.getItem('habitat') ?? '') as IFishItem['habitat'])
+      : null,
+  );
+
+  const foundHabitat = habitatData.find((h) => h.type === currentHabitat);
 
   // Function to handle tab class styling
   const getTabClasses = (selected: boolean) =>
@@ -108,10 +118,10 @@ function GameHome({ telegramUser }: Props) {
   }
 
   return (
-    <div className="bg-ocean relative flex h-[100dvh] flex-col items-center justify-center bg-cover p-4">
+    <div className="relative flex h-[100dvh] flex-col items-center justify-center bg-cover p-4">
       <dialog
         open={isOpenGreetingDialog}
-        className="z-30 mx-auto h-[100dvh] w-[90vw] bg-transparent"
+        className="z-30 mx-auto h-[100dvh] w-[90vw] bg-transparent md:w-fit"
       >
         <div className="z-50 flex h-full animate-shake items-center justify-center">
           <div className="flex w-4/5 flex-col items-center gap-3 rounded-xl bg-blue-600 px-3 py-5 text-white">
@@ -151,14 +161,18 @@ function GameHome({ telegramUser }: Props) {
           router.push(`?tab=${index}`);
         }}
       >
-        <TabPanels className="absolute left-0 top-0 h-full w-full flex-1">
-          <TabPanel className="relative flex h-full flex-col items-center justify-center">
+        <TabPanels className="absolute inset-0 h-full w-full flex-1">
+          <TabPanel
+            className={`${foundHabitat?.gameBgClass ?? 'bg-ocean'} relative flex h-full flex-col items-center justify-center bg-cover bg-center`}
+          >
             <GameTab
               setIsPlayingGame={setIsPlayingGame}
               isPlayingGame={isPlayingGame}
               setSelectedIndex={setSelectedIndex}
               userInfo={userInfo}
               imageUrl={imageUrl}
+              setCurrentHabitat={setCurrentHabitat}
+              currentHabitat={currentHabitat}
             />
           </TabPanel>
 

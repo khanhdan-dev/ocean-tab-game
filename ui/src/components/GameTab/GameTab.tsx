@@ -1,4 +1,4 @@
-import { ITelegramUserInfo, Rewards } from 'kan/types';
+import { IFishItem, ITelegramUserInfo, Rewards } from 'kan/types';
 import Image from 'next/image';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import SpeciesBackground from '../SpeciesBackground';
@@ -6,6 +6,7 @@ import BubblesBackground from '../BubbleBackground';
 import BackgroundAudio from '../BackgroundAudio';
 import { GiFishingNet } from 'react-icons/gi';
 import { usePutUpdateUser } from 'kan/hooks/usePutUpdateUser';
+import GameMatches from './GameMatches';
 
 interface Props {
   isPlayingGame: boolean;
@@ -13,6 +14,8 @@ interface Props {
   setIsPlayingGame: Dispatch<SetStateAction<boolean>>;
   setSelectedIndex: Dispatch<SetStateAction<number>>;
   imageUrl: string;
+  setCurrentHabitat: Dispatch<SetStateAction<IFishItem['habitat'] | null>>;
+  currentHabitat: IFishItem['habitat'] | null;
 }
 
 interface Box {
@@ -26,6 +29,8 @@ function GameTab({
   setIsPlayingGame,
   setSelectedIndex,
   imageUrl,
+  setCurrentHabitat,
+  currentHabitat,
 }: Props) {
   const { mutate: putUpdateUserMutate } = usePutUpdateUser();
   const [currentTurns, setCurrentTurns] = useState<number>(userInfo.turns);
@@ -36,6 +41,7 @@ function GameTab({
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState(20);
   const [boxes, setBoxes] = useState<Box[]>([]);
+  const [isOpenGameMatches, setIsOpenGameMatches] = useState(false);
 
   const showBox = (reward: Rewards) => {
     const newBox = { id: Date.now(), reward: reward }; // Use timestamp as a unique ID
@@ -143,11 +149,25 @@ function GameTab({
     });
   };
 
+  const handleCloseGameMatches = (habitatType: IFishItem['habitat'] | null) => {
+    setIsOpenGameMatches(false);
+    setCurrentHabitat(habitatType);
+  };
+
+  if (isOpenGameMatches) {
+    return (
+      <GameMatches
+        handleCloseGameMatches={handleCloseGameMatches}
+        currentHabitat={currentHabitat}
+      />
+    );
+  }
+
   return (
     <>
       <dialog
         open={isOpenTurnEmpty}
-        className="z-50 mx-auto h-[100dvh] w-[90vw] bg-transparent"
+        className="z-50 mx-auto h-[100dvh] w-[90vw] bg-transparent md:w-fit"
       >
         <div className="z-50 flex h-full animate-shake items-center justify-center">
           <div className="flex w-4/5 flex-col items-center gap-3 rounded-xl bg-blue-600 px-3 py-5 text-white">
@@ -258,7 +278,7 @@ function GameTab({
         </>
       ) : (
         <div className="z-20">
-          <div className="absolute left-3 right-3 top-3 z-20 flex items-center justify-between">
+          <div className="absolute left-3 right-3 top-3 z-20 flex items-start justify-between">
             <div
               className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-white/20 bg-ocean-turquoise/50 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80"
               onClick={() => setSelectedIndex(3)}
@@ -274,14 +294,24 @@ function GameTab({
                 Hi, {userInfo.first_name ?? userInfo.username ?? 'Hunter'}
               </p>
             </div>
-            <Image
-              className="h-10 w-auto"
-              src={`/control/control-${isPlayingMusic ? '11' : '12'}.png`}
-              alt="diver"
-              width={20000}
-              height={20000}
-              onClick={() => setIsPlayingMusic(!isPlayingMusic)}
-            />
+            <div className="flex flex-col items-center justify-start gap-2">
+              <Image
+                className="h-10 w-auto"
+                src={`/control/control-${isPlayingMusic ? '11' : '12'}.png`}
+                alt="diver"
+                width={20000}
+                height={20000}
+                onClick={() => setIsPlayingMusic(!isPlayingMusic)}
+              />
+              <Image
+                className="h-10 w-auto"
+                src={`/control/control-8.png`}
+                alt="diver"
+                width={20000}
+                height={20000}
+                onClick={() => setIsOpenGameMatches(true)}
+              />
+            </div>
           </div>
           <div className="flex flex-col items-center justify-start gap-20">
             <div onClick={() => setIsPlayingGame(!isPlayingGame)}>

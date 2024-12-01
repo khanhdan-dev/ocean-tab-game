@@ -2,7 +2,13 @@
 import { getRandomFish } from 'kan/hooks/useRandomValue';
 import { IFishItem, ITelegramUserInfo, Rewards } from 'kan/types';
 import Image from 'next/image';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { GiFishingNet } from 'react-icons/gi';
 
 interface Props {
@@ -76,10 +82,13 @@ const SpeciesBackground = ({
   setIsOpenTurnEmpty,
 }: Props) => {
   const [species, setSpecies] = useState<Species[]>([]);
-  const initialCaughtFish = {
-    id: 0,
-    isCaught: false,
-  };
+  const initialCaughtFish = useMemo(
+    () => ({
+      id: 0,
+      isCaught: false,
+    }),
+    [],
+  );
   const [caughtFish, setCaughtFish] = useState(initialCaughtFish);
   const [attackedFishId, setAttackedFishId] = useState<number | null>(null);
 

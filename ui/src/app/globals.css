@@ -24,6 +24,22 @@ body {
   @apply bg-mobile bg-cover bg-center md:bg-desktop;
 }
 
+.bg-shallow {
+  @apply bg-shallow-mobile md:bg-shallow-desktop bg-cover bg-center;
+}
+
+.bg-reef {
+  @apply bg-reef-mobile md:bg-reef-desktop bg-cover bg-center;
+}
+
+.bg-open {
+  @apply bg-open-mobile md:bg-open-desktop bg-cover bg-center;
+}
+
+.bg-deep {
+  @apply bg-deep-mobile md:bg-deep-desktop bg-cover bg-center;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -135,4 +151,11 @@ body {
 
 .animate-attack-effect {
   animation: attackEffect 0.2s ease-in-out;
+}
+
+.glow-effect {
+  text-shadow:
+    0 0 10px #00fff0,
+    0 0 20px #00fff0,
+    0 0 30px #00fff0;
 }
