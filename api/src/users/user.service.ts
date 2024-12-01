@@ -66,7 +66,10 @@ export class UserService implements OnApplicationBootstrap {
       }));
 
       if (bulkOps.length > 0) {
-        await this.userModel.bulkWrite(bulkOps);
+        const result = await this.userModel.bulkWrite(bulkOps);
+        console.log(`Updated ${result.modifiedCount} users.`);
+      } else {
+        console.log('No users found to update.');
       }
 
       console.log('Cron job executed successfully');

@@ -45,4 +45,14 @@ export class UserController {
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }
+
+  @Get('cron')
+  async handleCron() {
+    try {
+      await this.userService.handleCronAddTurnsEveryDay();
+      return { message: 'Cron task executed successfully' };
+    } catch (error) {
+      return { message: 'Error executing cron task', error: error.message };
+    }
+  }
 }
