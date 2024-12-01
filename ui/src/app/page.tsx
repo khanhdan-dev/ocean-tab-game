@@ -8,6 +8,13 @@ if (typeof window !== 'undefined') {
   WebApp.ready();
 }
 
+const preloadImages = (imagePaths: string[]) => {
+  imagePaths.forEach((path) => {
+    const img = new Image();
+    img.src = path;
+  });
+};
+
 export default function Home() {
   const [telegramUser, setTelegramUser] = useState<ITelegramUserInfo>({
     first_name: 'Kan',
@@ -22,6 +29,12 @@ export default function Home() {
   });
 
   useEffect(() => {
+    const imagePaths = Array.from(
+      { length: 16 },
+      (_, i) => `/fish/fish${i + 1}.png`,
+    );
+
+    preloadImages(imagePaths);
     if (typeof window !== 'undefined') {
       const userTelegram = WebApp.initDataUnsafe?.user as ITelegramUserInfo;
 
