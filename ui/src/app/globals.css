@@ -56,7 +56,7 @@ body {
 
 /* Keyframe for natural, curving movement */
 
-@keyframes move-left-small {
+@keyframes move-left {
   0% {
     transform: translate(-100%, 0) rotate(0deg);
   }
@@ -99,7 +99,7 @@ body {
 
 @keyframes move-left-large {
   0% {
-    transform: translate(-100%, 0);
+    transform: translate(-500%, 0);
   }
   100% {
     transform: translate(120vw, 0);
@@ -107,7 +107,7 @@ body {
 }
 @keyframes move-right-large {
   0% {
-    transform: translate(100%, 0);
+    transform: translate(500%, 0);
   }
   100% {
     transform: translate(-120vw, 0);
