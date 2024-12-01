@@ -6,6 +6,7 @@ import { UserModule } from './users/user.module';
 import { UserService } from './users/user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import * as dotenv from 'dotenv';
+import { ScheduleModule } from '@nestjs/schedule';
 dotenv.config();
 
 @Module({
@@ -14,6 +15,7 @@ dotenv.config();
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@ocean-miniapp.lspnu.mongodb.net/?retryWrites=true&w=majority&appName=Ocean-MiniApp`,
     ),
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController, UserController],
   providers: [AppService, UserService],
