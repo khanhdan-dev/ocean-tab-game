@@ -25,19 +25,19 @@ body {
 }
 
 .bg-shallow {
-  @apply bg-shallow-mobile md:bg-shallow-desktop bg-cover bg-center;
+  @apply bg-shallow-mobile bg-cover bg-center md:bg-shallow-desktop;
 }
 
 .bg-reef {
-  @apply bg-reef-mobile md:bg-reef-desktop bg-cover bg-center;
+  @apply bg-reef-mobile bg-cover bg-center md:bg-reef-desktop;
 }
 
 .bg-open {
-  @apply bg-open-mobile md:bg-open-desktop bg-cover bg-center;
+  @apply bg-open-mobile bg-cover bg-center md:bg-open-desktop;
 }
 
 .bg-deep {
-  @apply bg-deep-mobile md:bg-deep-desktop bg-cover bg-center;
+  @apply bg-deep-mobile bg-cover bg-center md:bg-deep-desktop;
 }
 
 @layer utilities {
@@ -58,7 +58,7 @@ body {
 
 @keyframes move-left {
   0% {
-    transform: translate(-100%, 0) rotate(0deg);
+    transform: translate(-200%, 0) rotate(0deg);
   }
   20% {
     transform: translate(0vw, 0) rotate(0deg);
@@ -78,7 +78,7 @@ body {
 }
 @keyframes move-right {
   0% {
-    transform: translate(100%, 0) rotate(0deg);
+    transform: translate(200%, 0) rotate(0deg);
   }
   20% {
     transform: translate(0, 0) rotate(0deg);
@@ -155,7 +155,7 @@ body {
 
 .glow-effect {
   text-shadow:
-    0 0 10px #00fff0,
-    0 0 20px #00fff0,
-    0 0 30px #00fff0;
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 15px #fff;
 }

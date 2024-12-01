@@ -132,7 +132,7 @@ function GameTab({
       const imagePath = `${key === 'coins' ? 'coin' : key === 'shells' ? 'shell' : 'fish'}.png`;
       return value !== 0 ? (
         <div className="flex gap-3">
-          <p className="text-xl font-black">
+          <p className="glow-effect text-xl font-black">
             {value} <span className="capitalize">{key}</span>
           </p>
           <Image
@@ -328,7 +328,7 @@ function GameTab({
             <div
               key={box.id}
               onAnimationEnd={() => handleAnimationEnd(box.id)}
-              className="fixed z-50 flex w-fit animate-moveUp items-center justify-center gap-2 bg-firefly-radial text-ocean-blue transition-transform"
+              className="fixed z-50 flex w-fit animate-moveUp items-center justify-center gap-2 text-ocean-blue transition-transform"
               style={{
                 top: `${position}%`, // Dynamic position for vertical movement
               }}
