@@ -173,7 +173,7 @@ const SpeciesBackground = ({
             top: specie.top,
             left: specie.left,
             right: !isNaN(Number(specie.right)) ? -specie.right : 'unset',
-            animation: `move-${specie.direction}${specie.sizeString === 'large' ? '-large' : ''} ${specie.animationDuration} forwards`,
+            animation: `move-${specie.direction}-${specie.sizeString} ${specie.animationDuration} forwards`,
             animationPlayState:
               caughtFish.id === specie.id && caughtFish.isCaught
                 ? 'paused'
