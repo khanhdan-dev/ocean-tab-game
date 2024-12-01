@@ -99,7 +99,7 @@ body {
 
 @keyframes move-left-medium {
   0% {
-    transform: translate(-200%, 0) rotate(0deg);
+    transform: translate(-50vw, 0) rotate(0deg);
   }
   20% {
     transform: translate(0vw, 0) rotate(0deg);
@@ -119,7 +119,7 @@ body {
 }
 @keyframes move-right-medium {
   0% {
-    transform: translate(200%, 0) rotate(0deg);
+    transform: translate(50vw, 0) rotate(0deg);
   }
   20% {
     transform: translate(0, 0) rotate(0deg);
@@ -140,7 +140,7 @@ body {
 
 @keyframes move-left-large {
   0% {
-    transform: translate(-100dvw, 0);
+    transform: translate(-120vw, 0);
   }
   100% {
     transform: translate(120vw, 0);
@@ -148,7 +148,7 @@ body {
 }
 @keyframes move-right-large {
   0% {
-    transform: translate(100dvw, 0);
+    transform: translate(120vw, 0);
   }
   100% {
     transform: translate(-120vw, 0);
