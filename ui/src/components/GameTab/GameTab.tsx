@@ -34,7 +34,6 @@ function GameTab({
 }: Props) {
   const { mutate: putUpdateUserMutate } = usePutUpdateUser();
   const [currentTurns, setCurrentTurns] = useState<number>(userInfo.turns);
-  console.debug('currentTurns: ', currentTurns);
   const [userCoins, setUserCoins] = useState(userInfo.resources.coins);
   const [userFish, setUserFish] = useState(userInfo.resources.fish);
   const [userShells, setUserShells] = useState(userInfo.resources.shells);
