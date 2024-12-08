@@ -132,7 +132,7 @@ function GameTab({
       const imagePath = `${key === 'coins' ? 'coin' : key === 'shells' ? 'shell' : 'fish'}.png`;
       return value !== 0 ? (
         <div className="flex gap-3">
-          <p className="glow-effect text-xl font-black">
+          <p className="glow-effect-reward text-xl font-black">
             {value} <span className="capitalize">{key}</span>
           </p>
           <Image

@@ -7,6 +7,7 @@ import React, {
   SetStateAction,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { GiFishingNet } from 'react-icons/gi';
@@ -81,6 +82,8 @@ const SpeciesBackground = ({
   currentTurns,
   setIsOpenTurnEmpty,
 }: Props) => {
+  const audioRewardRef = useRef<HTMLAudioElement | null>(null);
+  const audioHitRef = useRef<HTMLAudioElement | null>(null);
   const [species, setSpecies] = useState<Species[]>([]);
   const initialCaughtFish = useMemo(
     () => ({
@@ -124,9 +127,11 @@ const SpeciesBackground = ({
   ]);
 
   const handleCatchFish = (specie: Species) => {
-    const clickSound = new Audio('/sounds/hit.mp3'); // Path to your sound file
     if (specie.requiredAttacks !== 1) {
-      clickSound.play(); // Play the sound
+      if (audioHitRef.current) {
+        audioHitRef.current.currentTime = 0; // Reset to the start
+        audioHitRef.current.play();
+      }
     }
 
     // Trigger attack animation
@@ -150,8 +155,10 @@ const SpeciesBackground = ({
 
     const updatedFish = species.find((s) => s.id === specie.id);
     if (updatedFish?.requiredAttacks === 1) {
-      const clickSound = new Audio('/sounds/reward.mp3'); // Path to your sound file
-      clickSound.play(); // Play the sound
+      if (audioRewardRef.current) {
+        audioRewardRef.current.currentTime = 0; // Reset to the start
+        audioRewardRef.current.play();
+      }
       setCaughtFish({
         id: specie.id,
         isCaught: true,
@@ -164,6 +171,10 @@ const SpeciesBackground = ({
 
   return (
     <div className="fixed bottom-0 left-0 right-0 top-0 z-10 h-full w-full overflow-hidden">
+      {/* Reward sound */}
+      <audio ref={audioRewardRef} src="/sounds/reward.mp3" preload="auto" />
+      {/* hit sound */}
+      <audio ref={audioHitRef} src="/sounds/hit.mp3" preload="auto" />
       {species.map((specie) => (
         <button
           disabled={caughtFish.isCaught}

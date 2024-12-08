@@ -194,9 +194,16 @@ body {
   animation: attackEffect 0.2s ease-in-out;
 }
 
-.glow-effect {
+.glow-effect-reward {
   text-shadow:
     0 0 5px #fff,
     0 0 10px #fff,
     0 0 15px #fff;
+}
+
+.glow-effect {
+  text-shadow:
+    0 0 10px #47c9af,
+    0 0 20px #47c9af,
+    0 0 30px #47c9af;
 }
