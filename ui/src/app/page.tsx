@@ -27,7 +27,6 @@ export default function Home() {
       coins: 0,
     },
   });
-  console.debug('telegramUser: ', telegramUser);
 
   useEffect(() => {
     const imagePaths = Array.from(
