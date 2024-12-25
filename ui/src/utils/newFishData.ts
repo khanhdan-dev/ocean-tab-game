@@ -936,7 +936,7 @@ export const newFishData: IFishItem[] = [
   },
   {
     id: 'deep_ocean_019',
-    name: 'Albatross',
+    name: 'Snailfish',
     image: '/fish/fish-66.png',
     speed: 3,
     size: 'medium',
@@ -1941,7 +1941,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_001',
     name: 'Blue Marlin',
-    image: '/fish/fish-68.png',
+    image: '/open/open-1.png',
     speed: 5,
     size: 'large',
     rarity: 'epic',
@@ -1957,7 +1957,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_002',
     name: 'Mako Shark',
-    image: '/fish/fish-69.png',
+    image: '/open/open-2.png',
     speed: 5,
     size: 'large',
     rarity: 'rare',
@@ -1973,7 +1973,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_003',
     name: 'Swordfish',
-    image: '/fish/fish-70.png',
+    image: '/open/open-3.png',
     speed: 6,
     size: 'medium',
     rarity: 'epic',
@@ -1989,7 +1989,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_004',
     name: 'Albacore Tuna',
-    image: '/fish/fish-71.png',
+    image: '/open/open-4.png',
     speed: 4,
     size: 'large',
     rarity: 'rare',
@@ -2005,7 +2005,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_005',
     name: 'Pelagic Stingray',
-    image: '/fish/fish-72.png',
+    image: '/open/open-5.png',
     speed: 3,
     size: 'medium',
     rarity: 'common',
@@ -2021,7 +2021,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_006',
     name: 'Sunfish',
-    image: '/fish/fish-73.png',
+    image: '/open/open-6.png',
     speed: 2,
     size: 'large',
     rarity: 'rare',
@@ -2037,7 +2037,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_007',
     name: 'Mahi-Mahi',
-    image: '/fish/fish-74.png',
+    image: '/open/open-7.png',
     speed: 5,
     size: 'medium',
     rarity: 'epic',
@@ -2053,7 +2053,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_008',
     name: 'Humpback Whale',
-    image: '/fish/fish-75.png',
+    image: '/open/open-8.png',
     speed: 1,
     size: 'large',
     rarity: 'epic',
@@ -2069,7 +2069,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_009',
     name: 'Sailfish',
-    image: '/fish/fish-76.png',
+    image: '/open/open-9.png',
     speed: 7,
     size: 'large',
     rarity: 'rare',
@@ -2085,7 +2085,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_010',
     name: 'Cobia',
-    image: '/fish/fish-77.png',
+    image: '/open/open-10.png',
     speed: 4,
     size: 'medium',
     rarity: 'common',
@@ -2101,7 +2101,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_011',
     name: 'Orca',
-    image: '/fish/fish-78.png',
+    image: '/open/open-11.png',
     speed: 4,
     size: 'large',
     rarity: 'epic',
@@ -2117,7 +2117,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_012',
     name: 'Tuna',
-    image: '/fish/fish-79.png',
+    image: '/open/open-12.png',
     speed: 4,
     size: 'medium',
     rarity: 'rare',
@@ -2133,7 +2133,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_013',
     name: 'Thresher Shark',
-    image: '/fish/fish-80.png',
+    image: '/open/open-13.png',
     speed: 5,
     size: 'medium',
     rarity: 'rare',
@@ -2149,7 +2149,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_014',
     name: 'Great White Shark',
-    image: '/fish/fish-81.png',
+    image: '/open/open-14.png',
     speed: 6,
     size: 'large',
     rarity: 'epic',
@@ -2165,7 +2165,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_015',
     name: 'Bottlenose Dolphin',
-    image: '/fish/fish-82.png',
+    image: '/open/open-15.png',
     speed: 5,
     size: 'medium',
     rarity: 'common',
@@ -2181,7 +2181,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_016',
     name: 'Spotted Eagle Ray',
-    image: '/fish/fish-83.png',
+    image: '/open/open-16.png',
     speed: 3,
     size: 'large',
     rarity: 'rare',
@@ -2197,7 +2197,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_017',
     name: 'Lionfish',
-    image: '/fish/fish-84.png',
+    image: '/open/open-17.png',
     speed: 3,
     size: 'small',
     rarity: 'common',
@@ -2213,7 +2213,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_018',
     name: 'Barracuda',
-    image: '/fish/fish-85.png',
+    image: '/open/open-18.png',
     speed: 6,
     size: 'medium',
     rarity: 'epic',
@@ -2229,7 +2229,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_019',
     name: 'Wahoo',
-    image: '/fish/fish-86.png',
+    image: '/open/open-19.png',
     speed: 5,
     size: 'medium',
     rarity: 'rare',
@@ -2245,7 +2245,7 @@ export const openOceanFish: IFishItem[] = [
   {
     id: 'open_ocean_020',
     name: 'Whale Shark',
-    image: '/fish/fish-87.png',
+    image: '/open/open-20.png',
     speed: 2,
     size: 'large',
     rarity: 'epic',
@@ -2551,7 +2551,7 @@ export const deepOceanFish: IFishItem[] = [
   },
   {
     id: 'deep_ocean_019',
-    name: 'Albatross',
+    name: 'Snailfish',
     image: '/fish/fish-66.png',
     speed: 3,
     size: 'medium',
