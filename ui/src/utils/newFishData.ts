@@ -2264,7 +2264,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_001',
     name: 'Anglerfish',
-    image: '/fish/fish-48.png',
+    image: '/deep/deep-1.png',
     speed: 2,
     size: 'medium',
     rarity: 'epic',
@@ -2280,7 +2280,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_002',
     name: 'Giant Squid',
-    image: '/fish/fish-49.png',
+    image: '/deep/deep-2.png',
     speed: 3,
     size: 'large',
     rarity: 'rare',
@@ -2296,7 +2296,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_003',
     name: 'Giant Manta Ray',
-    image: '/fish/fish-50.png',
+    image: '/deep/deep-3.png',
     speed: 4,
     size: 'large',
     rarity: 'epic',
@@ -2312,7 +2312,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_004',
     name: 'Goblin Shark',
-    image: '/fish/fish-51.png',
+    image: '/deep/deep-4.png',
     speed: 3,
     size: 'medium',
     rarity: 'rare',
@@ -2328,7 +2328,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_005',
     name: 'Deep Sea Anglerfish',
-    image: '/fish/fish-52.png',
+    image: '/deep/deep-5.png',
     speed: 2,
     size: 'small',
     rarity: 'common',
@@ -2344,7 +2344,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_006',
     name: 'Vampire Squid',
-    image: '/fish/fish-53.png',
+    image: '/deep/deep-6.png',
     speed: 3,
     size: 'medium',
     rarity: 'rare',
@@ -2360,7 +2360,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_007',
     name: 'Black Swallower',
-    image: '/fish/fish-54.png',
+    image: '/deep/deep-7.png',
     speed: 1,
     size: 'small',
     rarity: 'epic',
@@ -2376,7 +2376,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_008',
     name: 'Deep Sea Jellyfish',
-    image: '/fish/fish-55.png',
+    image: '/deep/deep-8.png',
     speed: 1,
     size: 'small',
     rarity: 'common',
@@ -2392,7 +2392,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_009',
     name: 'Cusk Eel',
-    image: '/fish/fish-56.png',
+    image: '/deep/deep-9.png',
     speed: 2,
     size: 'medium',
     rarity: 'rare',
@@ -2408,7 +2408,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_010',
     name: 'Pelagic Thresher Shark',
-    image: '/fish/fish-57.png',
+    image: '/deep/deep-10.png',
     speed: 4,
     size: 'large',
     rarity: 'epic',
@@ -2424,7 +2424,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_011',
     name: 'Fangtooth',
-    image: '/fish/fish-58.png',
+    image: '/deep/deep-11.png',
     speed: 2,
     size: 'small',
     rarity: 'common',
@@ -2440,7 +2440,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_012',
     name: 'Frilled Shark',
-    image: '/fish/fish-59.png',
+    image: '/deep/deep-12.png',
     speed: 3,
     size: 'medium',
     rarity: 'rare',
@@ -2456,7 +2456,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_013',
     name: 'Lasiognathus',
-    image: '/fish/fish-60.png',
+    image: '/deep/deep-13.png',
     speed: 1,
     size: 'small',
     rarity: 'epic',
@@ -2472,7 +2472,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_014',
     name: 'Cookiecutter Shark',
-    image: '/fish/fish-61.png',
+    image: '/deep/deep-14.png',
     speed: 2,
     size: 'medium',
     rarity: 'rare',
@@ -2488,7 +2488,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_015',
     name: 'Ocean Sunfish',
-    image: '/fish/fish-62.png',
+    image: '/deep/deep-15.png',
     speed: 4,
     size: 'large',
     rarity: 'epic',
@@ -2504,7 +2504,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_016',
     name: 'Giant Isopod',
-    image: '/fish/fish-63.png',
+    image: '/deep/deep-16.png',
     speed: 2,
     size: 'small',
     rarity: 'common',
@@ -2520,7 +2520,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_017',
     name: 'Barreleye Fish',
-    image: '/fish/fish-64.png',
+    image: '/deep/deep-17.png',
     speed: 2,
     size: 'medium',
     rarity: 'rare',
@@ -2536,7 +2536,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_018',
     name: 'Viperfish',
-    image: '/fish/fish-65.png',
+    image: '/deep/deep-18.png',
     speed: 2,
     size: 'small',
     rarity: 'epic',
@@ -2552,7 +2552,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_019',
     name: 'Snailfish',
-    image: '/fish/fish-66.png',
+    image: '/deep/deep-19.png',
     speed: 3,
     size: 'medium',
     rarity: 'common',
@@ -2568,7 +2568,7 @@ export const deepOceanFish: IFishItem[] = [
   {
     id: 'deep_ocean_020',
     name: 'Barred Knifejaw',
-    image: '/fish/fish-67.png',
+    image: '/deep/deep-20.png',
     speed: 3,
     size: 'small',
     rarity: 'rare',
