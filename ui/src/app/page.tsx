@@ -29,12 +29,27 @@ export default function Home() {
   });
 
   useEffect(() => {
-    const imagePaths = Array.from(
-      { length: 16 },
-      (_, i) => `/fish/fish-${i + 1}.png`,
+    const shallowImagePaths = Array.from(
+      { length: 20 },
+      (_, i) => `/fish/shallow/shallow-${i + 1}.png`,
+    );
+    const reefImagePaths = Array.from(
+      { length: 20 },
+      (_, i) => `/fish/reef/reef-${i + 1}.png`,
+    );
+    const openImagePaths = Array.from(
+      { length: 20 },
+      (_, i) => `/fish/open/open-${i + 1}.png`,
+    );
+    const deepImagePaths = Array.from(
+      { length: 20 },
+      (_, i) => `/fish/deep/deep-${i + 1}.png`,
     );
 
-    preloadImages(imagePaths);
+    preloadImages(shallowImagePaths);
+    preloadImages(reefImagePaths);
+    preloadImages(openImagePaths);
+    preloadImages(deepImagePaths);
     if (typeof window !== 'undefined') {
       const userTelegram = WebApp.initDataUnsafe?.user as ITelegramUserInfo;
 

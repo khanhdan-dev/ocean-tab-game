@@ -272,6 +272,7 @@ function GameTab({
                 userInfo={userInfo}
                 currentTurns={currentTurns}
                 setIsOpenTurnEmpty={setIsOpenTurnEmpty}
+                currentHabitat={currentHabitat}
               />
             </>
           ) : (

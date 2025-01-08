@@ -1,6 +1,6 @@
-import { fishData } from 'kan/utils/fishData';
+import { IFishItem } from 'kan/types';
 
-export const getRandomFish = () => {
+export const getRandomFish = (fishData: IFishItem[]) => {
   // Define a mapping for rarity to weights
   const rarityWeights: { [key: string]: number } = {
     common: 50,

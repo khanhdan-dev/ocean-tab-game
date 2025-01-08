@@ -1,10 +1,17 @@
 'use client';
 import { getRandomFish } from 'kan/hooks/useRandomValue';
 import { IFishItem, ITelegramUserInfo, Rewards } from 'kan/types';
+import {
+  deepOceanFish,
+  openOceanFish,
+  reefFish,
+  shallowReefFish,
+} from 'kan/utils/newFishData';
 import Image from 'next/image';
 import React, {
   Dispatch,
   SetStateAction,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -17,6 +24,7 @@ interface Props {
   userInfo: ITelegramUserInfo;
   currentTurns: number;
   setIsOpenTurnEmpty: Dispatch<SetStateAction<boolean>>;
+  currentHabitat: IFishItem['habitat'] | null;
 }
 
 type Species = {
@@ -51,10 +59,10 @@ const getSize = (size: IFishItem['size']) => {
   }
 };
 
-const createSpecies = (): Species => {
+const createSpecies = (fishData: IFishItem[]): Species => {
   const directions: Array<Species['direction']> = ['left', 'right'];
   const direction = directions[Math.floor(Math.random() * directions.length)];
-  const fish = getRandomFish();
+  const fish = getRandomFish(fishData);
 
   return {
     id: Math.random(),
@@ -81,6 +89,7 @@ const SpeciesBackground = ({
   handleTabClick,
   currentTurns,
   setIsOpenTurnEmpty,
+  currentHabitat,
 }: Props) => {
   const audioRewardRef = useRef<HTMLAudioElement | null>(null);
   const audioHitRef = useRef<HTMLAudioElement | null>(null);
@@ -94,6 +103,21 @@ const SpeciesBackground = ({
   );
   const [caughtFish, setCaughtFish] = useState(initialCaughtFish);
   const [attackedFishId, setAttackedFishId] = useState<number | null>(null);
+  const fishData = useCallback(() => {
+    switch (currentHabitat) {
+      case 'shallow reef':
+        return shallowReefFish;
+      case 'reef':
+        return reefFish;
+      case 'open ocean':
+        return openOceanFish;
+      case 'deep ocean':
+        return deepOceanFish;
+
+      default:
+        return shallowReefFish;
+    }
+  }, [currentHabitat]);
 
   // Use the useRandomImage hook to generate a random fish image
   useEffect(() => {
@@ -107,7 +131,8 @@ const SpeciesBackground = ({
       );
     }
     const addSpeciesPeriodically = () => {
-      const newSpecies = createSpecies(); // Pass the number of fish images you have
+      const currentFishData = fishData();
+      const newSpecies = createSpecies(currentFishData); // Pass the number of fish images you have
       setSpecies((currentSpecies) => [
         ...currentSpecies.slice(-10), // Keep the last 14 species
         newSpecies,
@@ -124,6 +149,7 @@ const SpeciesBackground = ({
     caughtFish.id,
     initialCaughtFish,
     species,
+    fishData,
   ]);
 
   const handleCatchFish = (specie: Species) => {
