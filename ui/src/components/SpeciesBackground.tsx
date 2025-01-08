@@ -225,10 +225,16 @@ const SpeciesBackground = ({
           }}
         >
           <div
-            className={`flex flex-col items-center ${
+            className={`relative flex flex-col items-center ${
               attackedFishId === specie.id ? 'animate-attack-effect' : ''
             }`}
           >
+            {attackedFishId === specie.id ? (
+              <div className="absolute inset-0 z-20 scale-150 bg-[url('/effects/thunder.gif')] bg-cover bg-center"></div>
+            ) : (
+              <></>
+            )}
+
             <Image
               src={specie.species}
               alt={`Species ${specie.id}`}
