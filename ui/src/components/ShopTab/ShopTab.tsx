@@ -5,6 +5,10 @@ import React, { useState } from 'react';
 import { ShopItem, shopItems } from './shopItems';
 import { ITelegramUserInfo } from 'kan/types';
 import { usePutUpdateUser } from 'kan/hooks/usePutUpdateUser';
+import { TabGroup, TabPanels, TabPanel, TabList, Tab } from '@headlessui/react';
+import { GiSpearfishing } from 'react-icons/gi';
+import { MdOutlineScubaDiving } from 'react-icons/md';
+import { FaShop } from 'react-icons/fa6';
 
 interface Props {
   userInfo: ITelegramUserInfo;
@@ -98,7 +102,7 @@ function ShopTab({ userInfo }: Props) {
           <Image
             src={`/resources/${r.name.toLowerCase()}.png`}
             alt={r.name}
-            className="h-6 w-auto rounded-lg"
+            className="h-4 w-auto rounded-lg"
             width={20000}
             height={20000}
           />
@@ -106,6 +110,68 @@ function ShopTab({ userInfo }: Props) {
         </div>
       );
     });
+  };
+
+  const getTabClasses = (selected: boolean) =>
+    `${
+      selected
+        ? 'text-ocean-flashturq focus:outline-none'
+        : 'text-white hover:bg-gray-200 focus:outline-none'
+    } px-3 py-2 w-full font-semibold text-sm`;
+
+  const onRenderTabs = () => {
+    const tabList = [
+      {
+        name: 'All',
+        icon: <FaShop />,
+      },
+      {
+        name: 'Skills',
+        icon: <GiSpearfishing />,
+      },
+      {
+        name: 'Equipments',
+        icon: <MdOutlineScubaDiving />,
+      },
+    ];
+
+    return tabList.map((tab) => (
+      <Tab
+        key={tab.name}
+        className={({ selected }) => `${getTabClasses(selected)}`}
+      >
+        <div className="flex items-center justify-end gap-1 hover:bg-ocean-darkblue">
+          {tab.icon}
+          <p>{tab.name}</p>
+        </div>
+      </Tab>
+    ));
+  };
+
+  const onRenderProducts = (items: ShopItem[]) => {
+    return (
+      <div className="mt-2 grid grid-cols-3 gap-3 overflow-auto rounded-md bg-ocean-lightgrey p-2 py-4 text-ocean-white">
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className="bg-ocean-primary-light relative flex cursor-pointer flex-col items-center gap-1 overflow-hidden rounded-lg border border-ocean-primary-medium bg-ocean-primary-medium p-1"
+            onClick={() => setSelectedItem(item)}
+          >
+            <Image
+              src={`/shop/item-${item.id}.png`}
+              alt={item.name}
+              className="mt-5 h-16 w-16 rounded-lg object-contain py-2 drop-shadow-[0px_10px_5px_#47c9af]"
+              width={20000}
+              height={20000}
+            />
+            <p className="mt-2 text-center text-sm font-bold">{item.name}</p>
+            <div className="absolute right-0 top-0 rounded-bl-xl bg-ocean-orange px-2 py-1 text-xs font-semibold capitalize">
+              {item.type}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -172,29 +238,23 @@ function ShopTab({ userInfo }: Props) {
           </div>
         </div>
       </div>
-
-      {/* Shop Items */}
-      <div className="mt-5 grid grid-cols-3 gap-3 overflow-auto rounded-md bg-ocean-lightgrey p-2 py-4 text-ocean-white">
-        {shopItems.map((item) => (
-          <div
-            key={item.id}
-            className="bg-ocean-primary-light relative flex cursor-pointer flex-col items-center gap-1 overflow-hidden rounded-lg border border-ocean-primary-medium bg-ocean-primary-medium p-1"
-            onClick={() => setSelectedItem(item)}
-          >
-            <Image
-              src={`/shop/item-${item.id}.png`}
-              alt={item.name}
-              className="mt-5 h-16 w-16 rounded-lg object-contain py-2 drop-shadow-[0px_10px_5px_#47c9af]"
-              width={20000}
-              height={20000}
-            />
-            <p className="mt-2 text-center text-sm font-bold">{item.name}</p>
-            <div className="absolute right-0 top-0 rounded-bl-xl bg-ocean-orange px-2 py-1 text-xs font-semibold capitalize">
-              {item.type}
-            </div>
-          </div>
-        ))}
-      </div>
+      <TabGroup className="mt-5">
+        {/* Tabs List at the bottom */}
+        <TabList className="z-20 mx-auto flex w-fit rounded-lg border-[1px] border-ocean-lightgrey/30 bg-ocean-darkblue shadow-lg backdrop-blur-lg">
+          {onRenderTabs()}
+        </TabList>
+        <TabPanels className="h-full w-full flex-1">
+          <TabPanel className="flex h-full items-center justify-center">
+            {onRenderProducts(shopItems)}
+          </TabPanel>
+          <TabPanel className="h-full w-full flex-1">
+            {onRenderProducts(shopItems.filter((i) => i.type === 'skill'))}
+          </TabPanel>
+          <TabPanel className="h-full w-full flex-1">
+            {onRenderProducts(shopItems.filter((i) => i.type === 'equipment'))}
+          </TabPanel>
+        </TabPanels>
+      </TabGroup>
 
       {/* Item Details Popup */}
       {selectedItem && (
