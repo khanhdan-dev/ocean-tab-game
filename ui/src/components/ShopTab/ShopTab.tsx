@@ -17,6 +17,7 @@ interface Props {
 function ShopTab({ userInfo }: Props) {
   const { mutate: putUpdateUserMutate } = usePutUpdateUser();
   const [selectedItem, setSelectedItem] = useState<ShopItem | null>(null);
+  console.log('selectedItem: ', selectedItem);
   const [quantity, setQuantity] = useState(1);
   const [userCoins, setUserCoins] = useState(userInfo.resources.coins);
   const [userFish, setUserFish] = useState(userInfo.resources.fish);
