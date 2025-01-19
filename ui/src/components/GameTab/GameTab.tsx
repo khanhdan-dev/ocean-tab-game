@@ -273,7 +273,7 @@ function GameTab({
               <div className="absolute bottom-20 left-3 right-3 z-20 flex items-end justify-between">
                 <div
                   className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-white/20 bg-ocean-turquoise/50 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80"
-                  onClick={() => setSelectedIndex(3)}
+                  onClick={() => setSelectedIndex(4)}
                 >
                   <Image
                     className="h-10 w-auto animate-shake rounded-full"

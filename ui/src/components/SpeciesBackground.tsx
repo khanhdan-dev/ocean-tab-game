@@ -200,7 +200,7 @@ const SpeciesBackground = ({
       {/* Reward sound */}
       <audio ref={audioRewardRef} src="/sounds/reward.mp3" preload="auto" />
       {/* hit sound */}
-      <audio ref={audioHitRef} src="/sounds/hit.mp3" preload="auto" />
+      <audio ref={audioHitRef} src="/sounds/electric.mp3" preload="auto" />
       {species.map((specie) => (
         <button
           disabled={caughtFish.isCaught}
