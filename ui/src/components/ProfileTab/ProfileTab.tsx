@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ITelegramUserInfo } from 'kan/types';
 import Image from 'next/image';
 import React from 'react';
+import { Model } from './Model';
+import RenderModel from '../RenderModel';
 
 interface Props {
   userInfo: ITelegramUserInfo;
@@ -64,14 +66,21 @@ function ProfileTab({ userInfo }: Props) {
   return (
     <div className="min-h-[100dvh] bg-ocean-primary-medium p-4 pb-20 text-ocean-white">
       <div className="bg-primary-medium mb-6 flex items-center justify-between rounded-lg pr-2">
-        <div className="flex w-fit cursor-pointer items-start gap-2 rounded-full px-2 text-white hover:opacity-80">
-          <Image
+        <div className="items-items-center flex w-fit cursor-pointer gap-2 rounded-full px-2 text-white hover:opacity-80">
+          {/* <Image
             className="h-40 w-auto bg-firefly-radial object-contain"
             src="/shop/skin/skin-1.png"
             alt="skin"
             width={20000}
             height={20000}
-          />
+          /> */}
+          <div className="flex items-center justify-between">
+            <div className="z-50 mx-auto flex h-[24dvh] w-28">
+              <RenderModel className="bg-firefly-radial">
+                <Model />
+              </RenderModel>
+            </div>
+          </div>
           <div className="flex flex-col">
             <p className="mt-3 w-fit animate-shake rounded-full bg-ocean-white/20 px-4 py-2 text-center text-xl font-semibold text-ocean-flashturq shadow-inner shadow-ocean-white brightness-150">
               {userInfo.first_name ?? userInfo.username ?? 'Hunter'}

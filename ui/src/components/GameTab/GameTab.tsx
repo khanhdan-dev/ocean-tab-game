@@ -7,6 +7,8 @@ import BackgroundAudio from '../BackgroundAudio';
 import { GiFishingNet } from 'react-icons/gi';
 import { usePutUpdateUser } from 'kan/hooks/usePutUpdateUser';
 import GameMatches from './GameMatches';
+import RenderModel from '../RenderModel';
+import { Model } from '../ProfileTab/Model';
 
 interface Props {
   isPlayingGame: boolean;
@@ -195,13 +197,20 @@ function GameTab({
           {isPlayingGame ? (
             <>
               <div className="flex h-[100dvh] flex-col items-center justify-end pb-10 text-center">
-                <Image
+                {/* <Image
                   className="mt-20 h-[30vh] w-auto animate-pulse"
                   src={'/diver/diver-default.png'}
                   alt="diver"
                   width={20000}
                   height={20000}
-                />
+                /> */}
+                <div className="flex items-center justify-between">
+                  <div className="z-50 mx-auto flex h-[30dvh] w-28">
+                    <RenderModel className="">
+                      <Model />
+                    </RenderModel>
+                  </div>
+                </div>
               </div>
               <div className="absolute left-3 right-3 top-3">
                 <div className="flex w-full items-start justify-between gap-3">

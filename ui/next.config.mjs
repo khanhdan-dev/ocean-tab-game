@@ -29,6 +29,7 @@ const nextConfig = {
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
+  transpilePackages: ['three'],
 };
 
 export default nextConfig;
