@@ -212,8 +212,8 @@ function GameTab({
                   </div>
                 </div>
               </div>
-              <div className="absolute left-3 right-3 top-14 md:top-3">
-                <div className="flex w-full items-start justify-between gap-3">
+              <div className="absolute bottom-3 left-3 right-3">
+                <div className="flex w-full items-end justify-between gap-3">
                   <div className="flex flex-col gap-2 rounded-xl border border-white/20 bg-ocean-turquoise/80 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80">
                     <div className="flex items-center justify-center gap-1 text-3xl text-white">
                       <GiFishingNet
@@ -249,33 +249,6 @@ function GameTab({
                 </div>
               </div>
 
-              {/* <dialog
-            open={isOpenRewardDialog}
-            className="z-20 mx-auto h-[100dvh] w-[90vw] bg-transparent"
-          >
-            <div className="flex h-full animate-shake items-center justify-center">
-              <div className="flex w-4/5 flex-col items-center gap-3 rounded-xl bg-blue-600 py-5 text-white">
-                <div className="flex flex-col items-center gap-5">
-                  <Image
-                    className="h-[20vh] w-auto bg-firefly-radial"
-                    src={`/diver/diver-${reward?.toLowerCase()}.png`}
-                    alt="diver"
-                    width={20000}
-                    height={20000}
-                  />
-                  <p>Wonderful! You got a {reward}</p>
-                </div>
-                <form method="dialog">
-                  <button
-                    className="rounded-lg bg-emerald-500 px-3 py-1"
-                    onClick={() => setIsOpenRewardDialog(false)}
-                  >
-                    OK
-                  </button>
-                </form>
-              </div>
-            </div>
-          </dialog> */}
               <SpeciesBackground
                 handleTabClick={handleTabClick}
                 userInfo={userInfo}
@@ -286,7 +259,18 @@ function GameTab({
             </>
           ) : (
             <div className="z-20">
-              <div className="absolute left-3 right-3 top-14 z-20 flex items-start justify-between md:top-3">
+              <div className="flex -translate-y-10 flex-col items-center justify-start">
+                <div onClick={() => setIsPlayingGame(!isPlayingGame)}>
+                  <Image
+                    className="h-20 w-auto animate-shake-infinite"
+                    src={'/control/control-2.png'}
+                    alt="play button"
+                    width={20000}
+                    height={20000}
+                  />
+                </div>
+              </div>
+              <div className="absolute bottom-20 left-3 right-3 z-20 flex items-end justify-between">
                 <div
                   className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-white/20 bg-ocean-turquoise/50 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80"
                   onClick={() => setSelectedIndex(3)}
@@ -318,17 +302,6 @@ function GameTab({
                     width={20000}
                     height={20000}
                     onClick={() => setIsOpenGameMatches(true)}
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start gap-20">
-                <div onClick={() => setIsPlayingGame(!isPlayingGame)}>
-                  <Image
-                    className="h-20 w-auto animate-shake-infinite"
-                    src={'/control/control-2.png'}
-                    alt="diver"
-                    width={20000}
-                    height={20000}
                   />
                 </div>
               </div>
