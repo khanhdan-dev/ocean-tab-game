@@ -196,7 +196,7 @@ function GameTab({
         <>
           {isPlayingGame ? (
             <>
-              <div className="flex h-[100dvh] flex-col items-center justify-end pb-10 text-center">
+              <div className="flex h-[100dvh] flex-col items-center justify-center pb-10 text-center">
                 {/* <Image
                   className="mt-20 h-[30vh] w-auto animate-pulse"
                   src={'/diver/diver-default.png'}
@@ -204,8 +204,8 @@ function GameTab({
                   width={20000}
                   height={20000}
                 /> */}
-                <div className="flex items-center justify-between">
-                  <div className="z-20 mx-auto flex h-[14.5rem] w-[8rem]">
+                <div className="flex items-center justify-between pt-32">
+                  <div className="z-10 mx-auto flex h-[14.5rem] w-[8rem]">
                     <RenderModel className="">
                       <Model />
                     </RenderModel>
@@ -214,7 +214,7 @@ function GameTab({
               </div>
               <div className="absolute bottom-3 left-3 right-3">
                 <div className="flex w-full items-end justify-between gap-3">
-                  <div className="flex flex-col gap-2 rounded-xl border border-white/20 bg-ocean-turquoise/80 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80">
+                  <div className="flex flex-col gap-2 rounded-xl border border-white/20 bg-ocean-turquoise/20 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80">
                     <div className="flex items-center justify-center gap-1 text-3xl text-white">
                       <GiFishingNet
                         className="inset-0 animate-wrap-net font-thin"
