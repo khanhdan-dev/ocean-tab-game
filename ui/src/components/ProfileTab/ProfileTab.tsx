@@ -64,7 +64,7 @@ const currentUser: User = {
 
 function ProfileTab({ userInfo }: Props) {
   return (
-    <div className="min-h-[100dvh] bg-ocean-primary-medium p-4 pb-20 text-ocean-white">
+    <div className="min-h-[100dvh] bg-ocean-primary-medium p-4 pb-20 pt-10 text-ocean-white">
       <div className="bg-primary-medium mb-6 flex items-center justify-between rounded-lg pr-2">
         <div className="items-items-center flex w-fit cursor-pointer gap-2 rounded-full px-2 text-white hover:opacity-80">
           {/* <Image
@@ -75,7 +75,7 @@ function ProfileTab({ userInfo }: Props) {
             height={20000}
           /> */}
           <div className="flex items-center justify-between">
-            <div className="z-50 mx-auto flex h-[24dvh] w-28">
+            <div className="z-50 mx-auto flex h-[12rem] w-[7rem]">
               <RenderModel className="bg-firefly-radial">
                 <Model />
               </RenderModel>

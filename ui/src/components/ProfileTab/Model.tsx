@@ -57,7 +57,7 @@ export function Model(
   useFrame((state) => {
     if (modelRef.current) {
       modelRef.current.position.y =
-        -3 + Math.sin(state.clock.elapsedTime) * 0.3;
+        -2.8 + Math.sin(state.clock.elapsedTime) * 0.3;
     }
   });
   return (
@@ -65,7 +65,7 @@ export function Model(
       {...props}
       ref={modelRef as Ref<Group<Object3DEventMap>>}
       position={[0, 0, 0]}
-      scale={[3.1, 3.1, 3.1]}
+      scale={[3, 3, 3]}
       rotation={[0, 0, 0]}
       dispose={null}
     >

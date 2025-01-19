@@ -205,14 +205,14 @@ function GameTab({
                   height={20000}
                 /> */}
                 <div className="flex items-center justify-between">
-                  <div className="z-50 mx-auto flex h-[30dvh] w-28">
+                  <div className="z-20 mx-auto flex h-[14.5rem] w-[8rem]">
                     <RenderModel className="">
                       <Model />
                     </RenderModel>
                   </div>
                 </div>
               </div>
-              <div className="absolute left-3 right-3 top-3">
+              <div className="absolute left-3 right-3 top-14 md:top-3">
                 <div className="flex w-full items-start justify-between gap-3">
                   <div className="flex flex-col gap-2 rounded-xl border border-white/20 bg-ocean-turquoise/80 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80">
                     <div className="flex items-center justify-center gap-1 text-3xl text-white">
@@ -286,7 +286,7 @@ function GameTab({
             </>
           ) : (
             <div className="z-20">
-              <div className="absolute left-3 right-3 top-3 z-20 flex items-start justify-between">
+              <div className="absolute left-3 right-3 top-14 z-20 flex items-start justify-between md:top-3">
                 <div
                   className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-white/20 bg-ocean-turquoise/50 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80"
                   onClick={() => setSelectedIndex(3)}

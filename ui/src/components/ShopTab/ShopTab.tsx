@@ -175,7 +175,7 @@ function ShopTab({ userInfo }: Props) {
   };
 
   return (
-    <div className="h-full min-h-[100dvh] overflow-auto bg-ocean-primary-medium p-4 pb-20 text-ocean-white">
+    <div className="h-full min-h-[100dvh] overflow-auto bg-ocean-primary-medium p-4 pb-20 pt-10 text-ocean-white">
       {/* User's Coin, Fish, and Shells Balance */}
       <div className="flex items-center justify-between gap-3">
         <Image

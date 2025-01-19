@@ -118,7 +118,7 @@ function QuestTab() {
       ));
 
   return (
-    <div className="h-full min-h-[100dvh] w-full overflow-auto bg-ocean-primary-medium p-4 pb-24 text-ocean-white">
+    <div className="h-full min-h-[100dvh] w-full overflow-auto bg-ocean-primary-medium p-4 pb-24 pt-10 text-ocean-white">
       <Image
         className="mb-2 h-auto w-full bg-firefly-radial object-contain"
         src="/quest/quest.png"
