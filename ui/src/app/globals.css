@@ -40,6 +40,10 @@ body {
   @apply bg-deep-mobile bg-cover bg-center md:bg-deep-desktop;
 }
 
+.bg-profile {
+  @apply bg-profile-mobile md:bg-profile-desktop bg-cover bg-center;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

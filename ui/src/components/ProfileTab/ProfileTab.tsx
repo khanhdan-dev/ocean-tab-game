@@ -98,13 +98,13 @@ function ProfileTab({ userInfo }: Props) {
     });
   };
   return (
-    <>
+    <div className="bg-profile">
       {/* <dialog
         open={openEditProfile}
         className="z-50 mx-auto h-[80dvh] w-[90vw] bg-transparent md:w-fit"
       >
         <div className="flex h-full items-center justify-center">
-          <div className="flex h-5/6 w-full flex-col items-center gap-3 rounded-xl border border-ocean-lightgrey bg-ocean-primary-medium px-3 py-5 text-white">
+          <div className="flex h-5/6 w-full flex-col items-center gap-3 rounded-xl border border-ocean-lightgrey px-3 py-5 text-white">
             <div className="relative flex h-full items-center justify-between gap-4">
               <div
                 className="mx-auto flex h-[12rem] w-[7rem]"
@@ -134,7 +134,7 @@ function ProfileTab({ userInfo }: Props) {
         </div>
       </dialog> */}
       {openEditProfile ? (
-        <div className="min-h-[100dvh] bg-ocean-primary-medium p-4 pb-20 pt-10 text-ocean-white">
+        <div className="min-h-[100dvh] p-4 pb-20 pt-10 text-ocean-white">
           <div className="flex min-h-[80dvh] flex-col items-center justify-between">
             <div className="flex w-full flex-1 flex-col items-center gap-4 py-3">
               <div className="flex flex-col items-center">
@@ -169,7 +169,7 @@ function ProfileTab({ userInfo }: Props) {
           </div>
         </div>
       ) : (
-        <div className="min-h-[100dvh] bg-ocean-primary-medium p-4 pb-20 pt-10 text-ocean-white">
+        <div className="min-h-[100dvh] p-4 pb-20 pt-5 text-ocean-white">
           <div className="bg-primary-medium mb-6 flex items-center justify-between rounded-lg pr-2">
             <div className="items-items-center flex w-fit cursor-pointer gap-2 rounded-full px-2 text-white hover:opacity-80">
               <div className="flex items-center justify-between">
@@ -177,18 +177,18 @@ function ProfileTab({ userInfo }: Props) {
                   className="z-40 mx-auto flex h-[12rem] w-[7rem]"
                   onClick={handleOpenEditProfile}
                 >
-                  <RenderModel className="bg-firefly-radial">
+                  <RenderModel>
                     <Model />
                   </RenderModel>
                 </div>
               </div>
-              <div className="flex flex-col">
-                <p className="mt-3 w-fit animate-shake rounded-full bg-ocean-white/20 px-4 py-2 text-center text-xl font-semibold text-ocean-flashturq shadow-inner shadow-ocean-white brightness-150">
+              <div className="flex h-fit flex-col rounded-2xl px-3 py-2">
+                <p className="w-fit animate-shake rounded-full bg-ocean-white/20 px-4 py-2 text-center text-xl font-semibold text-ocean-darkblue shadow-inner shadow-ocean-white brightness-150 backdrop-blur-sm">
                   {userInfo.first_name ?? userInfo.username ?? 'Hunter'}
                 </p>
                 <div className="flex items-center gap-2">
                   <Image
-                    className="h-auto w-20 bg-firefly-radial object-contain"
+                    className="h-auto w-20 object-contain"
                     src="/profile/rank.png"
                     alt="rank"
                     width={20000}
@@ -198,7 +198,7 @@ function ProfileTab({ userInfo }: Props) {
                 </div>
                 <div className="flex items-center gap-2">
                   <Image
-                    className="h-auto w-20 bg-firefly-radial object-contain"
+                    className="h-auto w-20 object-contain"
                     src="/profile/score.png"
                     alt="score"
                     width={20000}
@@ -211,7 +211,7 @@ function ProfileTab({ userInfo }: Props) {
           </div>
 
           {/* Achievements Section */}
-          <div className="mb-6 rounded-lg bg-ocean-blue bg-opacity-20 p-4 shadow-lg backdrop-blur-md">
+          <div className="mb-6 rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md">
             <h3 className="mb-4 text-xl font-semibold">Achievements</h3>
             <div className="space-y-2">
               {currentUser.achievements.map((achievement, index) => (
@@ -234,7 +234,7 @@ function ProfileTab({ userInfo }: Props) {
           </div>
 
           {/* Recent Activity Section */}
-          <div className="mb-6 rounded-lg bg-ocean-blue bg-opacity-20 p-4 shadow-lg backdrop-blur-md">
+          <div className="mb-6 rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md">
             <h3 className="mb-4 text-xl font-semibold">Recent Activity</h3>
             <ul className="list-inside list-disc space-y-2">
               {currentUser.recentActivity.map((activity, index) => (
@@ -246,7 +246,7 @@ function ProfileTab({ userInfo }: Props) {
           </div>
 
           {/* Friends Count */}
-          <div className="rounded-lg bg-ocean-blue bg-opacity-20 p-4 shadow-lg backdrop-blur-md">
+          <div className="rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md">
             <h3 className="mb-4 text-xl font-semibold">Friends</h3>
             <p className="text-center text-lg">
               {currentUser.friendsCount} Friends
@@ -254,7 +254,7 @@ function ProfileTab({ userInfo }: Props) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

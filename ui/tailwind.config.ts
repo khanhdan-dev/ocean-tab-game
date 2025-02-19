@@ -31,6 +31,8 @@ const config: Config = {
       backgroundImage: {
         mobile: "url('/background/background-mobile.jpg')",
         desktop: "url('/background/background-desktop.jpg')",
+        'profile-mobile': "url('/background/profile/mobile.jpeg')",
+        'profile-desktop': "url('/background/profile/desktop.jpeg')",
         'shallow-mobile': "url('/habitats/shallow/shallow-mobile.jpeg')",
         'shallow-desktop': "url('/habitats/shallow/shallow-desktop.jpeg')",
         'reef-mobile': "url('/habitats/reef/reef-mobile.jpeg')",
