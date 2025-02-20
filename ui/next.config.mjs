@@ -24,6 +24,12 @@ const nextConfig = {
         port: '',
         pathname: '/150/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'ocean-hunter.gamefi-1.dev',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   experimental: {

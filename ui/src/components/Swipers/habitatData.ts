@@ -5,6 +5,7 @@ import {
   MedievalSharp,
 } from 'next/font/google';
 import { Habitat } from 'kan/types';
+import { getImageSrc } from 'kan/utils/getImageSrc';
 
 const seaweedScript = Seaweed_Script({ subsets: ['latin'], weight: '400' });
 const medievalSharp = MedievalSharp({
@@ -21,8 +22,8 @@ export const habitatData: Habitat[] = [
   {
     type: 'shallow reef',
     gameBgClass: 'bg-shallow',
-    desktopImage: '/habitats/shallow/shallow-desktop.jpeg',
-    mobileImage: '/habitats/shallow/shallow-mobile.jpeg',
+    desktopImage: getImageSrc('/habitats/shallow/shallow-desktop.jpeg'),
+    mobileImage: getImageSrc('/habitats/shallow/shallow-mobile.jpeg'),
     description:
       'A vibrant, colorful habitat teeming with marine life near the surface.',
     fontClass: seaweedScript.className,
@@ -31,8 +32,8 @@ export const habitatData: Habitat[] = [
   {
     type: 'reef',
     gameBgClass: 'bg-reef',
-    mobileImage: '/habitats/reef/reef-mobile.jpeg',
-    desktopImage: '/habitats/reef/reef-desktop.jpeg',
+    mobileImage: getImageSrc('/habitats/reef/reef-mobile.jpeg'),
+    desktopImage: getImageSrc('/habitats/reef/reef-desktop.jpeg'),
     description: 'An expansive underwater coral ecosystem.',
     fontClass: medievalSharp.className,
     bgColor: 'bg-gradient-to-b from-blue-200 to-blue-400',
@@ -40,8 +41,8 @@ export const habitatData: Habitat[] = [
   {
     type: 'open ocean',
     gameBgClass: 'bg-open',
-    mobileImage: '/habitats/open/open-mobile.jpeg',
-    desktopImage: '/habitats/open/open-desktop.jpeg',
+    mobileImage: getImageSrc('/habitats/open/open-mobile.jpeg'),
+    desktopImage: getImageSrc('/habitats/open/open-desktop.jpeg'),
     description:
       'A vast, open underwater expanse with a sense of freedom and mystery.',
     fontClass: mysteryQuest.className,
@@ -50,8 +51,8 @@ export const habitatData: Habitat[] = [
   {
     type: 'deep ocean',
     gameBgClass: 'bg-deep',
-    mobileImage: '/habitats/deep/deep-mobile.jpeg',
-    desktopImage: '/habitats/deep/deep-desktop.jpeg',
+    mobileImage: getImageSrc('/habitats/deep/deep-mobile.jpeg'),
+    desktopImage: getImageSrc('/habitats/deep/deep-desktop.jpeg'),
     description: 'A serene, mysterious habitat with glowing marine life.',
     fontClass: uncialAntiqua.className,
     bgColor: 'bg-gradient-to-b from-gray-900 to-blue-900',

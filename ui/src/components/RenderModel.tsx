@@ -3,7 +3,7 @@
 import React, { ReactNode, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import clsx from 'clsx';
-import { Environment, OrbitControls } from '@react-three/drei';
+import { Environment, OrbitControls, useProgress } from '@react-three/drei';
 
 interface Props {
   children: ReactNode;
@@ -11,7 +11,10 @@ interface Props {
 }
 
 function RenderModel({ children, className }: Props) {
-  return (
+  const { progress } = useProgress();
+  return progress < 100 ? (
+    <>Loading...</>
+  ) : (
     <Canvas className={clsx('relative h-screen w-screen', className)}>
       <ambientLight intensity={0.5} />
       <Suspense fallback={null}>{children}</Suspense>

@@ -1,4 +1,5 @@
 'use client';
+import { getImageSrc } from 'kan/utils/getImageSrc';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
@@ -13,7 +14,7 @@ type Bubble = {
 
 const getRandomBubble = (count: number) => {
   const randomIndex = Math.floor(Math.random() * count) + 1; // Generate random number between 1 and count
-  return `/bubble/bubble-${randomIndex}.png`;
+  return getImageSrc(`/bubble/bubble-${randomIndex}.png`);
 };
 
 const createBubble = (imageCount: number): Bubble => ({

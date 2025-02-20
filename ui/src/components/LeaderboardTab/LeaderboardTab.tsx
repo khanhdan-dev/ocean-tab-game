@@ -1,4 +1,5 @@
 import { ITelegramUserInfo } from 'kan/types';
+import { getImageSrc } from 'kan/utils/getImageSrc';
 import Image from 'next/image';
 import React from 'react';
 
@@ -54,7 +55,7 @@ function LeaderboardTab({ userInfo }: Props) {
       <div className="sticky top-0 mb-2 w-full bg-ocean-primary-medium py-4 pt-10 text-center text-2xl font-bold">
         <Image
           className="h-auto w-full bg-firefly-radial object-contain"
-          src="/leaderboard/leaderboard.png"
+          src={getImageSrc('/leaderboard/leaderboard.png')}
           alt="leaderboard"
           width={20000}
           height={20000}
@@ -78,7 +79,7 @@ function LeaderboardTab({ userInfo }: Props) {
             {player.rank > 0 && player.rank <= 3 ? (
               <div className="w-14">
                 <Image
-                  src={`/prize/prize-${player.rank}.png`}
+                  src={getImageSrc(`/prize/prize-${player.rank}.png`)}
                   alt={`Avatar of ${player.username}`}
                   className={`mx-auto object-contain ${player.rank === 3 ? 'w-8' : 'w-14'}`}
                   width={20000}

@@ -9,6 +9,7 @@ import { TabGroup, TabPanels, TabPanel, TabList, Tab } from '@headlessui/react';
 import { GiSpearfishing } from 'react-icons/gi';
 import { MdOutlineScubaDiving } from 'react-icons/md';
 import { FaShop } from 'react-icons/fa6';
+import { getImageSrc } from 'kan/utils/getImageSrc';
 
 interface Props {
   userInfo: ITelegramUserInfo;
@@ -100,7 +101,7 @@ function ShopTab({ userInfo }: Props) {
       return (
         <div key={r.name} className="flex items-center gap-2 text-sm">
           <Image
-            src={`/resources/${r.name.toLowerCase()}.png`}
+            src={getImageSrc(`/resources/${r.name.toLowerCase()}.png`)}
             alt={r.name}
             className="h-4 w-auto rounded-lg"
             width={20000}
@@ -158,7 +159,7 @@ function ShopTab({ userInfo }: Props) {
             onClick={() => setSelectedItem(item)}
           >
             <Image
-              src={`/shop/item-${item.id}.png`}
+              src={getImageSrc(`/shop/item-${item.id}.png`)}
               alt={item.name}
               className="mt-5 h-16 w-16 rounded-lg object-contain py-2 drop-shadow-[0px_10px_5px_#47c9af]"
               width={20000}
@@ -180,7 +181,7 @@ function ShopTab({ userInfo }: Props) {
       <div className="flex items-center justify-between gap-3">
         <Image
           className="h-48 w-auto bg-firefly-radial object-contain"
-          src="/shop/skin/skin-1.png"
+          src={getImageSrc('/shop/skin/skin-1.png')}
           alt="diver"
           width={20000}
           height={20000}
@@ -188,7 +189,7 @@ function ShopTab({ userInfo }: Props) {
         <div className="flex flex-col items-center justify-center gap-1">
           <Image
             className="h-auto w-full bg-firefly-radial object-contain px-3 pb-2"
-            src="/shop/shop.png"
+            src={getImageSrc('/shop/shop.png')}
             alt="shop"
             width={20000}
             height={20000}
@@ -200,7 +201,7 @@ function ShopTab({ userInfo }: Props) {
               onClick={() => convertToCoins('fish')}
             >
               <Image
-                src={`/resources/fish.png`}
+                src={getImageSrc(`/resources/fish.png`)}
                 alt="fish convert"
                 className="h-5 w-auto rounded-lg"
                 width={20000}
@@ -208,7 +209,7 @@ function ShopTab({ userInfo }: Props) {
               />
               to
               <Image
-                src={`/resources/coin.png`}
+                src={getImageSrc(`/resources/coin.png`)}
                 alt="coin convert"
                 className="h-5 w-auto rounded-lg"
                 width={20000}
@@ -220,7 +221,7 @@ function ShopTab({ userInfo }: Props) {
               onClick={() => convertToCoins('shells')}
             >
               <Image
-                src={`/resources/shell.png`}
+                src={getImageSrc(`/resources/shell.png`)}
                 alt="shell convert"
                 className="h-5 w-auto rounded-lg"
                 width={20000}
@@ -228,7 +229,7 @@ function ShopTab({ userInfo }: Props) {
               />
               to
               <Image
-                src={`/resources/coin.png`}
+                src={getImageSrc(`/resources/coin.png`)}
                 alt="coin convert"
                 className="h-5 w-auto rounded-lg"
                 width={20000}

@@ -9,6 +9,7 @@ import { usePutUpdateUser } from 'kan/hooks/usePutUpdateUser';
 import GameMatches from './GameMatches';
 import RenderModel from '../RenderModel';
 import { Model } from '../ProfileTab/Model';
+import { getImageSrc } from 'kan/utils/getImageSrc';
 
 interface Props {
   isPlayingGame: boolean;
@@ -110,14 +111,14 @@ function GameTab({
         value: userShells,
       },
     ];
-    return rewardList.map((r) => {
+    return rewardList.map((r, index) => {
       return (
         <div
-          key={r.name}
+          key={r.name + index}
           className="flex items-center justify-between gap-2 text-sm"
         >
           <Image
-            src={`/resources/${r.name.toLowerCase()}.png`}
+            src={getImageSrc(`/resources/${r.name.toLowerCase()}.png`)}
             alt={r.name}
             className="h-6 w-auto rounded-lg"
             width={20000}
@@ -139,7 +140,7 @@ function GameTab({
           </p>
           <Image
             className="h-5 w-auto bg-firefly-radial"
-            src={`/resources/${imagePath}`}
+            src={getImageSrc(`/resources/${imagePath}`)}
             alt="diver"
             width={20000}
             height={20000}
@@ -167,7 +168,7 @@ function GameTab({
             <div className="flex items-center justify-between gap-4">
               <Image
                 className="h-[20vh] w-auto bg-firefly-radial"
-                src={`/diver/diver-greeting.png`}
+                src={getImageSrc(`/diver/diver-greeting.png`)}
                 alt="diver"
                 width={20000}
                 height={20000}
@@ -231,7 +232,7 @@ function GameTab({
                   <div className="z-30 flex flex-col justify-end gap-2">
                     <Image
                       className="h-10 w-auto"
-                      src={'/control/control-5.png'}
+                      src={getImageSrc('/control/control-5.png')}
                       alt="diver"
                       width={20000}
                       height={20000}
@@ -239,7 +240,9 @@ function GameTab({
                     />
                     <Image
                       className="h-10 w-auto"
-                      src={`/control/control-${isPlayingMusic ? '11' : '12'}.png`}
+                      src={getImageSrc(
+                        `/control/control-${isPlayingMusic ? '11' : '12'}.png`,
+                      )}
                       alt="diver"
                       width={20000}
                       height={20000}
@@ -263,7 +266,7 @@ function GameTab({
                 <div onClick={() => setIsPlayingGame(!isPlayingGame)}>
                   <Image
                     className="h-20 w-auto animate-shake-infinite"
-                    src={'/control/control-2.png'}
+                    src={getImageSrc('/control/control-2.png')}
                     alt="play button"
                     width={20000}
                     height={20000}
@@ -289,7 +292,9 @@ function GameTab({
                 <div className="flex flex-col items-center justify-start gap-2">
                   <Image
                     className="h-10 w-auto"
-                    src={`/control/control-${isPlayingMusic ? '11' : '12'}.png`}
+                    src={getImageSrc(
+                      `/control/control-${isPlayingMusic ? '11' : '12'}.png`,
+                    )}
                     alt="diver"
                     width={20000}
                     height={20000}
@@ -297,7 +302,7 @@ function GameTab({
                   />
                   <Image
                     className="h-10 w-auto"
-                    src={`/control/control-8.png`}
+                    src={getImageSrc(`/control/control-8.png`)}
                     alt="diver"
                     width={20000}
                     height={20000}
@@ -307,9 +312,9 @@ function GameTab({
               </div>
             </div>
           )}
-          {boxes.map((box) => (
+          {boxes.map((box, index) => (
             <div
-              key={box.id}
+              key={box.id + index + String(Math.random())}
               onAnimationEnd={() => handleAnimationEnd(box.id)}
               className="fixed z-50 flex w-fit animate-moveUp items-center justify-center gap-2 text-ocean-blue transition-transform"
               style={{

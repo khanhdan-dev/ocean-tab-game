@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProgressBar from '@ramonak/react-progress-bar';
 import Image from 'next/image';
+import { getImageSrc } from 'kan/utils/getImageSrc';
 
 interface GameProgressBarProps {
   isComplete: boolean;
@@ -37,7 +38,7 @@ const GameProgressBar = ({ isComplete, onComplete }: GameProgressBarProps) => {
         <div className="mb-3 flex w-full flex-col items-center">
           <Image
             className="h-[40vh] w-fit bg-firefly-radial"
-            src={`/logo/logo-diver.png`}
+            src={getImageSrc(`/logo/logo-diver.png`)}
             alt="logo"
             width={20000}
             height={20000}

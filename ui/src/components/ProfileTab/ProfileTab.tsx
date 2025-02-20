@@ -9,6 +9,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { Model } from './Model';
 import RenderModel from '../RenderModel';
+import { getImageSrc } from 'kan/utils/getImageSrc';
 
 interface Props {
   userInfo: ITelegramUserInfo;
@@ -70,8 +71,8 @@ function ProfileTab({ userInfo }: Props) {
 
   const onRenderGears = () => {
     const gearList = [
-      { id: 'skin', name: 'Skin', img: '/diver/diver-test.png' },
-      { id: 'skill', name: 'Skill', img: '/skills/skill-1.png' },
+      { id: 'skin', name: 'Skin', img: getImageSrc('/diver/diver-test.png') },
+      { id: 'skill', name: 'Skill', img: getImageSrc('/skills/skill-1.png') },
       {
         id: 'equipment',
         name: 'Equipment',
@@ -174,7 +175,7 @@ function ProfileTab({ userInfo }: Props) {
             <div className="items-items-center flex w-fit cursor-pointer gap-2 rounded-full px-2 text-white hover:opacity-80">
               <div className="flex items-center justify-between">
                 <div
-                  className="z-40 mx-auto flex h-[12rem] w-[7rem]"
+                  className="z-10 mx-auto flex h-[12rem] w-[7rem]"
                   onClick={handleOpenEditProfile}
                 >
                   <RenderModel>
@@ -189,7 +190,7 @@ function ProfileTab({ userInfo }: Props) {
                 <div className="flex items-center gap-2">
                   <Image
                     className="h-auto w-20 object-contain"
-                    src="/profile/rank.png"
+                    src={getImageSrc('/profile/rank.png')}
                     alt="rank"
                     width={20000}
                     height={20000}
@@ -199,7 +200,7 @@ function ProfileTab({ userInfo }: Props) {
                 <div className="flex items-center gap-2">
                   <Image
                     className="h-auto w-20 object-contain"
-                    src="/profile/score.png"
+                    src={getImageSrc('/profile/score.png')}
                     alt="score"
                     width={20000}
                     height={20000}

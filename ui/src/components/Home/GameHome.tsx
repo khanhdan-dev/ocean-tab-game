@@ -21,6 +21,7 @@ import QuestTab from '../QuestTab/QuestTab';
 import ShopTab from '../ShopTab/ShopTab';
 import GameProgressBar from '../GameProgressBar';
 import { habitatData } from '../Swipers/habitatData';
+import { getImageSrc } from 'kan/utils/getImageSrc';
 
 interface Props {
   telegramUser: ITelegramUserInfo;
@@ -100,7 +101,7 @@ function GameHome({ telegramUser }: Props) {
   const imageUrl =
     userInfo?.photo_url && validateUrl(userInfo?.photo_url)
       ? userInfo?.photo_url
-      : '/diver/diver-avt.png'; // Default image if the URL is invalid
+      : getImageSrc('/diver/diver-avt.png'); // Default image if the URL is invalid
 
   // Hide progress bar when complete
   const handleComplete = () => {
@@ -128,7 +129,7 @@ function GameHome({ telegramUser }: Props) {
             <div className="flex items-center justify-between gap-4">
               <Image
                 className="h-[20vh] w-auto bg-firefly-radial"
-                src={`/diver/diver-greeting.png`}
+                src={getImageSrc(`/diver/diver-greeting.png`)}
                 alt="diver"
                 width={20000}
                 height={20000}
