@@ -76,7 +76,7 @@ function ProfileTab({ userInfo }: Props) {
       {
         id: 'equipment',
         name: 'Equipment',
-        img: '/equipments/equipment-1.jpeg',
+        img: getImageSrc('/equipments/equipment-1.jpeg'),
       },
     ];
     return gearList.map((gear) => {
