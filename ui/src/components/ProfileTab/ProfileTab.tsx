@@ -10,6 +10,8 @@ import React, { useState } from 'react';
 import { Model } from './Model';
 import RenderModel from '../RenderModel';
 import { getImageSrc } from 'kan/utils/getImageSrc';
+import { Achievements } from './Achievements';
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 
 interface Props {
   userInfo: ITelegramUserInfo;
@@ -211,47 +213,76 @@ function ProfileTab({ userInfo }: Props) {
             </div>
           </div>
 
-          {/* Achievements Section */}
-          <div className="mb-6 rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md">
-            <h3 className="mb-4 text-xl font-semibold">Achievements</h3>
-            <div className="space-y-2">
-              {currentUser.achievements.map((achievement, index) => (
-                <div
-                  key={index}
-                  className="flex items-center rounded-lg border px-4 py-2"
-                >
-                  <div className="mr-3 text-ocean-flashturq">
-                    {achievement.icon}
-                  </div>
-                  <div>
-                    <p className="font-bold text-ocean-flashturq">
-                      {achievement.title}
-                    </p>
-                    <p className="text-sm">{achievement.description}</p>
-                  </div>
+          <div className="flex flex-col gap-10">
+            <Popover className="relative">
+              <PopoverButton className="flex h-[4rem] w-[3rem] bg-opacity-40 bg-firefly-radial outline-none">
+                <RenderModel>
+                  <Achievements />
+                </RenderModel>
+              </PopoverButton>
+              <PopoverPanel
+                anchor="right start"
+                className="mb-6 rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md"
+              >
+                <h3 className="mb-4 text-xl font-semibold">Achievements</h3>
+                <div className="space-y-2">
+                  {currentUser.achievements.map((achievement, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center rounded-lg border px-4 py-2"
+                    >
+                      <div className="mr-3 text-ocean-flashturq">
+                        {achievement.icon}
+                      </div>
+                      <div>
+                        <p className="font-bold text-ocean-flashturq">
+                          {achievement.title}
+                        </p>
+                        <p className="text-sm">{achievement.description}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </PopoverPanel>
+            </Popover>
 
-          {/* Recent Activity Section */}
-          <div className="mb-6 rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md">
-            <h3 className="mb-4 text-xl font-semibold">Recent Activity</h3>
-            <ul className="list-inside list-disc space-y-2">
-              {currentUser.recentActivity.map((activity, index) => (
-                <li key={index} className="text-sm">
-                  {activity}
-                </li>
-              ))}
-            </ul>
-          </div>
+            <Popover className="relative flex justify-end">
+              <PopoverButton className="flex h-[4rem] w-[3rem] bg-opacity-40 bg-firefly-radial outline-none">
+                <RenderModel>
+                  <Achievements />
+                </RenderModel>
+              </PopoverButton>
+              <PopoverPanel
+                anchor="left start"
+                className="mb-6 rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md"
+              >
+                <h3 className="mb-4 text-xl font-semibold">Recent Activity</h3>
+                <ul className="list-inside list-disc space-y-2">
+                  {currentUser.recentActivity.map((activity, index) => (
+                    <li key={index} className="text-sm">
+                      {activity}
+                    </li>
+                  ))}
+                </ul>
+              </PopoverPanel>
+            </Popover>
 
-          {/* Friends Count */}
-          <div className="rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md">
-            <h3 className="mb-4 text-xl font-semibold">Friends</h3>
-            <p className="text-center text-lg">
-              {currentUser.friendsCount} Friends
-            </p>
+            <Popover className="relative">
+              <PopoverButton className="flex h-[4rem] w-[3rem] bg-opacity-40 bg-firefly-radial outline-none">
+                <RenderModel>
+                  <Achievements />
+                </RenderModel>
+              </PopoverButton>
+              <PopoverPanel
+                anchor="right start"
+                className="mb-6 rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md"
+              >
+                <h3 className="mb-4 text-xl font-semibold">Friends</h3>
+                <p className="text-center text-lg">
+                  {currentUser.friendsCount} Friends
+                </p>
+              </PopoverPanel>
+            </Popover>
           </div>
         </div>
       )}
