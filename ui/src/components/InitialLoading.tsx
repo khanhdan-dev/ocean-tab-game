@@ -35,9 +35,9 @@ function InitialLoading({ children }: { children: ReactNode }) {
       const userTelegram = WebApp.initDataUnsafe?.user as ITelegramUserInfo;
 
       if (userTelegram) {
-        localStorage.setItem('telegramId', JSON.stringify(userTelegram));
+        localStorage.setItem('telegramUser', JSON.stringify(userTelegram));
       } else {
-        localStorage.setItem('telegramId', JSON.stringify(telegramUser));
+        localStorage.setItem('telegramUser', JSON.stringify(telegramUser));
       }
     }
   }, [telegramUser]);
