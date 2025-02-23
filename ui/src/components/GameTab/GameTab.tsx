@@ -197,13 +197,6 @@ function GameTab({
           {isPlaying ? (
             <>
               <div className="flex h-[100dvh] flex-col items-center justify-center pb-10 text-center">
-                {/* <Image
-                  className="mt-20 h-[30vh] w-auto animate-pulse"
-                  src={'/diver/diver-default.png'}
-                  alt="diver"
-                  width={20000}
-                  height={20000}
-                /> */}
                 <div className="flex items-center justify-between pt-32">
                   <div className="z-10 mx-auto flex h-[14.5rem] w-[8rem]">
                     <RenderModel className="">
@@ -212,15 +205,15 @@ function GameTab({
                   </div>
                 </div>
               </div>
-              <div className="absolute bottom-3 left-3 right-3">
-                <div className="flex w-full items-end justify-between gap-3">
-                  <div className="flex flex-col gap-2 rounded-xl border border-white/20 bg-ocean-turquoise/20 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80">
+              <div className="absolute left-3 right-3 top-3">
+                <div className="flex w-full items-start justify-between gap-3">
+                  <div className="flex flex-col gap-2 rounded-xl border border-white/20 bg-ocean-turquoise/70 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80">
                     <div className="flex items-center justify-center gap-1 text-3xl text-white">
                       <GiFishingNet
                         className="inset-0 animate-wrap-net font-thin"
                         size={30}
                       />
-                      <p className="font-bold text-ocean-flashturq">
+                      <p className="font-bold text-ocean-white">
                         {currentTurns}
                       </p>
                     </div>

@@ -3,13 +3,13 @@
 import WebApp from '@twa-dev/sdk';
 import { useGetUserInfo } from 'kan/hooks/useGetUserInfo';
 import { ITelegramUserInfo } from 'kan/types';
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import GameProgressBar from './GameProgressBar';
 import { FloatingNavbar } from './Navbar/FloatingNavbar';
 import { AppContext } from 'kan/contexts/AppContext';
 
 function InitialLoading({ children }: { children: ReactNode }) {
-  const { isPlaying } = useContext(AppContext);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [telegramUser] = useState<ITelegramUserInfo>({
     first_name: 'Kan',
     id: 0,
@@ -45,10 +45,15 @@ function InitialLoading({ children }: { children: ReactNode }) {
     );
   }
   return (
-    <>
+    <AppContext.Provider
+      value={{
+        isPlaying,
+        setIsPlaying,
+      }}
+    >
       {children}
       {!isPlaying ? <FloatingNavbar /> : <></>}
-    </>
+    </AppContext.Provider>
   );
 }
 
