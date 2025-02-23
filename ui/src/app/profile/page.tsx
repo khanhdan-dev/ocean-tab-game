@@ -1,14 +1,10 @@
 'use client';
-import WebApp from '@twa-dev/sdk';
-import GameHome from 'kan/components/Home/GameHome';
+
+import ProfileTab from 'kan/components/ProfileTab/ProfileTab';
 import { ITelegramUserInfo } from 'kan/types';
-import { Suspense, useState } from 'react';
+import React, { useState } from 'react';
 
-if (typeof window !== 'undefined') {
-  WebApp.ready();
-}
-
-export default function Home() {
+function ProfilePage() {
   const telegramUserLocalStorage = localStorage.getItem('telegramUser') ?? '';
   const [telegramUser] = useState<ITelegramUserInfo>({
     first_name: 'Kan',
@@ -22,10 +18,7 @@ export default function Home() {
     },
     ...(telegramUserLocalStorage ? JSON.parse(telegramUserLocalStorage) : ''),
   });
-
-  return (
-    <Suspense>
-      <GameHome telegramUser={telegramUser} />
-    </Suspense>
-  );
+  return <ProfileTab userInfo={telegramUser} />;
 }
+
+export default ProfilePage;

@@ -10,12 +10,12 @@ import GameMatches from './GameMatches';
 import RenderModel from '../RenderModel';
 import { Model } from '../ProfileTab/Model';
 import { getImageSrc } from 'kan/utils/getImageSrc';
+import Link from 'next/link';
 
 interface Props {
-  isPlayingGame: boolean;
+  isPlaying: boolean;
   userInfo: ITelegramUserInfo;
-  setIsPlayingGame: Dispatch<SetStateAction<boolean>>;
-  setSelectedIndex: Dispatch<SetStateAction<number>>;
+  setIsPlaying: Dispatch<SetStateAction<boolean>>;
   imageUrl: string;
   setCurrentHabitat: Dispatch<SetStateAction<IFishItem['habitat'] | null>>;
   currentHabitat: IFishItem['habitat'] | null;
@@ -27,10 +27,9 @@ interface Box {
 }
 
 function GameTab({
-  isPlayingGame,
+  isPlaying,
   userInfo,
-  setIsPlayingGame,
-  setSelectedIndex,
+  setIsPlaying,
   imageUrl,
   setCurrentHabitat,
   currentHabitat,
@@ -195,7 +194,7 @@ function GameTab({
         />
       ) : (
         <>
-          {isPlayingGame ? (
+          {isPlaying ? (
             <>
               <div className="flex h-[100dvh] flex-col items-center justify-center pb-10 text-center">
                 {/* <Image
@@ -236,7 +235,7 @@ function GameTab({
                       alt="diver"
                       width={20000}
                       height={20000}
-                      onClick={() => setIsPlayingGame(false)}
+                      onClick={() => setIsPlaying(false)}
                     />
                     <Image
                       className="h-10 w-auto"
@@ -262,21 +261,10 @@ function GameTab({
             </>
           ) : (
             <div className="z-20">
-              <div className="flex -translate-y-10 flex-col items-center justify-start">
-                <div onClick={() => setIsPlayingGame(!isPlayingGame)}>
-                  <Image
-                    className="h-20 w-auto animate-shake-infinite"
-                    src={getImageSrc('/control/control-2.png')}
-                    alt="play button"
-                    width={20000}
-                    height={20000}
-                  />
-                </div>
-              </div>
-              <div className="absolute bottom-20 left-3 right-3 z-20 flex items-end justify-between">
-                <div
+              <div className="absolute left-3 right-3 top-5 z-20 flex items-start justify-between">
+                <Link
+                  href={'/profile'}
                   className="flex w-fit cursor-pointer items-center gap-2 rounded-full border border-white/20 bg-ocean-turquoise/50 p-1 px-2 text-white backdrop-blur-sm hover:opacity-80"
-                  onClick={() => setSelectedIndex(4)}
                 >
                   <Image
                     className="h-10 w-auto animate-shake rounded-full"
@@ -288,7 +276,7 @@ function GameTab({
                   <p className="pr-2">
                     Hi, {userInfo.first_name ?? userInfo.username ?? 'Hunter'}
                   </p>
-                </div>
+                </Link>
                 <div className="flex flex-col items-center justify-start gap-2">
                   <Image
                     className="h-10 w-auto"
@@ -310,6 +298,18 @@ function GameTab({
                   />
                 </div>
               </div>
+              <div
+                className="flex -translate-y-10 flex-col items-center justify-start"
+                onClick={() => setIsPlaying(!isPlaying)}
+              >
+                <Image
+                  className="h-20 w-auto animate-shake-infinite"
+                  src={getImageSrc('/control/control-2.png')}
+                  alt="play button"
+                  width={20000}
+                  height={20000}
+                />
+              </div>
             </div>
           )}
           {boxes.map((box, index) => (
@@ -328,7 +328,7 @@ function GameTab({
           ))}
           <BubblesBackground />
           <BackgroundAudio
-            isPlayingGame={isPlayingGame}
+            isPlayingGame={isPlaying}
             isPlayingMusic={isPlayingMusic}
           />
         </>
