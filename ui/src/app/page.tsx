@@ -1,4 +1,6 @@
 'use client';
+'use cache';
+
 import WebApp from '@twa-dev/sdk';
 import GameHome from 'kan/components/Home/GameHome';
 import { ITelegramUserInfo } from 'kan/types';

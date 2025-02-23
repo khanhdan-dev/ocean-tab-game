@@ -71,7 +71,7 @@ export function FloatingNavbar() {
 
         {/* Navigation */}
         <nav
-          className={`relative rounded-full px-6 py-3 transition-all duration-300 ${isOpen ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'} ${isAnimating ? 'overflow-hidden' : ''} `}
+          className={`relative rounded-full px-3 py-[10px] transition-all duration-300 ${isOpen ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'} ${isAnimating ? 'overflow-hidden' : ''} `}
         >
           <ul className="flex items-center gap-x-4 transition-all duration-300">
             {tabList.map((tab) => {
@@ -83,7 +83,7 @@ export function FloatingNavbar() {
                     className={`relative flex h-10 w-10 flex-col items-center justify-center rounded-full transition-all duration-200 ${
                       isActive
                         ? 'bg-indigo-50 text-indigo-600'
-                        : 'border border-ocean-white/20 text-ocean-white backdrop-blur-lg hover:bg-indigo-50 hover:text-indigo-600'
+                        : 'border border-ocean-white/50 bg-ocean-turquoise/60 text-ocean-white backdrop-blur-md hover:bg-indigo-50 hover:text-indigo-600'
                     } `}
                   >
                     <tab.icon className="h-5 w-5" />
@@ -105,7 +105,7 @@ export function FloatingNavbar() {
             <li>
               <button
                 onClick={() => handleToggle(false)}
-                className="flex h-10 w-10 items-center justify-center rounded-full text-ocean-flashturq transition-all duration-200 hover:bg-indigo-50 hover:text-indigo-600"
+                className="flex h-10 w-10 items-center justify-center rounded-full text-ocean-white transition-all duration-200 hover:bg-indigo-50 hover:text-indigo-600"
               >
                 <MenuIcon className="h-5 w-5" />
               </button>

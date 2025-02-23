@@ -1,6 +1,5 @@
 'use client';
 import React, { useContext, useEffect, useState } from 'react';
-import Image from 'next/image';
 import useUrlValidation from 'kan/hooks/useUrlValidation';
 import { useGetUserInfo } from 'kan/hooks/useGetUserInfo';
 import { IFishItem, ITelegramUserInfo } from 'kan/types';
@@ -16,7 +15,6 @@ interface Props {
 function GameHome({ telegramUser }: Props) {
   const { data: userInfo } = useGetUserInfo(telegramUser);
   const { validateUrl } = useUrlValidation();
-  const [isOpenGreetingDialog, setIsOpenGreetingDialog] = useState(true);
   const { isPlaying, setIsPlaying } = useContext(AppContext);
 
   useEffect(() => {
@@ -33,10 +31,6 @@ function GameHome({ telegramUser }: Props) {
 
   const foundHabitat = habitatData.find((h) => h.type === currentHabitat);
 
-  const handleCreateUser = () => {
-    setIsOpenGreetingDialog(false);
-  };
-
   const imageUrl =
     userInfo?.photo_url && validateUrl(userInfo?.photo_url)
       ? userInfo?.photo_url
@@ -48,41 +42,6 @@ function GameHome({ telegramUser }: Props) {
 
   return (
     <div className="relative flex h-[100dvh] w-screen flex-col items-center justify-center bg-cover">
-      <dialog
-        open={isOpenGreetingDialog}
-        className="z-30 mx-auto h-[100dvh] w-[90vw] bg-transparent md:w-fit"
-      >
-        <div className="z-50 flex h-full animate-shake items-center justify-center">
-          <div className="flex w-4/5 flex-col items-center gap-3 rounded-xl bg-blue-600 px-3 py-5 text-white">
-            <div className="flex items-center justify-between gap-4">
-              <Image
-                className="h-[20vh] w-auto bg-firefly-radial"
-                src={getImageSrc(`/diver/diver-greeting.png`)}
-                alt="diver"
-                width={20000}
-                height={20000}
-              />
-              <h2 className="text-lg font-semibold">
-                {userInfo.isNewUser
-                  ? `Welcome Back, ${
-                      userInfo.first_name ?? userInfo.username ?? 'you'
-                    }!`
-                  : `Welcome ${
-                      userInfo.first_name ?? userInfo.username ?? 'you'
-                    } to the fantastic Journey!`}
-              </h2>
-            </div>
-            <form method="dialog">
-              <button
-                className="rounded-lg bg-emerald-500 px-3 py-1"
-                onClick={handleCreateUser}
-              >
-                OK
-              </button>
-            </form>
-          </div>
-        </div>
-      </dialog>
       <div
         className={`${foundHabitat?.gameBgClass ?? 'bg-ocean'} relative flex h-full w-full flex-col items-center justify-center bg-cover bg-center`}
       >

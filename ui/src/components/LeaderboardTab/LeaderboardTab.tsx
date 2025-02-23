@@ -51,7 +51,7 @@ function LeaderboardTab({ userInfo }: Props) {
     })),
   ];
   return (
-    <div className="min-h-screen bg-ocean-primary-medium px-4 pb-20 text-ocean-white">
+    <div className="min-h-screen bg-ocean-primary-medium px-4 pb-5 text-ocean-white">
       <div className="sticky top-0 mb-2 w-full bg-ocean-primary-medium py-4 pt-10 text-center text-2xl font-bold">
         <Image
           className="h-auto w-full bg-firefly-radial object-contain"

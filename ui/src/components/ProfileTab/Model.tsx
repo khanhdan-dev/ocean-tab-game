@@ -1,4 +1,5 @@
 'use client';
+'use cache';
 import React, { Ref, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import {

@@ -135,7 +135,7 @@ function ProfileTab({ userInfo }: Props) {
         </div>
       </dialog> */}
       {openEditProfile ? (
-        <div className="min-h-[100dvh] p-4 pb-20 pt-10 text-ocean-white">
+        <div className="min-h-[100dvh] p-4 pt-10 text-ocean-white">
           <div className="flex min-h-[80dvh] flex-col items-center justify-between">
             <div className="flex w-full flex-1 flex-col items-center gap-4 py-3">
               <div className="flex flex-col items-center">
@@ -170,7 +170,7 @@ function ProfileTab({ userInfo }: Props) {
           </div>
         </div>
       ) : (
-        <div className="min-h-[100dvh] p-4 pb-20 pt-5 text-ocean-white">
+        <div className="min-h-[100dvh] p-4 pt-5 text-ocean-white">
           <div className="bg-primary-medium mb-6 flex items-center justify-between rounded-lg pr-2">
             <div className="items-items-center flex w-fit cursor-pointer gap-2 rounded-full px-2 text-white hover:opacity-80">
               <div className="flex items-center justify-between">
