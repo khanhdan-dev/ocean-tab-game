@@ -55,6 +55,8 @@ const config: Config = {
           "url('https://ocean-hunter.gamefi-1.dev/habitats/deep/deep-desktop.jpeg')",
         'firefly-radial':
           'radial-gradient(50% 50% at 50% 50%, rgba(253, 255, 80, 0.6) 40%, rgba(217,217,217, 0) 100%)',
+        'light-radial':
+          'radial-gradient(50% 50% at 50% 50%, rgba(253, 255, 80, 0.6) 10%, rgba(217,217,217, 0) 100%)',
       },
       keyframes: {
         shake: {

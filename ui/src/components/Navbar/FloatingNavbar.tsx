@@ -105,7 +105,7 @@ export function FloatingNavbar() {
             <li>
               <button
                 onClick={() => handleToggle(false)}
-                className="flex h-10 w-10 items-center justify-center rounded-full text-ocean-white transition-all duration-200 hover:bg-indigo-50 hover:text-indigo-600"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-ocean-dark/30 text-ocean-white backdrop-blur-md transition-all duration-200 hover:bg-indigo-50 hover:text-indigo-600"
               >
                 <MenuIcon className="h-5 w-5" />
               </button>

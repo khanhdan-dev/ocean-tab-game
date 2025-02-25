@@ -58,7 +58,7 @@ export function Achievements(
   useFrame((state) => {
     if (modelRef.current) {
       modelRef.current.position.y =
-        -0.1 + Math.sin(state.clock.elapsedTime) * 0.4;
+        -2 + Math.sin(state.clock.elapsedTime) * 0.4;
     }
   });
 
@@ -67,38 +67,23 @@ export function Achievements(
       {...props}
       ref={modelRef as Ref<Group<Object3DEventMap>>}
       position={[0, 0, 0]}
-      scale={[0.25, 0.25, 0.25]}
+      scale={[2.3, 2.3, 2.3]}
       rotation={[0, 0, 0]}
       dispose={null}
     >
-      <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group position={[0, 0, -7.042]} scale={[1, 1, 0.149]}>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={
-              (
-                nodes.Cylinder_1 as unknown as {
-                  geometry: BufferGeometry<NormalBufferAttributes>;
-                }
-              ).geometry
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={
+          (
+            nodes.model as unknown as {
+              geometry: BufferGeometry<NormalBufferAttributes>;
             }
-            material={materials['Scene_-_Root']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={
-              (
-                nodes.Cylinder_2 as unknown as {
-                  geometry: BufferGeometry<NormalBufferAttributes>;
-                }
-              ).geometry
-            }
-            material={materials['Scene_-_Root']}
-          />
-        </group>
-      </group>
+          ).geometry
+        }
+        material={materials.CustomMaterial}
+        rotation={[Math.PI / 2, 0, 0]}
+      />
     </group>
   );
 }

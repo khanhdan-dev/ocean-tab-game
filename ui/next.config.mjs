@@ -34,7 +34,6 @@ const nextConfig = {
   },
   experimental: {
     missingSuspenseWithCSRBailout: false,
-    useCache: true,
   },
   transpilePackages: ['three'],
 };

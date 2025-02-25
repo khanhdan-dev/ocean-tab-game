@@ -12,6 +12,8 @@ import RenderModel from '../RenderModel';
 import { getImageSrc } from 'kan/utils/getImageSrc';
 import { Achievements } from './Achievements';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { Activities } from './Activities';
+import { Friends } from './Friends';
 
 interface Props {
   userInfo: ITelegramUserInfo;
@@ -113,7 +115,7 @@ function ProfileTab({ userInfo }: Props) {
                 className="mx-auto flex h-[12rem] w-[7rem]"
                 onClick={handleOpenEditProfile}
               >
-                <RenderModel className="bg-firefly-radial">
+                <RenderModel className="bg-light-radial">
                   <Model />
                 </RenderModel>
               </div>
@@ -197,7 +199,9 @@ function ProfileTab({ userInfo }: Props) {
                     width={20000}
                     height={20000}
                   />
-                  <p className="text-xl font-black">{currentUser.rank}</p>
+                  <p className="glow-effect text-3xl font-black text-ocean-white">
+                    {currentUser.rank}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <Image
@@ -207,22 +211,24 @@ function ProfileTab({ userInfo }: Props) {
                     width={20000}
                     height={20000}
                   />
-                  <p className="text-xl font-black">{currentUser.score}</p>
+                  <p className="glow-effect text-3xl font-black text-ocean-white">
+                    {currentUser.score}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-10">
+          <div className="flex h-full flex-col gap-10">
             <Popover className="relative">
-              <PopoverButton className="flex h-[4rem] w-[3rem] bg-opacity-40 bg-firefly-radial outline-none">
+              <PopoverButton className="bg-light-radial flex h-[8rem] w-[6rem] bg-opacity-40 outline-none">
                 <RenderModel>
                   <Achievements />
                 </RenderModel>
               </PopoverButton>
               <PopoverPanel
                 anchor="right start"
-                className="mb-6 rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md"
+                className="mb-6 rounded-lg bg-ocean-darkblue/80 p-4 text-ocean-white shadow-lg backdrop-blur-md"
               >
                 <h3 className="mb-4 text-xl font-semibold">Achievements</h3>
                 <div className="space-y-2">
@@ -247,14 +253,14 @@ function ProfileTab({ userInfo }: Props) {
             </Popover>
 
             <Popover className="relative flex justify-end">
-              <PopoverButton className="flex h-[4rem] w-[3rem] bg-opacity-40 bg-firefly-radial outline-none">
+              <PopoverButton className="bg-light-radial flex h-[8rem] w-[6rem] bg-opacity-40 outline-none">
                 <RenderModel>
-                  <Achievements />
+                  <Activities />
                 </RenderModel>
               </PopoverButton>
               <PopoverPanel
                 anchor="left start"
-                className="mb-6 rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md"
+                className="mb-6 rounded-lg bg-ocean-darkblue/80 p-4 text-ocean-white shadow-lg backdrop-blur-md"
               >
                 <h3 className="mb-4 text-xl font-semibold">Recent Activity</h3>
                 <ul className="list-inside list-disc space-y-2">
@@ -268,14 +274,14 @@ function ProfileTab({ userInfo }: Props) {
             </Popover>
 
             <Popover className="relative">
-              <PopoverButton className="flex h-[4rem] w-[3rem] bg-opacity-40 bg-firefly-radial outline-none">
+              <PopoverButton className="bg-light-radial flex h-[8rem] w-[6rem] bg-opacity-40 outline-none">
                 <RenderModel>
-                  <Achievements />
+                  <Friends />
                 </RenderModel>
               </PopoverButton>
               <PopoverPanel
                 anchor="right start"
-                className="mb-6 rounded-lg bg-ocean-blue/60 p-4 shadow-lg backdrop-blur-md"
+                className="mb-6 rounded-lg bg-ocean-darkblue/80 p-4 text-ocean-white shadow-lg backdrop-blur-md"
               >
                 <h3 className="mb-4 text-xl font-semibold">Friends</h3>
                 <p className="text-center text-lg">

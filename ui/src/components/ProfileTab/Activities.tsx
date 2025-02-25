@@ -58,7 +58,7 @@ export function Activities(
   useFrame((state) => {
     if (modelRef.current) {
       modelRef.current.position.y =
-        -0.1 + Math.sin(state.clock.elapsedTime) * 0.4;
+        -1 + Math.sin(state.clock.elapsedTime) * 0.8;
     }
   });
 
@@ -67,25 +67,23 @@ export function Activities(
       {...props}
       ref={modelRef as Ref<Group<Object3DEventMap>>}
       position={[0, 0, 0]}
-      scale={[0.25, 0.25, 0.25]}
-      rotation={[0, 0, 0]}
+      scale={[2.2, 2.2, 2.2]}
+      rotation={[0.4, 0, 0]}
       dispose={null}
     >
-      <group rotation={[-Math.PI / 2, 0, 0]} scale={0.133}>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={
-            (
-              nodes.pSphere21_lambert1_0 as unknown as {
-                geometry: BufferGeometry<NormalBufferAttributes>;
-              }
-            )?.geometry
-          }
-          material={materials.lambert1}
-          rotation={[Math.PI / 2, 0, 0]}
-        />
-      </group>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={
+          (
+            nodes.model as unknown as {
+              geometry: BufferGeometry<NormalBufferAttributes>;
+            }
+          ).geometry
+        }
+        material={materials.CustomMaterial}
+        rotation={[Math.PI / 2, 0, 0]}
+      />
     </group>
   );
 }
