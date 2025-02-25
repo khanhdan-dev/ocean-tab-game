@@ -36,8 +36,6 @@ function InitialLoading({ children }: { children: ReactNode }) {
 
       if (userTelegram) {
         localStorage.setItem('telegramUser', JSON.stringify(userTelegram));
-      } else {
-        localStorage.setItem('telegramUser', JSON.stringify(telegramUser));
       }
     }
   }, [telegramUser]);

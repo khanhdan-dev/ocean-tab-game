@@ -5,7 +5,9 @@ import { ITelegramUserInfo } from 'kan/types';
 import React, { useState } from 'react';
 
 function ShopPage() {
-  const telegramUserLocalStorage = localStorage.getItem('telegramUser') ?? '';
+  const telegramUserLocalStorage = JSON.parse(
+    localStorage.getItem('telegramUser') ?? '',
+  );
   const [telegramUser] = useState<ITelegramUserInfo>({
     first_name: 'Kan',
     id: 0,
@@ -16,7 +18,7 @@ function ShopPage() {
       shells: 0,
       coins: 0,
     },
-    ...(telegramUserLocalStorage ? JSON.parse(telegramUserLocalStorage) : ''),
+    ...telegramUserLocalStorage,
   });
   return <ShopTab userInfo={telegramUser} />;
 }
