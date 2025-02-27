@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 function ProfilePage() {
   const telegramUserLocalStorage = JSON.parse(
-    localStorage.getItem('telegramUser') ?? '',
+    localStorage.getItem('telegramUser') ?? 'null',
   );
   const [telegramUser] = useState<ITelegramUserInfo>({
     first_name: 'Kan',

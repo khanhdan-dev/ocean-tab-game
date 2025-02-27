@@ -37,6 +37,8 @@ const config: Config = {
           "url('https://ocean-hunter.gamefi-1.dev/background/profile/mobile.jpeg')",
         'profile-desktop':
           "url('https://ocean-hunter.gamefi-1.dev/background/profile/desktop.jpeg')",
+        'shop-mobile': "url('/background/shop/mobile.jpeg')",
+        'shop-desktop': "url('/background/shop/desktop.jpeg')",
         'shallow-mobile':
           "url('https://ocean-hunter.gamefi-1.dev/habitats/shallow/shallow-mobile.jpeg')",
         'shallow-desktop':

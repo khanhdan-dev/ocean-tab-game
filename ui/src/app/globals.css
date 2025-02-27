@@ -41,7 +41,11 @@ body {
 }
 
 .bg-profile {
-  @apply bg-profile-mobile md:bg-profile-desktop bg-cover bg-center;
+  @apply bg-profile-mobile bg-cover bg-center md:bg-profile-desktop;
+}
+
+.bg-shop {
+  @apply bg-shop-mobile md:bg-shop-desktop bg-cover bg-center;
 }
 
 @layer utilities {

@@ -117,7 +117,7 @@ function ShopTab({ userInfo }: Props) {
     `${
       selected
         ? 'text-ocean-flashturq focus:outline-none'
-        : 'text-white hover:bg-gray-200 focus:outline-none'
+        : 'text-white focus:outline-none'
     } px-3 py-2 w-full font-semibold text-sm`;
 
   const onRenderTabs = () => {
@@ -141,7 +141,7 @@ function ShopTab({ userInfo }: Props) {
         key={tab.name}
         className={({ selected }) => `${getTabClasses(selected)}`}
       >
-        <div className="flex items-center justify-end gap-1 hover:bg-ocean-darkblue">
+        <div className="flex items-center justify-end gap-1 hover:text-ocean-flashturq">
           {tab.icon}
           <p>{tab.name}</p>
         </div>
@@ -151,7 +151,7 @@ function ShopTab({ userInfo }: Props) {
 
   const onRenderProducts = (items: ShopItem[]) => {
     return (
-      <div className="mt-2 grid grid-cols-3 gap-3 overflow-auto rounded-md bg-ocean-lightgrey p-2 py-4 text-ocean-white">
+      <div className="mt-2 grid grid-cols-3 gap-3 overflow-auto rounded-md bg-ocean-lightgrey/20 p-4 text-ocean-white backdrop-blur-sm">
         {items.map((item) => (
           <div
             key={item.id}
@@ -176,9 +176,9 @@ function ShopTab({ userInfo }: Props) {
   };
 
   return (
-    <div className="h-full min-h-[100dvh] overflow-auto bg-ocean-primary-medium p-4 pt-10 text-ocean-white">
+    <div className="bg-shop h-full min-h-[100dvh] overflow-auto p-4 pt-10 text-ocean-white">
       {/* User's Coin, Fish, and Shells Balance */}
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-center gap-1">
         <Image
           className="h-48 w-auto bg-firefly-radial object-contain"
           src={getImageSrc('/shop/skin/skin-1.png')}
@@ -186,9 +186,9 @@ function ShopTab({ userInfo }: Props) {
           width={20000}
           height={20000}
         />
-        <div className="flex flex-col items-center justify-center gap-1">
+        <div className="flex flex-col items-center justify-center gap-1 md:w-1/5">
           <Image
-            className="h-auto w-full bg-firefly-radial object-contain px-3 pb-2"
+            className="h-auto w-full bg-firefly-radial object-contain px-3 pb-2 md:w-2/3"
             src={getImageSrc('/shop/shop.png')}
             alt="shop"
             width={20000}
