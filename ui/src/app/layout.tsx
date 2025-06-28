@@ -6,6 +6,7 @@ import './globals.css';
 import { ReactQueryProvider } from './ReactQuery/ReactQueryProvider';
 import InitialLoading from 'kan/components/InitialLoading';
 import { GlobalLoading } from 'kan/components/GlobalLoading';
+import { MobileOnlyWrapper } from 'kan/components/MobileOnlyWrapper';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -34,8 +35,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} overscroll-none antialiased`}
       >
         <ReactQueryProvider>
-          <InitialLoading>{children}</InitialLoading>
-          <GlobalLoading />
+          <MobileOnlyWrapper>
+            <InitialLoading>{children}</InitialLoading>
+            <GlobalLoading />
+          </MobileOnlyWrapper>
         </ReactQueryProvider>
       </body>
     </html>
