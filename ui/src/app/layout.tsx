@@ -5,6 +5,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { ReactQueryProvider } from './ReactQuery/ReactQueryProvider';
 import InitialLoading from 'kan/components/InitialLoading';
+import { GlobalLoading } from 'kan/components/GlobalLoading';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -34,6 +35,7 @@ export default function RootLayout({
       >
         <ReactQueryProvider>
           <InitialLoading>{children}</InitialLoading>
+          <GlobalLoading />
         </ReactQueryProvider>
       </body>
     </html>

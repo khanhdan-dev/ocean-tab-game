@@ -8,9 +8,9 @@ import {
   Trophy,
   User,
 } from 'lucide-react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { useNavigationLoading } from 'kan/hooks/useNavigationLoading';
 
 const tabList = [
   {
@@ -47,6 +47,7 @@ const tabList = [
 
 export function FloatingNavbar() {
   const pathname = usePathname();
+  const { navigateWithLoading } = useNavigationLoading();
   const openMenu = localStorage.getItem('openMenu') === 'true';
   const [isOpen, setIsOpen] = useState(openMenu);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -56,6 +57,10 @@ export function FloatingNavbar() {
     setIsOpen(open);
     setTimeout(() => setIsAnimating(false), 300);
     localStorage.setItem('openMenu', JSON.stringify(open));
+  };
+
+  const handleNavigation = (href: string) => {
+    navigateWithLoading(href);
   };
 
   return (
@@ -78,8 +83,8 @@ export function FloatingNavbar() {
               const isActive = pathname === tab.href;
               return (
                 <li key={tab.name} className="group relative">
-                  <Link
-                    href={tab.href}
+                  <button
+                    onClick={() => handleNavigation(tab.href)}
                     className={`relative flex h-10 w-10 flex-col items-center justify-center rounded-full transition-all duration-200 ${
                       isActive
                         ? 'bg-indigo-50 text-indigo-600'
@@ -98,7 +103,7 @@ export function FloatingNavbar() {
                         {tab.notifications}
                       </div>
                     )}
-                  </Link>
+                  </button>
                 </li>
               );
             })}
